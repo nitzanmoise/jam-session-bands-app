@@ -45,8 +45,8 @@ SocketService.init(http);
 
 const addUserRoutes = require('./routes/UserRoutes.js')
 addUserRoutes(app)
-const addDogRoutes = require('./routes/DogRoutes.js')
-addDogRoutes(app)
+const addGroupRoutes = require('./routes/GroupRoutes.js')
+addGroupRoutes(app)
 
 http.listen(3000, () => {
   console.log('listening on *:3000');

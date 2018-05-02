@@ -1,4 +1,4 @@
-var GroopService = require('../services/GroopService')
+var GroopService = require('../services/GroupService')
 
 module.exports = app => {
   app.get('/Groop', isLoggedIn, (req, res) => {
