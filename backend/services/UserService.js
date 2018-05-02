@@ -1,12 +1,13 @@
 const mongo = require('mongodb');
 var DBService = require('./DBService');
 
+
 module.exports.checkLogin = user => {
   return new Promise((resolve, reject) => {
     DBService.dbConnect().then(db => {
       db
-        .collection('user')
-        .findOne({ name: user.name, password: user.password }, function(
+        .collection('users')
+        .findOne({ email: user.email, password: user.password }, function(
           err,
           userFromDB
         ) {
@@ -18,9 +19,40 @@ module.exports.checkLogin = user => {
   });
 };
 
+module.exports.query = users => { 
+    return new Promise((resolve, reject) => {
+        return DBService.dbConnect()
+            .then(db => {
+                db.collection('users').find(users).toArray((err, users) => {
+                    if (err) return reject(err);
+                    resolve(users);
+                })
+            })
+    });
+}
+
+module.exports.getById = userId => {
+  userId = new mongo.ObjectID(userId);
+  return new Promise((resolve, reject) => {
+    return DBService.dbConnect()
+        .then(db => {
+            db.collection('users').findOne({_id: userId}, (err, res) => {
+                if (err){
+                    console.log(err)
+                    return reject(err);
+                } 
+                console.log('selected user', res);
+                resolve(res);
+            })
+        })
+
+});
+}
+
+
 function validateDetails(user) {
   console.log(user);
-  return user.name !== 'puki';
+  return user.email !== 'Shluki@Shluki.com';
 }
 
 module.exports.addUser = user => {
@@ -29,7 +61,7 @@ module.exports.addUser = user => {
     if (!isValidate) reject('Validate failed!');
     DBService.dbConnect().then(db => {
       db
-        .collection('user')
+        .collection('users')
         .findOne({ name: user.name }, function(err, userFromDB) {
           // If name is already used!
           if (userFromDB) {
@@ -37,7 +69,7 @@ module.exports.addUser = user => {
             reject('Name is already used!');
             db.close();
           } else {
-            db.collection('user').insert(user, (err, res) => {
+            db.collection('users').insert(user, (err, res) => {
               if (err) reject(err);
               else resolve(res.ops);
               db.close();
@@ -48,3 +80,18 @@ module.exports.addUser = user => {
     });
   });
 };
+
+
+
+module.exports.editUser = (user) => {
+  user._id = new mongo.ObjectID(user._id);
+  return new Promise((resolve, reject) => {
+    DBService.dbConnect().then(dataBase => {
+      dataBase.collection("users").updateOne({ _id: user._id }, user, (err, updatedUser) => {
+          if (err) return console.log('Update User Error!')
+          else resolve(updatedUser);
+          dataBase.close();
+        });
+    });
+  });
+}

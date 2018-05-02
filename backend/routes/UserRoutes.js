@@ -1,6 +1,27 @@
 var UserService = require('../services/UserService')
+const USER_URL = '/data/user';
 
 module.exports = app => {
+ app.get(USER_URL, (req, res) => {
+  // console.log(req.query);
+  UserService.query(req.query)
+  .then(users => {
+    console.log("ROUTE users: ", users);
+    res.json(users);
+  })
+    .catch(()=> res.status(500).send('problem getting users'))
+  
+})
+
+
+app.get(`${USER_URL}/:id`, (req, res) => {
+  const userId = req.params.id;
+  UserService.getById(userId)
+  .then(selectedUser => res.json(selectedUser))
+  .catch(() => res.status(500).send("problem"));
+})
+
+ 
   app.post('/login', (req, res) => {
 
     const user = req.body;
@@ -20,6 +41,16 @@ module.exports = app => {
     });
   });
 
+  app.put(`${USER_URL}/:id`, function (req, res){
+    const userId = req.params.id;
+    const user = req.body;
+    UserService.editUser(user)
+    .then(user=> res.json(user))
+    .catch(err=> res.status(500).send(('Could not update user')))
+  })
+
+
+
   app.post('/register', function (req, res) {
     var user = req.body;
     UserService.addUser(user)
@@ -32,7 +63,7 @@ module.exports = app => {
     res.end('Loggedout');
   });
 
-  app.get('/profile', isLoggedIn, (req, res) => {
+  app.get(`${USER_URL}/:id`, isLoggedIn, (req, res) => {
     res.end(`Profile of ${req.session.user.name}`);
   });
 

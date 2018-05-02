@@ -2,27 +2,27 @@ const mongo = require('mongodb');
 var DBService = require('./DBService');
 
 
-function query(userId) {
+function query(groupId) {
   return new Promise((resolve, reject) => {
     DBService.dbConnect().then(db => {
       db
-        .collection('Groop').find({ userId }).toArray((err, Groops) => {
+        .collection('group').find({ groupId }).toArray((err, groups) => {
           if (err) reject(err)
-          else resolve(Groops)
+          else resolve(groups)
           db.close();
         });
     });
   });
 }
 
-function add(Groop) {
+function add(group) {
   return new Promise((resolve, reject) => {
     DBService.dbConnect().then(db => {
-      db.collection('Groop').insertOne(Groop, (err, res) => {
-        console.log('resresresresresres', res);
-        db.collection('Groop').findOne({_id: new mongo.ObjectID(res.insertedId)}, (err, GroopFromDB)=>{
+      db.collection('group').insertOne(group, (err, res) => {
+        console.log('res', res);
+        db.collection('group').findOne({_id: new mongo.ObjectID(res.insertedId)}, (err, groupFromDB)=>{
           if (err) reject(err)
-          else resolve(GroopFromDB)
+          else resolve(groupFromDB)
           db.close();
         })
       });
