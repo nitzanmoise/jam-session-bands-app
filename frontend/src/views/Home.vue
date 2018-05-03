@@ -1,84 +1,106 @@
+
+
 <template>
-  <div class="topnav" id="myTopnav">
-<div class="col-sm-8" style="text-align:center;">
-  <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
-      <router-link tag="a" to="/join">join</router-link> 
-      <router-link tag="a" to="/login">log in</router-link> 
-      <router-link tag="a" to="/appPage">log as a guest</router-link>
-    </div>
+
+
+<header>
+  <nav v-bind:class="active" v-on:click.prevent>
+    <router-link tag="a" class="home" v-on:click.native="makeActive('home')" to="/">Home</router-link>
+    <router-link tag="a" class="join" v-on:click.native="makeActive('join')" to="/join">Join</router-link>
+    <router-link tag="a" class="login" v-on:click.native="makeActive('login')" to="/login">Log In</router-link>
+    <router-link tag="a" class="loginGuest" v-on:click.native="makeActive('loginGuest')" to="/">Log In as a Guest</router-link>
+  </nav>
     <router-view/>
-  </div>
+</header>
 </template>
 
 <style scoped>
-body {
+* {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  padding: 0;
 }
 
-.topnav {
-  float:none;
-  overflow: hidden;
-  margin:20px 40px;
-  padding: 30px 30px 30px 30px;
-  background-color: white;
-  border:1px solid grey;
-  border-radius:30px;
-  box-shadow:1px 1px 1px 0px black;
-}
-
-.topnav a {
-  float: right;
-  display: block;
-  color: black;
+body {
+  font: 15px/1.3 "Open Sans", sans-serif;
+  color: #5e5b64;
   text-align: center;
-  padding: 14px 16px;
+}
+
+a,
+a:visited {
+  outline: none;
+  color: #389dc1;
+}
+
+a:hover {
   text-decoration: none;
-  font-size: 15px;
 }
 
-.topnav a:hover {
-  background-color: #ddd;
-  color: white;
-  border-radius:30px;
+section,
+footer,
+header,
+aside,
+nav {
+  display: block;
 }
 
+/*-------------------------
+    The menu
+--------------------------*/
 
-
-.topnav .icon {
-  display: none;
+nav {
+  display: inline-block;
+  margin: 0;
+  background: linear-gradient(rgb(0, 0, 0), rgb(105, 105, 100));
+  box-shadow: 0 1px 1px rgb(10, 0, 0);
+  border-radius: 2px;
+  width: 100%;
 }
 
-@media screen and (max-width: 600px) {
-  .topnav a:not(:first-child) {display: none;}
-  .topnav a.icon {
-    float: left;
-    display: block;
-  }
+nav a {
+  display: inline-block;
+  padding: 18px 30px;
+  color: #fff !important;
+  font-weight: bold;
+  font-size: 16px;
+  text-decoration: none !important;
+  line-height: 1;
+  text-transform: uppercase;
+  background-color: transparent;
+
+  -webkit-transition: background-color 0.25s;
+  -moz-transition: background-color 0.25s;
+  transition: background-color 0.25s;
 }
 
-@media screen and (max-width: 600px) {
-  .topnav.responsive {position: relative;}
-  .topnav.responsive .icon {
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-  .topnav.responsive a {
-    float: none;
-    display: block;
-    text-align: center;
-  }
+nav a:first-child {
+  border-radius: 2px 0 0 2px;
+}
+
+nav a:last-child {
+  border-radius: 0 2px 2px 0;
+}
+
+nav.home .home,
+nav.join .join,
+nav.login .login,
+nav.loginGuest .loginGuest {
+  background: linear-gradient(rgb(105, 105, 100),rgb(0, 0, 0));
 }
 </style>
 
 <script>
-  function myFunction() {
-    var x = document.getElementById("myTopnav");
-    if (x.className === "topnav") {
-        x.className += " responsive";
-    } else {
-        x.className = "topnav";
+export default {
+  data() {
+    return {
+      active: "home"
+    };
+  },
+  methods: {
+    makeActive: function(item) {
+      console.log({item})
+      this.active = item;
     }
-}
+  }
+};
 </script>
