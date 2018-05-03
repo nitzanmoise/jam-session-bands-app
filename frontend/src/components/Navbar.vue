@@ -21,7 +21,6 @@ export default {
   },
   methods: {
     makeActive: function(item) {
-      console.log({item})
       this.active = item;
     }
   }

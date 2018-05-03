@@ -1,5 +1,9 @@
 // var DB_URL = "mongodb://Admin:Admin@ds261929.mlab.com:61929/chat_app";
+<<<<<<< HEAD
 var DB_URL = 'mongodb://nitzan:nitzan@ds111370.mlab.com:11370/jams';
+=======
+var DB_URL = 'mongodb://tomer:tomer@ds111370.mlab.com:11370/jams';
+>>>>>>> 679f967fef43c4634f3aceabaab5a4b2ecd676a4
 
 const mongo = require("mongodb");
 

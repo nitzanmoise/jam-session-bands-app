@@ -1,17 +1,15 @@
 <template>
   <section class="group-list">
-    <ul>
-      <li v-for="group in groups" :key="group._id" >
+      <div v-for="group in groups" :key="group._id" >
         <div  @click="openGroupDetails(group._id)">
-        <GroupPriview :group="group"></GroupPriview>
+        <GroupPreview :group="group"></GroupPreview>
         </div>
-      </li>
-    </ul>
+      </div>
   </section>
 </template>
 
 <script>
-import GroupPriview from '../components/GroupPriview.vue' 
+import GroupPreview from '../components/GroupPreview.vue' 
 export default {
 props: ['groups'],
 methods: {
@@ -20,11 +18,11 @@ openGroupDetails(groupId){
 }
 },
 components:{
-    GroupPriview
+    GroupPreview
   }
 }
 </script>
 
-<style scpoped>
+<style scoped>
 
 </style>

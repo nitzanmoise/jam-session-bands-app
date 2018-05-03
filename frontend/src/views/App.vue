@@ -3,35 +3,25 @@
     <header>
       <navbar></navbar>
     </header>
+
+    <home></home>
+
     <router-view></router-view>
-    <GroupList :groups="groups"></GroupList>
+   <Footer></Footer>
   </div>
 </template>
 
 <script>
 import Navbar from '../components/Navbar.vue'
-import GroupList from "../components/GroupList.vue";
-function myFunction() {
-  var x = document.getElementById("myTopnav");
-  if (x.className === "topnav") {
-    x.className += " responsive";
-  } else {
-    x.className = "topnav";
-  }
-}
+import Home from './Home.vue'
+import Footer from '../components/Footer.vue'
 export default {
-  created() {
-    console.log("elad");
-
-    this.$store.dispatch({ type: "loadGroups" });
-  },
-  computed: {
-    groups() {
-      return this.$store.getters.groupsForDisplay;
-    }
-  },
-  components: {
-    GroupList, Navbar
+  
+  
+  components: { 
+    Navbar,
+    Home,
+    Footer
   }
 };
 </script>
