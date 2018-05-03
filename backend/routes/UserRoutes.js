@@ -42,16 +42,16 @@ app.get(`${USER_URL}/:id`, (req, res) => {
   });
 
   app.put(`${USER_URL}/:id`, function (req, res){
-    const userId = req.params.id;
-    const user = req.body;
-    UserService.editUser(user)
+    const _id = req.params.id;
+    const upadteFileds = req.body;
+    UserService.updateUser(upadteFileds,_id )
     .then(user=> res.json(user))
     .catch(err=> res.status(500).send(('Could not update user')))
   })
 
 
 
-  app.post('/register', function (req, res) {
+  app.post(USER_URL, function (req, res) {
     var user = req.body;
     UserService.addUser(user)
       .then(addedUser => res.json(addedUser))

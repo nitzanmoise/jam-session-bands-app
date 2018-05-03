@@ -83,11 +83,15 @@ module.exports.addUser = user => {
 
 
 
-module.exports.editUser = (user) => {
-  user._id = new mongo.ObjectID(user._id);
+module.exports.updateUser = (upadteFileds, _id) => {
+  console.log('inside edit user')
+  const updateObj = {
+    $set: upadteFileds
+  }
+  _id = new mongo.ObjectID(_id);
   return new Promise((resolve, reject) => {
     DBService.dbConnect().then(dataBase => {
-      dataBase.collection("users").updateOne({ _id: user._id }, user, (err, updatedUser) => {
+      dataBase.collection("users").updateOne({ _id }, updateObj, (err, updatedUser) => {
           if (err) return console.log('Update User Error!')
           else resolve(updatedUser);
           dataBase.close();
