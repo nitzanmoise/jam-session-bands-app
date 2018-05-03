@@ -12,7 +12,7 @@ function login(user) {
 
 function register(user) {
   return axios
-    .post(`${BASE_URL}/register`, user)
+    .post(`${BASE_URL}/data/user`, user)
     .then(res => console.log(res.data))
     .catch(err => {throw new Error('Register Failed')})
 }

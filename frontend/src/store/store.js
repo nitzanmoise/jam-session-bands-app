@@ -1,4 +1,6 @@
 import UserStore from './UserStore.js'
+import GroupStore from './GroupStore.js'
+
 import Vue from 'vue'
 import Vuex from 'vuex'
 
@@ -8,7 +10,13 @@ export default new Vuex.Store({
   strict: true,
   state: {},
   modules: {
-    UserStore
+    UserStore,
+    GroupStore
+  },
+  actions: {
+    elad(){
+      console.log('inside action elad')
+    }
   }
   
 })

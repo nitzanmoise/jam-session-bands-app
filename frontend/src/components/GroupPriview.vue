@@ -1,6 +1,6 @@
 <template functional>
-  <section  class="toys flex align-center">
-        <div>{{props.toy.name}}</div>
+  <section  class="group-priview">
+        <div>{{props.group.name}}</div>
     </section>
 </template>
 

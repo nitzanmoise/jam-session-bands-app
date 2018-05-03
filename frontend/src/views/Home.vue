@@ -6,9 +6,37 @@
       <router-link tag="a" to="/login">log in</router-link> 
       <router-link tag="a" to="/appPage">log as a guest</router-link>
     </div>
-    <router-view/>
+    <router-view></router-view>
+    <GroupList :groups="groups"></GroupList>
   </div>
 </template>
+
+<script>
+import GroupList from '../components/GroupList.vue'
+function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
+export default {
+   created() {
+         console.log("elad");
+
+        this.$store.dispatch({type: 'loadGroups'})
+    },
+  computed: {
+    groups() {
+      return this.$store.getters.groupsForDisplay;
+    }
+  },
+ components:{
+    GroupList
+  }
+};
+</script>
 
 <style scoped>
 body {
@@ -17,14 +45,14 @@ body {
 }
 
 .topnav {
-  float:none;
+  float: none;
   overflow: hidden;
-  margin:20px 40px;
+  margin: 20px 40px;
   padding: 30px 30px 30px 30px;
   background-color: white;
-  border:1px solid grey;
-  border-radius:30px;
-  box-shadow:1px 1px 1px 0px black;
+  border: 1px solid grey;
+  border-radius: 30px;
+  box-shadow: 1px 1px 1px 0px black;
 }
 
 .topnav a {
@@ -40,17 +68,17 @@ body {
 .topnav a:hover {
   background-color: #ddd;
   color: white;
-  border-radius:30px;
+  border-radius: 30px;
 }
-
-
 
 .topnav .icon {
   display: none;
 }
 
 @media screen and (max-width: 600px) {
-  .topnav a:not(:first-child) {display: none;}
+  .topnav a:not(:first-child) {
+    display: none;
+  }
   .topnav a.icon {
     float: left;
     display: block;
@@ -58,7 +86,9 @@ body {
 }
 
 @media screen and (max-width: 600px) {
-  .topnav.responsive {position: relative;}
+  .topnav.responsive {
+    position: relative;
+  }
   .topnav.responsive .icon {
     position: absolute;
     right: 0;
@@ -71,14 +101,3 @@ body {
   }
 }
 </style>
-
-<script>
-  function myFunction() {
-    var x = document.getElementById("myTopnav");
-    if (x.className === "topnav") {
-        x.className += " responsive";
-    } else {
-        x.className = "topnav";
-    }
-}
-</script>

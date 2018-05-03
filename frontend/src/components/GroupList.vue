@@ -1,25 +1,30 @@
 <template>
-  <div class="group-list">
-   <ul>
-      <li v-for="group in groups" :key="group._id">
-        {{group.name}
-        <groupPriview></groupPriview>
-        <button @click="deleteGroup(group._id)">Delete</button>
-
+  <section class="group-list">
+    <ul>
+      <li v-for="group in groups" :key="group._id" >
+        <div  @click="openGroupDetails(group._id)">
+        <GroupPriview :group="group"></GroupPriview>
+        </div>
       </li>
     </ul>
-  </div>
+  </section>
 </template>
 
 <script>
+import GroupPriview from '../components/GroupPriview.vue' 
 export default {
-   props: ["groups"],
-   components:{
-        GroupPreview
-    }
+props: ['groups'],
+methods: {
+openGroupDetails(groupId){
+  this.$router.push(`/GroupDetails/${groupId}`)
+}
+},
+components:{
+    GroupPriview
+  }
 }
 </script>
 
-<style scoped lang="scss">
+<style scpoped>
 
 </style>

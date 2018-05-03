@@ -5,9 +5,8 @@ import Login from './views/Login.vue'
 import Join from './views/Join.vue'
 import Profile from './views/Profile.vue'
 import ProfileEdit from './views/ProfileEdit.vue'
-import Group from './views/Group.vue'
+import GroupDetails from './views/GroupDetails.vue'
 import GroupEdit from './views/GroupEdit.vue'
-import GroupList from './views/GroupList.vue'
 
 
 Vue.use(Router)
@@ -40,21 +39,14 @@ export default new Router({
       component: ProfileEdit
     },
     {
-      path: '/Group/:id',
-      name: 'Group',
-      component: Group
+      path: '/GroupDetails/:id',
+      name: 'GroupDetails',
+      component: GroupDetails
     },
     {
       path: '/Group/Edit/:id',
       name: 'GroupEdit',
       component: GroupEdit
     },
-    {
-      path: '/GroupList',
-      name: 'GroupList',
-      component: GroupList
-    },
-    
-   
   ]
 })
