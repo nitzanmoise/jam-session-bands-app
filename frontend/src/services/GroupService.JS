@@ -22,7 +22,7 @@ function getGroups() {
 
 function saveGroup(group) {
     if (group._id) return axios.put(GROUP_URL, group)
-    else return axios.post(TOY_URL, group);  
+    else return axios.post(GROUP_URL, group);  
 }
 
 function deleteGroup(groupId) {

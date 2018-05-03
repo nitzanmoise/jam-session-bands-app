@@ -5,6 +5,8 @@
     <router-link tag="a" class="join" v-on:click.native="makeActive('join')" to="/join">Join</router-link>
     <router-link tag="a" class="login" v-on:click.native="makeActive('login')" to="/login">Log In</router-link>
     <router-link tag="a" class="loginGuest" v-on:click.native="makeActive('loginGuest')" to="/">Log In as a Guest</router-link>
+    <router-link tag="a" class="UserSearch" v-on:click.native="makeActive('UserSearch')" to="/UserSearch">create groop</router-link>
+    
   </nav>
 
   
