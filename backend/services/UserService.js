@@ -23,7 +23,7 @@ module.exports.query = users => {
     return new Promise((resolve, reject) => {
         return DBService.dbConnect()
             .then(db => {
-                db.collection('users').find(users).toArray((err, users) => {
+                db.collection('users').find().toArray((err, users) => {
                     if (err) return reject(err);
                     resolve(users);
                 })

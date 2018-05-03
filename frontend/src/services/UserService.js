@@ -1,9 +1,6 @@
 const BASE_URL ='';
 
 function login(user) {
-
- 
-
   return axios
     .post(`${BASE_URL}/login`, user)
     .then(res => {
@@ -28,6 +25,10 @@ function logout() {
     })
     .catch(err => {throw new Error('Logout Failed')})
 }
+
+
+
+
 
 export default {
   login,
