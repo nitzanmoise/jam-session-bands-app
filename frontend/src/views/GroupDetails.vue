@@ -10,7 +10,7 @@ export default {
     
     data() {
         return {
-            group :  null
+            group :  ''
         }
     },
     created() {
@@ -18,6 +18,7 @@ export default {
                 console.log('this is groupid', groupId);
         this.$store.dispatch({type:'getGroupById',groupId})
             .then(group => {
+                console.log('this i group', group);
                 
                 this.group = group
             })

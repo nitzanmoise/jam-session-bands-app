@@ -9,8 +9,10 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bulma": "^0.7.1",
+    "element-ui": "^2.3.7",
     "register-service-worker": "^1.0.0",
     "vue": "^2.5.16",
+    "vue-cli-plugin-element-ui": "^1.1.2",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
   },
