@@ -1,20 +1,26 @@
 
 
 <template>
+<div>
 
+  <header>
+    <navbar></navbar>
+  </header>
 
-<header>
-  <nav v-bind:class="active" v-on:click.prevent>
-    <router-link tag="a" class="home" v-on:click.native="makeActive('home')" to="/">Home</router-link>
-    <router-link tag="a" class="join" v-on:click.native="makeActive('join')" to="/join">Join</router-link>
-    <router-link tag="a" class="login" v-on:click.native="makeActive('login')" to="/login">Log In</router-link>
-    <router-link tag="a" class="loginGuest" v-on:click.native="makeActive('loginGuest')" to="/">Log In as a Guest</router-link>
-  </nav>
-    <router-view/>
-</header>
+  <router-view/>
+
+</div>
 </template>
 
-<style scoped>
+<script>
+import Navbar from "../components/Navbar.vue";
+export default {
+  components:{
+    Navbar
+  }
+};
+</script>
+<style>
 * {
   margin: 0;
   padding: 0;
@@ -23,84 +29,7 @@
 body {
   font: 15px/1.3 "Open Sans", sans-serif;
   color: #5e5b64;
-  text-align: center;
-}
-
-a,
-a:visited {
-  outline: none;
-  color: #389dc1;
-}
-
-a:hover {
-  text-decoration: none;
-}
-
-section,
-footer,
-header,
-aside,
-nav {
-  display: block;
-}
-
-/*-------------------------
-    The menu
---------------------------*/
-
-nav {
-  display: inline-block;
-  margin: 0;
-  background: linear-gradient(rgb(0, 0, 0), rgb(105, 105, 100));
-  box-shadow: 0 1px 1px rgb(10, 0, 0);
-  border-radius: 2px;
-  width: 100%;
-}
-
-nav a {
-  display: inline-block;
-  padding: 18px 30px;
-  color: #fff !important;
-  font-weight: bold;
-  font-size: 16px;
-  text-decoration: none !important;
-  line-height: 1;
-  text-transform: uppercase;
-  background-color: transparent;
-
-  -webkit-transition: background-color 0.25s;
-  -moz-transition: background-color 0.25s;
-  transition: background-color 0.25s;
-}
-
-nav a:first-child {
-  border-radius: 2px 0 0 2px;
-}
-
-nav a:last-child {
-  border-radius: 0 2px 2px 0;
-}
-
-nav.home .home,
-nav.join .join,
-nav.login .login,
-nav.loginGuest .loginGuest {
-  background: linear-gradient(rgb(105, 105, 100),rgb(0, 0, 0));
 }
 </style>
 
-<script>
-export default {
-  data() {
-    return {
-      active: "home"
-    };
-  },
-  methods: {
-    makeActive: function(item) {
-      console.log({item})
-      this.active = item;
-    }
-  }
-};
-</script>
+
