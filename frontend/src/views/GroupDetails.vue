@@ -1,7 +1,7 @@
 <template>
      <section>
-         <h1>lalalalallallalalalal</h1>
             <h1>Name: {{group.name}}</h1>
+            {{members}}
     </section>
 </template>
 
@@ -10,7 +10,8 @@ export default {
     
     data() {
         return {
-            group :  ''
+            group :  { name: '' },
+            members : {}
         }
     },
     created() {
@@ -18,10 +19,29 @@ export default {
                 console.log('this is groupid', groupId);
         this.$store.dispatch({type:'getGroupById',groupId})
             .then(group => {
-                console.log('this i group', group);
-                
                 this.group = group
+                // console.log('this i group', group);
+                // console.log('this is members' ,group.members);
+                // var groupMembers = group.members;
+                // groupMembers.forEach(member => {
+                //     var memberId = member.id
+                //     console.log('this is member id', memberId);
+                //     // var userId = '5aead65ef36d283836536805'
+                //     this.$store.dispatch({type:'getUserById',memberId})
+                //        .then(member => {
+                //            console.log('this is member',member);
+                           
+                //        })
+                // });
+                this.$store.dispatch({type: 'getGroupMembers', group})
+                /then(members =>{
+                    console.log('this is group members' ,members);
+                    this.members = members;
+                })
+                
             })
+     
+         
     }
 }
 </script>

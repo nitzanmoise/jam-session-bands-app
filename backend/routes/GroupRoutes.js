@@ -10,6 +10,19 @@ module.exports = app => {
     })
   }),
 
+  app.post(`${GROUP_URL}/members`,(req, res) => {
+  const members = req.body.members;    
+  console.log('members',members);
+    
+  var membersIds = members.map(member => member.id)
+  console.log('thi is membr id', membersIds );
+  
+    GroupService.getBandMembersData(membersIds).then(members => {
+      console.log('group members', members);
+      res.json(members)
+    })
+  })
+
   // app.get(`${GROUP_URL}/user` , isLoggedIn, (req, res) => {
   //   GroupService.query(req.session.user._id).then(groups => {
   //     console.log('Groups: ', groups);

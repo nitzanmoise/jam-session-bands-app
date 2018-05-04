@@ -4,8 +4,6 @@
       <navbar></navbar>
     </header>
 
-    <home></home>
-
     <router-view></router-view>
    <Footer></Footer>
   </div>

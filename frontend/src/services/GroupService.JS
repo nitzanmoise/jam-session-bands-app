@@ -41,10 +41,15 @@ function _getGroupUrl(groupId) {
     return `${GROUP_URL}/${groupId}`;
 }
 
+function getGroupMembers(group){
+    return axios.post(`${GROUP_URL}/members`, group);
+}
+
 export default {
     getGroups,
     saveGroup,
     deleteGroup,
     emptyGroup,
     getGroupById,
+    getGroupMembers
 }

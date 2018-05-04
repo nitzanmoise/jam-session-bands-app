@@ -88,10 +88,25 @@ function updateGroup(upadteFileds, _id) {
   });
 }
 
+function getBandMembersData(memberIds){
+  var mongoIds = memberIds.map(id => new mongo.ObjectID(id) )
+  return new Promise((resolve, reject) => {
+    DBService.dbConnect().then(db => {
+      db
+        .collection('groups').find({_id : {$in : mongoIds}}).toArray((err, groups) => {
+          if (err) reject(err)
+          else resolve(groups)
+          db.close();
+        });
+    });
+  });
+}
+
 module.exports = {
   query,
   add,
   getById,
   remove,
-  updateGroup
+  updateGroup,
+  getBandMembersData
 }
