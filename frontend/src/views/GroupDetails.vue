@@ -8,9 +8,9 @@
                      <h1>{{group.name}}</h1>
                     <h3 >{{group.location}}</h3>
                     <div>
-                        <h4 v-for="genre in group.genre" :key="group._id">
+                        <div v-for="genre in generes" :key="genre._id">
                             {{genre}}   
-                        </h4>
+                        </div>
                     </div>
                 </div>
                 <div class="img-container">
@@ -25,6 +25,7 @@
                 <div class="member-img-container" @click="goToMemberDetails(member._id)">
                     <img :src="member.image" class="member-image">
                 </div>
+                <img src="../../public/band.j" alt="">
                 <div class="member-name-container">
                 <h1 class="member-name" @click="goToMemberDetails(member._id)">{{member.fullName}}</h1>
                 </div>
@@ -45,7 +46,8 @@ export default {
   data() {
     return {
       group: { name: "" },
-      members: {}
+      members: {},
+      genres : group.genre
     };
   },
   methods:{
