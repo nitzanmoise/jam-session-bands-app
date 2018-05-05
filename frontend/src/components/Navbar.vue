@@ -1,93 +1,42 @@
 <template>
+<el-menu
+  :default-active="activeIndex2"
+  class="el-menu-demo"
+  mode="horizontal"
+  @select="handleSelect"
+  background-color="#545c64"
+  text-color="#fff"
+  active-text-color="#ffd04b">
+  <el-menu-item index="1"><router-link tag="a" class="home" to="/">Home</router-link></el-menu-item>
+  <el-menu-item index="2"><router-link tag="a" class="join" to="/join">Join</router-link></el-menu-item>
+  <el-menu-item index="3"><router-link tag="a" class="login" to="/login">Log In</router-link></el-menu-item>
+  <el-menu-item index="4"> <router-link tag="a" class="loginGuest" to="/">Log In as a Guest</router-link></el-menu-item>
+  <el-menu-item index="4"> <router-link tag="a" class="UserSearch" to="/UserSearch">Create Group</router-link></el-menu-item>
+</el-menu>
 
-  <nav v-bind:class="active" v-on:click.prevent>
-    <router-link tag="a" class="home" v-on:click.native="makeActive('home')" to="/">Home</router-link>
-    <router-link tag="a" class="join" v-on:click.native="makeActive('join')" to="/join">Join</router-link>
-    <router-link tag="a" class="login" v-on:click.native="makeActive('login')" to="/login">Log In</router-link>
-    <router-link tag="a" class="loginGuest" v-on:click.native="makeActive('loginGuest')" to="/">Log In as a Guest</router-link>
-    <router-link tag="a" class="UserSearch" v-on:click.native="makeActive('UserSearch')" to="/UserSearch">Create Group</router-link>
-    
-  </nav>
 
-  
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      active: "home"
-    };
-  },
-  methods: {
-    makeActive: function(item) {
-      this.active = item;
+    data() {
+      return {
+        activeIndex: '1',
+        activeIndex2: '1'
+      };
+    },
+    methods: {
+      handleSelect(key, keyPath) {
+        console.log(key, keyPath);
+      }
     }
   }
-};
 </script>
 
 <style scoped>
-* {
-  text-align: right;
-}
-a,
-a:visited {
-  outline: none;
-  color: #389dc1;
-}
-
-a:hover {
-  text-decoration: none;
-}
-
-section,
-footer,
-header,
-aside,
-nav {
-  display: block;
-}
-
-/*-------------------------
-    The menu
---------------------------*/
-
-nav {
-  display: inline-block;
-  margin: 0;
-  background: linear-gradient(rgb(0, 0, 0), rgb(105, 105, 100));
-  box-shadow: 0 1px 1px rgb(10, 0, 0);
-  border-radius: 2px;
-  width: 100%;
-}
-
-nav a {
-  display: inline-block;
-  padding: 9px 25px;
-  color: #fff !important;
-  font-weight: bold;
-  font-size: 16px;
-  text-decoration: none !important;
-  line-height: 1;
-  background-color: transparent;
-  transition: background-color 0.25s;
-}
-
-nav a:first-child {
-  border-radius: 2px 0 0 2px;
-}
-
-nav a:last-child {
-  border-radius: 0 2px 2px 0;
-}
-
-nav.home .home,
-nav.join .join,
-nav.login .login,
-nav.loginGuest .loginGuest {
-  background: linear-gradient(rgb(105, 105, 100), rgb(0, 0, 0));
-  border-radius: 10%;
+a{
+  font-family: Verdana, Geneva, Tahoma, sans-serif
+  
 }
 </style>
 

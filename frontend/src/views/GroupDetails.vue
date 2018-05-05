@@ -25,7 +25,6 @@
                 <div class="member-img-container" @click="goToMemberDetails(member._id)">
                     <img :src="member.image" class="member-image">
                 </div>
-                <img src="../../public/band.j" alt="">
                 <div class="member-name-container">
                 <h1 class="member-name" @click="goToMemberDetails(member._id)">{{member.fullName}}</h1>
                 </div>
