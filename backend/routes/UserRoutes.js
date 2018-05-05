@@ -67,6 +67,19 @@ app.get(`${USER_URL}/:id`, (req, res) => {
     res.end(`Profile of ${req.session.user.name}`);
   });
 
+  
+  app.post(`${USER_URL}/groups`,(req, res) => {
+    const groups = req.body.groups;    
+    console.log('groups',groups);
+      
+    var groupsIds = groups.map(group => group.id)
+    console.log('thi is groups id', groupsIds );
+    
+      UserService.getBandGroupsData(groupsIds).then(groups => {
+        console.log('user groups', groups);
+        res.json(groups)
+      })
+    })
 
 
 };

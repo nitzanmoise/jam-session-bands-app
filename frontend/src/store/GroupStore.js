@@ -68,6 +68,11 @@ export default {
         return group;
       });
     },
+    getGroupMembers(store, {group}){
+         return GroupService.getGroupMembers(group).then(members => {
+           return members
+         })
+    },
     getGroupById(store, { groupId }) {
       return GroupService.getGroupById(groupId).then(group => {
         return group;

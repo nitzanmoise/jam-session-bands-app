@@ -21,7 +21,11 @@
 
 <style>
 .card{
+<<<<<<< HEAD
     height:400px;
+=======
+    height:300px;
+>>>>>>> 00c5855cb5b0346ea452dd35dca107f38d87614d
     width: 300px;
     margin: 20px;
 }
@@ -46,8 +50,14 @@ span{
 
   .image {
     display: block;
+<<<<<<< HEAD
     width:300px;
     height: 300px;
+=======
+    padding-left: 15%;
+    width:200px;
+    height: 200px;
+>>>>>>> 00c5855cb5b0346ea452dd35dca107f38d87614d
   }
 
   .clearfix:before,
