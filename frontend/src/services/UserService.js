@@ -67,6 +67,11 @@ function _getUserUrl(userId) {
 }
 
 
+function getUserGroups(user){
+  return axios.post(`${USER_URL}/groups`, user);
+}
+
+
 
 
 
@@ -79,4 +84,5 @@ export default {
   deleteUser,
   emptyUser,
   getUserById,
+  getUserGroups
 };

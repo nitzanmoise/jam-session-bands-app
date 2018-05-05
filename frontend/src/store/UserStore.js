@@ -77,7 +77,11 @@ export default {
             return user;            
           })
          },
-          
+         getUserGroups(store, {user}){
+          return UserService.getUserGroups(user).then(groups => {
+            return groups
+          })
+     },
           updateUser(store, { user }) {
             return UserService.updateUser(user).then(user => {
                store.commit({ type: "updateUser", user });

@@ -15,7 +15,7 @@ module.exports = app => {
   console.log('members',members);
     
   var membersIds = members.map(member => member.id)
-  console.log('thi is membr id', membersIds );
+  console.log('thi is membrs id', membersIds );
   
     GroupService.getBandMembersData(membersIds).then(members => {
       console.log('group members', members);

@@ -2,7 +2,7 @@ const mongo = require('mongodb');
 var DBService = require('./DBService');
 
 
-module.exports.checkLogin = user => {
+function checkLogin(user){
   return new Promise((resolve, reject) => {
     DBService.dbConnect().then(db => {
       db
@@ -19,7 +19,7 @@ module.exports.checkLogin = user => {
   });
 };
 
-module.exports.query = users => { 
+function query(users){ 
     return new Promise((resolve, reject) => {
         return DBService.dbConnect()
             .then(db => {
@@ -31,7 +31,7 @@ module.exports.query = users => {
     });
 }
 
-module.exports.getById = userId => {
+function getById(userId){
   userId = new mongo.ObjectID(userId);
   return new Promise((resolve, reject) => {
     return DBService.dbConnect()
@@ -55,7 +55,7 @@ function validateDetails(user) {
   return user.email !== 'Shluki@Shluki.com';
 }
 
-module.exports.addUser = user => {
+function addUser(user){
   return new Promise((resolve, reject) => {
     let isValidate = validateDetails(user);
     if (!isValidate) reject('Validate failed!');
@@ -83,7 +83,7 @@ module.exports.addUser = user => {
 
 
 
-module.exports.updateUser = (upadteFileds, _id) => {
+function updateUser(upadteFileds, _id){
   console.log('inside edit user')
   const updateObj = {
     $set: upadteFileds
@@ -98,4 +98,28 @@ module.exports.updateUser = (upadteFileds, _id) => {
         });
     });
   });
+}
+
+
+function getBandGroupsData(groupIds){
+  var mongoIds = groupIds.map(id => new mongo.ObjectID(id) )
+  return new Promise((resolve, reject) => {
+    DBService.dbConnect().then(db => {
+      db
+        .collection('groups').find({_id : {$in : mongoIds}}).toArray((err, groups) => {
+          if (err) reject(err)
+          else resolve(groups)
+          db.close();
+        });
+    });
+  });
+}
+
+
+module.exports = {
+  query,
+  addUser,
+  getById,
+  updateUser,
+  getBandGroupsData
 }

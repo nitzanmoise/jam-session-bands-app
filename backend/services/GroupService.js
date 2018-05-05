@@ -93,7 +93,7 @@ function getBandMembersData(memberIds){
   return new Promise((resolve, reject) => {
     DBService.dbConnect().then(db => {
       db
-        .collection('groups').find({_id : {$in : mongoIds}}).toArray((err, groups) => {
+        .collection('users').find({_id : {$in : mongoIds}}).toArray((err, groups) => {
           if (err) reject(err)
           else resolve(groups)
           db.close();
