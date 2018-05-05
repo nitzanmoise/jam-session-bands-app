@@ -1,12 +1,12 @@
 <template>
 <el-menu
   :default-active="activeIndex2"
-  class="el-menu-demo"
+  class="el-menu"
   mode="horizontal"
   @select="handleSelect"
-  background-color="#545c64"
-  text-color="#fff"
-  active-text-color="#ffd04b">
+  background-color="black"
+  text-color="orange"
+  active-text-color="yellow">
   <el-menu-item index="1"><router-link tag="a" class="home" to="/">Home</router-link></el-menu-item>
   <el-menu-item index="2"><router-link tag="a" class="join" to="/join">Join</router-link></el-menu-item>
   <el-menu-item index="3"><router-link tag="a" class="login" to="/login">Log In</router-link></el-menu-item>
@@ -34,9 +34,14 @@ export default {
 </script>
 
 <style scoped>
-a{
-  font-family: Verdana, Geneva, Tahoma, sans-serif
-  
+@font-face {
+  font-family:debris ;
+  src: url('../../public/fonts/Debris/batman.ttf');
 }
+a{
+  font-family: debris;
+  text-decoration:none;
+}
+
 </style>
 

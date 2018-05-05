@@ -46,10 +46,14 @@ methods:{
 
 <style lang="css" scoped>
 
+@font-face {
+  font-family:debris ;
+  src: url('../../public/fonts/Debris/batman.ttf');
+}
 input{
 padding:10px;
 width: 300px;
-font-family: Verdana, Geneva, Tahoma, sans-serif
+font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .container-fluid.main{
   position: relative; /* To make the navbar positions relative to this container */
@@ -60,7 +64,7 @@ font-family: Verdana, Geneva, Tahoma, sans-serif
   background-position: center center;
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  height: 450px;
+  height:500px;
 }
 
 @media (max-width:991px) {
@@ -73,29 +77,25 @@ font-family: Verdana, Geneva, Tahoma, sans-serif
   background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../assets/img/headerbg.jpg");
 }
 
-
-
-
-
 .covertext {
   position: absolute; /* To make the div to be place anywhere. It is out of the document flow */
-  top: 50px; /* The distance between the div with the top of document */
+  top: 0px; /* The distance between the div with the top of document */
   left: 0px; /* Make the div full width */
   right: 0px; /* Make the div full width */
 }
 
 .title {
-  font-family: Verdana;
+  font-family: debris;
   font-weight: 600;
   font-size: 60px;
-  color: #ffffff;
+  color: orange;
   text-align: center;
 }
 
 .subtitle {
-  font-family: Verdana;
+  font-family: debris;
   font-size: 23px;
-  color: #ffffff;
+  color: orange;
   text-align: center;
 }
 

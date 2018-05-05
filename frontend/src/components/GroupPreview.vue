@@ -2,7 +2,7 @@
 
 <section  class="group-preview">
 
-  <el-col :span="8" :key="o" :offset="index > 0 ? 2 : 0">
+  <el-col :span="7" :key="o" :offset="index > 0 ? 1 : 0">
     <el-card :body-style="{ padding: '10px' }" class="card">
       <img :src="props.group.image" class="image">
       <div style="padding: 14px;">
@@ -20,19 +20,16 @@
 </template>
 
 <style>
-.card{
+.card {
     height:300px;
     width: 300px;
     margin: 20px;
+    /* border: solid 2px black; */
+    /* box-shadow: 2px 4px 54px 0px rgba(0,0,0,0.62); */
 }
 span{
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
 }
-
-.time {
-    font-size: 13px;
-    color: #999;
-  }
   
   .bottom {
     margin-top: 13px;
