@@ -46,9 +46,13 @@ export default {
     return {
       user: {},
       groups: {},
-      genres: user.genre
     };
   },
+   computed: {
+          genres(){
+            return  this.user.genre
+      }
+   },
   methods:{
       goToGroupDetails(id){
        console.log('this is group id', id);

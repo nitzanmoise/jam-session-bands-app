@@ -3,9 +3,8 @@
   <header>
         <navbar></navbar>
   </header>
-         <Header @filtered="filterGroups"></Header>
 
-        <home></home>
+        
 
        <router-view></router-view>
     <footer>
@@ -16,8 +15,6 @@
 
 <script>
 import Navbar from "../components/Navbar.vue";
-import Home from "./Home.vue";
-import Header from "../components/Header.vue";
 import Footer from "../components/Footer.vue";
 
 export default {
@@ -33,9 +30,7 @@ export default {
 
   components: {
     Navbar,
-    Home,
-    Footer,
-    Header
+    Footer
   }
 };
 </script>

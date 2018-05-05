@@ -1,7 +1,7 @@
 <template>
 
   <nav v-bind:class="active" v-on:click.prevent>
-    <router-link tag="a" class="home" v-on:click.native="makeActive('home')" to="/">Home</router-link>
+    <router-link tag="a" class="home" v-on:click.native="makeActive('home')" to="/home">Home</router-link>
     <router-link tag="a" class="join" v-on:click.native="makeActive('join')" to="/join">Join</router-link>
     <router-link tag="a" class="login" v-on:click.native="makeActive('login')" to="/login">Log In</router-link>
     <router-link tag="a" class="loginGuest" v-on:click.native="makeActive('loginGuest')" to="/">Log In as a Guest</router-link>

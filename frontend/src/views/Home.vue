@@ -1,7 +1,7 @@
 <template>
 
 <section class="home">
-
+ <Header @filtered="filterGroups"></Header>
  <GroupList :groups="groups"></GroupList>
 
 
@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import Header from "../components/Header.vue";
 import GroupList from "../components/GroupList.vue";
 import Footer from "../components/Footer.vue";
 export default {
@@ -21,9 +22,19 @@ export default {
       return this.$store.getters.groupsForDisplay;
     }
   },
+   methods: {
+    filterGroups(filter) {
+      this.$store.commit({
+        type: "setGroupFilter",
+        filter: filter
+      });
+      this.$store.dispatch({ type: "loadGroups" });
+    }
+  },
   components: {
     GroupList,
-    Footer
+    Footer,
+    Header
   }
 };
 </script>

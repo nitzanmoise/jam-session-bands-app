@@ -8,9 +8,9 @@
                      <h1>{{group.name}}</h1>
                     <h3 >{{group.location}}</h3>
                     <div>
-                        <div v-for="genre in generes" :key="genre._id">
+                        <h4 v-for="genre in genres" :key="genre._id">
                             {{genre}}   
-                        </div>
+                        </h4>
                     </div>
                 </div>
                 <div class="img-container">
@@ -25,7 +25,6 @@
                 <div class="member-img-container" @click="goToMemberDetails(member._id)">
                     <img :src="member.image" class="member-image">
                 </div>
-                <img src="../../public/band.j" alt="">
                 <div class="member-name-container">
                 <h1 class="member-name" @click="goToMemberDetails(member._id)">{{member.fullName}}</h1>
                 </div>
@@ -47,7 +46,7 @@ export default {
     return {
       group: { name: "" },
       members: {},
-      genres : group.genre
+    //   genres : this.group.genre
     };
   },
   methods:{
@@ -57,11 +56,18 @@ export default {
           
       }
   },
+  computed: {
+          genres(){
+            return  this.group.genre
+      }
+  },
   created() {
     var groupId = this.$route.params.id;
     console.log("this is groupid", groupId);
     this.$store.dispatch({ type: "getGroupById", groupId }).then(group => {
       this.group = group;
+      console.log('this ig genres', this.group.genre);
+      
       console.log("this is group", group);
       this.$store.dispatch({ type: "getGroupMembers", group }).then(members => {
         console.log("this is group members", members.data);

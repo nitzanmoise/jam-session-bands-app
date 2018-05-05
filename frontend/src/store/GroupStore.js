@@ -75,6 +75,8 @@ export default {
     },
     getGroupById(store, { groupId }) {
       return GroupService.getGroupById(groupId).then(group => {
+        console.log('this is store group', group);
+        
         return group;
       });
     }
