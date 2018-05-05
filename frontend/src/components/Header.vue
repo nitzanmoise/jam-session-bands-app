@@ -1,0 +1,108 @@
+<template>
+<section class="header">
+<div class="container-fluid main">
+
+  <div id="myCarousel" class="carousel carousel-fade slide">
+    <div class="carousel-inner" role="listbox">
+      <div class="item active background a"></div>
+    </div>
+  </div>
+  
+  <div class="covertext">
+    <div class="col-lg-10" style="float:none; margin:0 auto;">
+      <h1 class="title">Jam Session!</h1> <h2 class="title">Your Talent is Needed!</h2> 
+      <h3 class="subtitle">Search for a band that needs your talent:</h3>
+    </div>
+    <div class="col-xs-12 explore">
+   <input type="text" v-model="search" @input='emitFilter' placeholder="Search Jam Session Groups" />
+    </div>
+  </div>
+  
+</div>
+</section>
+
+</template>
+
+<script>
+var _ = require('lodash');
+export default {
+   data() {
+        return {
+            search: ''
+        }
+   },
+methods:{
+        emitFilter(){
+            this.$emit('filtered',this.search);
+        },
+        // searchBy:_.debounce(function (e) {
+        //         this.emitFilter();
+        // }, 500),
+    }
+        
+    }
+
+</script>
+
+<style lang="css" scoped>
+
+input{
+padding:10px;
+width: 300px;
+font-family: Verdana, Geneva, Tahoma, sans-serif
+}
+.container-fluid.main{
+  position: relative; /* To make the navbar positions relative to this container */
+  padding: 0;
+}
+
+.carousel .background {
+  background-position: center center;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  height: 450px;
+}
+
+@media (max-width:991px) {
+  .carousel .background {
+    background-size: cover; /* To make the background image looks good */
+  }
+}
+
+.carousel .background.a {
+  background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../assets/img/headerbg.jpg");
+}
+
+
+
+
+
+.covertext {
+  position: absolute; /* To make the div to be place anywhere. It is out of the document flow */
+  top: 50px; /* The distance between the div with the top of document */
+  left: 0px; /* Make the div full width */
+  right: 0px; /* Make the div full width */
+}
+
+.title {
+  font-family: Verdana;
+  font-weight: 600;
+  font-size: 60px;
+  color: #ffffff;
+  text-align: center;
+}
+
+.subtitle {
+  font-family: Verdana;
+  font-size: 23px;
+  color: #ffffff;
+  text-align: center;
+}
+
+.explore {
+  text-align: center;
+  margin-top: 10px;
+}
+
+
+</style>

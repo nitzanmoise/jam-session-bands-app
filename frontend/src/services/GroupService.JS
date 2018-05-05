@@ -2,21 +2,22 @@ const GROUP_URL = 'http://localhost:3000/data/group';
 import axios from 'axios'
 
 function emptyGroup() {
-    return {"name":"","details":""}
+    return {"name":"","description":""}
 }
 
-function getGroups() {
-    // var criteria = {}
-    // if (filter){
-    //     criteria = `?name=${filter.text || ''}`
-    // }
+function getGroups(filter) {
     return axios
             .get(GROUP_URL)
-            .then(res => { 
-                console.log('this is groups' ,res.data);
-                
-               return res.data 
-            })
+            .then(res => {
+                if(!filter) {
+                    return res.data
+                } else if (filter === '') {
+                    return res.data
+                } else  {
+
+                return res.data.filter( group=> 
+                    group.name.toLowerCase().includes(filter.toLowerCase())
+                )}})
             .catch(e => console.log('No Groups', e))
 }
 

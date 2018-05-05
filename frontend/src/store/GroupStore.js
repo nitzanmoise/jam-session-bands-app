@@ -2,12 +2,15 @@ import GroupService from "../services/GroupService.js";
 
 export default {
   state: {
-    groups : []
+    groups : [],
+    groupFilter: ''
   },
   mutations: {
-    // setGroupFilter(state, { filter }) {
-    //   state.groupFilter = filter;
-    // },
+    setGroupFilter(state, { filter }) {
+      console.log('filter', filter)
+      state.groupFilter = filter;
+    },
+   
     deleteGroup(state, { groupId }) {
       state.groups = state.groups.filter(group => group.id !== groupId);
     },
@@ -30,17 +33,21 @@ export default {
   getters: {
     groupsForDisplay(state) {
       return state.groups;
+    },
+    search(state){
+        var search = (group => {
+            return group.content.toLowerCase().includes(state.search)
+        })
+        return search
     }
   },
   actions: {
     loadGroups(store) {
-      console.log("nitzan");
-
-      return GroupService.getGroups().then(groups => {
-        console.log("groups", groups);
-
-        store.commit({ type: "setGroups", groups });
-      });
+      console.log('loadGroups', store.state.groupFilter)
+      return GroupService.getGroups(store.state.groupFilter)
+      .then(groups => {
+          store.commit({ type: 'setGroups', groups });
+      })
     },
     loadGroup(store, { groupId }) {
       return GroupService.getById(groupId).then(group => {
@@ -67,4 +74,4 @@ export default {
       });
     }
   }
-};
+}

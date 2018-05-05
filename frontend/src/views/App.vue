@@ -1,27 +1,41 @@
 <template>
 <div id="app">
-    <header>
-      <navbar></navbar>
-    </header>
+  <header>
+        <navbar></navbar>
+  </header>
+         <Header @filtered="filterGroups"></Header>
 
-    <home></home>
+        <home></home>
 
-    <router-view></router-view>
-   <Footer></Footer>
+       <router-view></router-view>
+    <footer>
+       <Footer></Footer>
+   </footer>
   </div>
 </template>
 
 <script>
-import Navbar from '../components/Navbar.vue'
-import Home from './Home.vue'
-import Footer from '../components/Footer.vue'
+import Navbar from "../components/Navbar.vue";
+import Home from "./Home.vue";
+import Header from "../components/Header.vue";
+import Footer from "../components/Footer.vue";
+
 export default {
-  
-  
-  components: { 
+  methods: {
+    filterGroups(filter) {
+      this.$store.commit({
+        type: "setGroupFilter",
+        filter: filter
+      });
+      this.$store.dispatch({ type: "loadGroups" });
+    }
+  },
+
+  components: {
     Navbar,
     Home,
-    Footer
+    Footer,
+    Header
   }
 };
 </script>

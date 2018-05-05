@@ -21,8 +21,8 @@
 
 <style>
 .card{
-    height:500px;
-    width: 400px;
+    height:400px;
+    width: 300px;
     margin: 20px;
 }
 span{
@@ -46,8 +46,8 @@ span{
 
   .image {
     display: block;
-    width:400px;
-    height: 400px;
+    width:300px;
+    height: 300px;
   }
 
   .clearfix:before,

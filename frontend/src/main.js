@@ -3,12 +3,12 @@ import App from './views/App.vue'
 import router from './router'
 import store from './store/store.js'
 import './registerServiceWorker'
-
 import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
+import $ from "jquery";
+
 
 Vue.use(Element)
-
 
 Vue.config.productionTip = false
 

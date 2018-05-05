@@ -9,24 +9,23 @@
 </template>
 
 <script>
-import GroupList from '../components/GroupList.vue'
-import Footer from '../components/Footer.vue'
+import GroupList from "../components/GroupList.vue";
+import Footer from "../components/Footer.vue";
 export default {
-    created() {
-    console.log("elad");
+  created() {
 
     this.$store.dispatch({ type: "loadGroups" });
   },
-  computed: {
+ computed: {
     groups() {
       return this.$store.getters.groupsForDisplay;
     }
   },
-components:{
+  components: {
     GroupList,
     Footer
-}
-}
+  }
+};
 </script>
 
 <style>

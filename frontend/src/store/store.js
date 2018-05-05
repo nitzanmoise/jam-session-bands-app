@@ -13,10 +13,6 @@ export default new Vuex.Store({
     UserStore,
     GroupStore
   },
-  actions: {
-    elad(){
-      console.log('inside action elad')
-    }
-  }
+ 
   
 })

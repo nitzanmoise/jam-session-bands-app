@@ -48,7 +48,7 @@ hr {
 }
 
 footer {
-	background: #000;
+	 background: linear-gradient(rgb(105, 105, 100),rgb(0, 0, 0));
 	font-family: 'Raleway', sans-serif;
 	color: rgb(0, 0, 0);
 	max-width: 100%;

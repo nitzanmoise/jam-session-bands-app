@@ -8,6 +8,7 @@ import UserEdit from './views/UserEdit.vue'
 import GroupDetails from './views/GroupDetails.vue'
 import GroupEdit from './views/GroupEdit.vue'
 
+
 Vue.use(Router)
 
 export default new Router({
@@ -17,6 +18,7 @@ export default new Router({
       name: 'login',
       component: Login
     },
+    
     {
       path: '/Join',
       name: 'Join',
