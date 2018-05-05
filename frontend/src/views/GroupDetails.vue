@@ -8,7 +8,7 @@
                      <h1>{{group.name}}</h1>
                     <h3 >{{group.location}}</h3>
                     <div>
-                        <h4 v-for="genre in group.genre" :key="group._id">
+                        <h4 v-for="genre in group.genre" :key='group._id'>
                             {{genre}}   
                         </h4>
                     </div>
