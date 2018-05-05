@@ -8,7 +8,7 @@
                      <h1>{{user.fullName}}</h1>
                     <h3 >{{user.location}}</h3>
                     <div>
-                        <h4 v-for="genre in user.genre" :key="user._id">
+                        <h4 v-for="genre in genres" :key="genre._id">
                             {{genre}}   
                         </h4>
                     </div>
@@ -45,7 +45,8 @@ export default {
   data() {
     return {
       user: {},
-      groups: {}
+      groups: {},
+      genres: user.genre
     };
   },
   methods:{
