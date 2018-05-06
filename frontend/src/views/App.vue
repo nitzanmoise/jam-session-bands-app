@@ -50,10 +50,19 @@ export default {
 </script>
 
 <style scoped>
+@font-face {
+  font-family: Magettas Regular DEMO;
+  src: url("../../public/fonts/magettas-demo/Magettas Regular DEMO.otf");
+}
 #app{
+  
   display: flex;
   flex-flow: column wrap;
 
+}
+*{
+  
+  font-family: Magettas Regular DEMO;
 }
 
 

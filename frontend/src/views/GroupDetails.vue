@@ -26,9 +26,11 @@
                 </div>
                 <div class="member-name-container">
                     <h1 class="member-name" @click="goToMemberDetails(member._id)">{{member.fullName}}</h1>
-                    <h3 v-for="talant in member.talants" :key="talant._id">
-                        {{talant}}
-                    </h3>   
+                    <div v-for="talant in member.talants" :key="talant._id">
+                      <span>
+                        <img :src="'./img/instruments/'+talant+'.png'" alt="" width="25px;" height="25px;">                        
+                        </span>
+                    </div>   
                 </div>
             </div>
           </div>
@@ -37,9 +39,10 @@
                 <iframe allowtransparency="true" scrolling="no" frameborder="no" src="https://w.soundcloud.com/icon/?url=http%3A%2F%2Fsoundcloud.com%2Fnitzan-moise&color=orange_white&size=32" style="width: 32px; height: 32px;">
                 </iframe>
             <h2>Looking for:</h2>      
-            <h1 v-for="need in needs" :key="need._id">
-                {{need}}
-            </h1>
+            <div v-for="need in needs" :key="need._id">
+                        <img :src="'./img/instruments/'+need+'.png'" alt="" width="100px;" height="100px;">                        
+                
+            </div>
         </div>  
         </div>    
     </section>
@@ -52,7 +55,6 @@ export default {
     return {
       group: { name: "" },
       members: {},
-    //   genres : this.group.genre
     };
   },
   methods:{
@@ -69,9 +71,7 @@ export default {
        needs(){
             return  this.group.need
       },
-        //   talents(){
-        //       return this.members.talents
-        //   }
+      
   },
   created() {
     var groupId = this.$route.params.id;
@@ -92,11 +92,13 @@ export default {
 
 <style scoped>
 .group-details-container {
-  font-family: "Interstate", "Lucida Grande", "Lucida Sans Unicode",
-    "Lucida Sans", Garuda, Verdana, Tahoma, sans-serif;
-
+  font-family: Magettas Regular DEMO;
+display: flex;
   /* width: 98%; */
+  flex-flow: column;
   height: 100%;
+  width: 100%;
+  
   /* margin-left: 1%; */
   background-color: white;
 }
@@ -106,6 +108,7 @@ export default {
   background-image: url("../../public/img/band.jpg");
   background-size: cover;
   background-position: bottom;
+  width: 100%;
   height: 20%;
 }
 .group-image {
@@ -152,7 +155,7 @@ export default {
     font-size: 28px;
 }
 .member-name {
-    font-family:Condition3D-Italic;
+    font-family:Magettas Regular DEMO;
   cursor: pointer;
     width: 35%;
   text-align: center;
@@ -215,9 +218,9 @@ export default {
     font-family: music-instuments ;
     src: url("../../public/fonts/kr-music-class/music-instuments.ttf");
 }
-h5{
-    color: steelblue;
-    font-family: music-instuments ;
-    font-size: 30px;
-}    
+@font-face {
+  font-family: Magettas Regular DEMO;
+  src: url("../../public/fonts/magettas-demo/Magettas Regular DEMO.otf");
+}
+   
 </style>
