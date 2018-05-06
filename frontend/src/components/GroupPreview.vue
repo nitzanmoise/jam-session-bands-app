@@ -4,9 +4,9 @@
 
   <el-col :span="6" :key="o" :offset="index > 0 ? 2 : 0">
     <el-card :body-style="{ padding: '10px' }" class="card">
+        <span>{{props.group.name}}</span>
       <img :src="props.group.image" class="image">
       <div style="padding: 14px;">
-        <span>{{props.group.name}}</span>
         <div class="bottom clearfix">
           <el-button type="text" class="button">Join The Band</el-button>
         </div>
@@ -24,11 +24,14 @@
     height:300px;
     width: 300px;
     margin: 20px;
+      text-align: center;
     /* border: solid 2px black; */
     /* box-shadow: 2px 4px 54px 0px rgba(0,0,0,0.62); */
 }
 span{
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin: 20px;
+  
 }
   
   .bottom {
@@ -46,6 +49,7 @@ span{
     padding-left: 15%;
     width:200px;
     height: 200px;
+    margin-top: 10px;
   }
 
   .clearfix:before,

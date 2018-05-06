@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import App from './views/App.vue'
 import Home from './views/Home.vue'
 // import Login from './views/Login.vue'
-import Join from './views/Join.vue'
+// import Join from './views/Join.vue'
 import UserSearch from './views/UserSearch.vue'
 import UserDetails from './views/UserDetails.vue'
 import UserEdit from './views/UserEdit.vue'
@@ -31,11 +31,11 @@ export default new Router({
     //   component: Login
     // },
     
-    {
-      path: '/Join',
-      name: 'Join',
-      component: Join
-    },
+    // {
+    //   path: '/Join',
+    //   name: 'Join',
+    //   component: Join
+    // },
     
     {
       path: '/UserEdit/:id',

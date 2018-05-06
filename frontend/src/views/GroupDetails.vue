@@ -87,8 +87,6 @@ export default {
   height: 100%;
   margin-left: 1%;
   background-color: white;
-  display:flex;
-  flex-flow: column wrap;
 }
 .backround-img {
   display: flex;

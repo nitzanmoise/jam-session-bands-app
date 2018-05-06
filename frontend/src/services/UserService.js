@@ -3,7 +3,7 @@ import axios from 'axios'
 
 function login(user) {
   return axios
-    .post(`${USER_URL}/login`, user)
+    .post(USER_URL, user)
     .then(res => {
       sessionStorage.user = JSON.stringify(res.data.user)
       return res.data.user

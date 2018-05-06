@@ -4,27 +4,39 @@
     <div class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
+
           <div class="modal-header">
             <slot name="header">
-            <h2>Log In!</h2> 
+            <h2>Register!</h2> 
             </slot>
           </div>
+
           <div class="modal-body">
             <slot name="body">
-             <form @submit.prevent="checkLogin">
-                  <label for="email"> E-mail: </label> <input name="email" ref="txtUserName" type="text" placeholder="Enter Your E-mail" v-model="user.email" />
-                  <label for="password"> Password:  </label><input name= "password" type="password" placeholder="Enter Your Password" v-model="user.password"/>
-                 <button class="submit" type="submit" :disabled="!this.user.email || !this.user.password">Log-In</button>
-                       <h4>-Or-</h4> 
-                 <button class="guestLogIn" @click="logInAsGuest"> Log In as a Guest</button>
-            </form>
+             <form @submit.prevent="register">
+            Full-Name:
+            <input type="text" placeholder="Enter Full-Name" v-model="user.fullName" />
+            E-mail:
+            <input type="email" placeholder="Enter E-mail" v-model="user.email" />
+            Password:
+            <input type="text" placeholder="Enter Password" v-model="user.password" />
+            <!-- <input type="date" placeholder="Enter Date of Birth" v-model="user.dateOfBirth" />
+            <input type="text" placeholder="Enter The Genre You Prefer" v-model="user.genre" />
+            <input type="image" placeholder="Upload Image" v-model="user.image" />
+            <input type="link" placeholder="Enter a video Link to Your Work" v-model="user.links" />
+            <input type="link" placeholder="Enter an Audio Link to Your Work" v-model="user.audio" />
+            <input type="Text" placeholder="Enter Where You Are From" v-model="user.links" />
+            <input type="text" placeholder="Enter Your Talent (What Do You Play?)" v-model="user.image" /> -->
+            <button type="submit" @click="register">Register</button>
+        </form>
             </slot>
           </div>
+
           <div class="modal-footer">
             <slot name="footer">
               <hr>
-              <h4>No Account? Join Us!</h4>
-              <button class="join" @click="$emit('joinModal', true)"> Join!</button>
+              <h4>Already have an Account? Log In!</h4>
+              <button class="login" @click="$emit('loginModal', true)"> Log-in</button>
               <button class="modal-default-button" @click="$emit('close')">&#10006;</button>
             </slot>
           </div>
@@ -33,63 +45,40 @@
     </div>
   </transition>
 </section>
-
 </template>
 
 <script>
-import UserService from '../services/UserService'
+import UserService from '../services/UserService.js'
 import EventBusService, { SHOW_MSG } from '../services/EventBusService.js'
 
 export default {
-
- data() {
-        return {
-            user: {email: 'muki@muki.com', password: 'muki'}
-        }
-    },
-    created() {
-        console.log('guest Login component created')
+    props:['users'],
+ created() {
         
     },
+    data() {
+        return {
+            user: {name: '', password: ''}
+        }
+    },
     methods: {
-        checkLogin() {
-            this.$store.dispatch({type: 'login', userCredentials:this.user})
+        register() {
+            UserService.register(this.user)
             .then(res => {
-                console.log('You have been logged-in!')
-                EventBusService.$emit(SHOW_MSG, {txt: `Welcome ${this.user.name}`});
-                  this.$router.push('/');
+                console.log('Register Completed, now try to log-in!')
+                EventBusService.$emit(SHOW_MSG, {txt: 'Registration Completed! please login'});
+                this.$router.push('/');
             })
-            .catch(err => {
-                console.log('Login Failed!');
-                EventBusService.$emit(SHOW_MSG, {txt: `Wrong Credentials, please try again`, type: 'danger'});
-                this.$refs.txtUserName.focus();
-            })
-           
-        },
-        logInAsGuest(){
-          this.$store.dispatch({type: 'login', userCredentials:this.user})
-            .then(res => {
-                console.log('You have been logged-in!')
-                EventBusService.$emit(SHOW_MSG, {txt: `Welcome ${this.user.name}`});
-                  this.$router.push('/');
-            })
-            .catch(err => {
-                console.log('Login Failed!');
-                EventBusService.$emit(SHOW_MSG, {txt: `Wrong Credentials, please try again`, type: 'danger'});
-                this.$refs.txtUserName.focus();
-            })
-           
+            .catch(err => console.log('Register Failed!'))
         }
     },
     computed: {
-    }
     
+    }
 }
 </script>
 
 <style scoped>
-
-
 /* CSS for MODAL */
 .modal-mask {
   position: fixed;
@@ -127,9 +116,6 @@ export default {
 
 h2{
    font-family: "Open Sans", Helvetica;
-}
-h4{
-  align-self: center;
 }
 .modal-body {
   margin: 20px 0;
@@ -228,6 +214,5 @@ button:active {
   box-shadow: 0px 0px 0px rgba(0, 60, 255, 0.979);
   background: rgb(0, 38, 255);
 }
-
 
 </style>
