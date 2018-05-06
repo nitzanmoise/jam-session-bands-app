@@ -77,13 +77,13 @@ export default {
 </script>
 
 <style scoped>
-.user-details {
+.user-details-container {
   font-family: "Interstate", "Lucida Grande", "Lucida Sans Unicode",
     "Lucida Sans", Garuda, Verdana, Tahoma, sans-serif;
 
-  width: 98%;
+  /* width: 98%; */
   height: 100%;
-  margin-left: 1%;
+  /* margin-left: 1%; */
   background-color: white;
 }
 .backround-img {

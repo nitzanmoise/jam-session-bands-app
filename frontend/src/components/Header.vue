@@ -10,8 +10,8 @@
   </div>
   <div class="covertext">
     <div class="col-lg-10" style="float:none; margin:0 auto;">
-      <h1 class="title">Jam Session!</h1> <h2 class="title">Your Talent is Needed!</h2> 
-      <h3 class="subtitle">Search for a band that needs your talent:</h3>
+      <h1 class="title">Jam Session!</h1> 
+      <h3 class="subtitle">What is your talant?</h3>
     </div>
     <div class="searchBar">
         <input type="text" v-model="search" @input='emitFilter' placeholder="Search Jam Session Groups" />
@@ -58,6 +58,14 @@ methods:{
 @font-face {
   font-family:debris ;
   src: url('../../public/fonts/Debris/batman.ttf');
+}
+@font-face {
+  font-family: Magettas Regular DEMO;
+  src: url("../../public/fonts/magettas-demo/Magettas Regular DEMO.otf");
+}
+@font-face {
+  font-family: Shrikhand-Regular;
+  src: url("../../public/fonts/Shrikhand/Shrikhand-Regular.ttf");
 }
 
 *{
@@ -127,7 +135,7 @@ margin-top: 30px;
 }
 
 .title {
-  font-family: debris;
+  font-family:  Shrikhand-Regular;
   font-weight: 600;
   font-size: 60px;
   color: orange;
@@ -135,9 +143,9 @@ margin-top: 30px;
 }
 
 .subtitle {
-  font-family: debris;
-  font-size: 23px;
-  color: orange;
+  font-family:  Magettas Regular DEMO;
+  font-size: 26px;
+  color: white;
   text-align: center;
 }
 

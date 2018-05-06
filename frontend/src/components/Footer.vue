@@ -48,9 +48,9 @@ hr {
 }
 
 footer {
-	 background-color: black;
+	 background-color: rgb(121, 115, 115);
 	font-family: 'Raleway', sans-serif;
-	color: rgb(0, 0, 0);
+	color: rgb(214, 214, 214);
 	max-width: 100%;
 	margin-top: auto;
 }
