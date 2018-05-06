@@ -3,12 +3,13 @@ import GroupService from "../services/GroupService.js";
 export default {
   state: {
     groups : [],
-    groupFilter: ''
+    groupFilter: '',
   },
   mutations: {
     setGroupFilter(state, { filter }) {
       console.log('filter', filter)
       state.groupFilter = filter;
+     
     },
    
     deleteGroup(state, { groupId }) {
@@ -42,6 +43,8 @@ export default {
     }
   },
   actions: {
+  
+
     loadGroups(store) {
       console.log('loadGroups', store.state.groupFilter)
       return GroupService.getGroups(store.state.groupFilter)

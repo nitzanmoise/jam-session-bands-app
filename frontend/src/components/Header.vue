@@ -13,8 +13,11 @@
       <h1 class="title">Jam Session!</h1> <h2 class="title">Your Talent is Needed!</h2> 
       <h3 class="subtitle">Search for a band that needs your talent:</h3>
     </div>
-    <div class="col-xs-12 explore">
+    <div class="searchBar">
    <input type="text" v-model="search" @input='emitFilter' placeholder="Search Jam Session Groups" />
+   <ul v-if="search">
+     <li v-if="search" v-for="group in groups" :key="group._id" @click="openGroupDetails(group._id)">{{ group.name }}</li>
+   </ul>
     </div>
   </div>
   
@@ -24,8 +27,11 @@
 </template>
 
 <script>
+ 
+
 var _ = require('lodash');
 export default {
+  props:['groups'],
    data() {
         return {
             search: ''
@@ -35,6 +41,9 @@ methods:{
         emitFilter(){
             this.$emit('filtered',this.search);
         },
+        openGroupDetails(groupId){
+        this.$router.push(`/GroupDetails/${groupId}`)
+        }
         // searchBy:_.debounce(function (e) {
         //         this.emitFilter();
         // }, 500),
@@ -50,6 +59,36 @@ methods:{
   font-family:debris ;
   src: url('../../public/fonts/Debris/batman.ttf');
 }
+
+*{
+  box-sizing: border-box;
+}
+ul li{
+  background: white;
+  list-style-type: none;
+ padding: 12px;
+  border: 1px solid gray;
+font-size:18px;
+display:block;
+  margin-top: -1px;
+  width:300px;
+  text-decoration: none;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  cursor: pointer;
+ 
+}
+ul{
+  margin:0;
+  padding:0;
+}
+.searchBar{
+  display:flex;
+  flex-flow: column wrap;
+  justify-items: center;
+  align-items: center;
+}
+
+
 input{
 padding:10px;
 width: 300px;

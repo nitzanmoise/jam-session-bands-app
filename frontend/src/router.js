@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import App from './views/App.vue'
 import Home from './views/Home.vue'
-import Login from './views/Login.vue'
+// import Login from './views/Login.vue'
 import Join from './views/Join.vue'
 import UserSearch from './views/UserSearch.vue'
 import UserDetails from './views/UserDetails.vue'
@@ -25,11 +25,11 @@ export default new Router({
       name: 'home',
       component: Home
     },
-    {
-      path: '/Login',
-      name: 'login',
-      component: Login
-    },
+    // {
+    //   path: '/Login',
+    //   name: 'login',
+    //   component: Login
+    // },
     
     {
       path: '/Join',

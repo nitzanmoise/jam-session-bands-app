@@ -1,7 +1,7 @@
 <template>
 
 <section class="home">
- <Header @filtered="filterGroups"></Header>
+ <Header @filtered="filterGroups" :groups="groups"></Header>
  <GroupList :groups="groups"></GroupList>
 </section>
 </template>

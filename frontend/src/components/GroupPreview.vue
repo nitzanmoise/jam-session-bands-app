@@ -2,7 +2,7 @@
 
 <section  class="group-preview">
 
-  <el-col :span="7" :key="o" :offset="index > 0 ? 1 : 0">
+  <el-col :span="6" :key="o" :offset="index > 0 ? 2 : 0">
     <el-card :body-style="{ padding: '10px' }" class="card">
       <img :src="props.group.image" class="image">
       <div style="padding: 14px;">
