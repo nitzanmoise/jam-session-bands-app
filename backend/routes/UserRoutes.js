@@ -23,10 +23,9 @@ app.get(`${USER_URL}/:id`, (req, res) => {
 
  
   app.post('/login', (req, res) => {
-
     const user = req.body;
     UserService.checkLogin(user).then(userFromDB => {
-      console.log('userFromDB', userFromDB)
+      console.log('userFromDB ekad', userFromDB)
       if (userFromDB) {
         console.log('Login!', req.session);
         delete userFromDB.password;
@@ -52,6 +51,7 @@ app.get(`${USER_URL}/:id`, (req, res) => {
 
 
   app.post(USER_URL, function (req, res) {
+    console.log('addd user ')
     var user = req.body;
     UserService.addUser(user)
       .then(addedUser => res.json(addedUser))

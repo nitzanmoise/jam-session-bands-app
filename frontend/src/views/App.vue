@@ -5,6 +5,9 @@
   </header>
        <router-view></router-view>
        <div>
+             <div v-if="alive" class="alert" :class="alertClass" >
+             {{msg.txt}}
+      </div>
        <log-in v-if="loginModal" @close="loginModal = false" @joinModal="joinModal = true, loginModal = false" ></log-in>
        <join-register v-if="joinModal" @close="joinModal = false" @loginModal="loginModal = true, joinModal = false"></join-register>
        </div>
@@ -21,6 +24,8 @@ import NavBar from "../components/Navbar.vue";
 import AppFooter from "../components/Footer.vue";
 import logIn from '../components/Login.vue';
 import joinRegister from '../components/join.vue';
+import eventBus, {SHOW_MSG} from '../services/EventBusService.js'
+import EventBusService from '../services/EventBusService.js';
 
 export default {
   data (){
@@ -28,7 +33,19 @@ export default {
       loginModal: false,
       joinModal: false,
       guestLoginModal: false,
+      alive : false,
+      msg: null
     }
+  },
+  created (){
+    EventBusService.$on(SHOW_MSG, (msg) => {
+       this.msg = msg;
+            var delay = msg.delay || 2000;
+            this.alive = true;
+            setTimeout(() => {
+                this.alive = false;
+            }, delay)
+        })
   },
   methods: {
     filterGroups(filter) {
@@ -39,6 +56,12 @@ export default {
       this.$store.dispatch({ type: "loadGroups" });
     }
   },
+  computed: {
+        alertClass() {
+            if (!this.msg) return;
+            return `alert-${this.msg.type}`
+        }
+    },
 
   components: {
     NavBar,

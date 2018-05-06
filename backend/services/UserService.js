@@ -121,5 +121,6 @@ module.exports = {
   addUser,
   getById,
   updateUser,
-  getBandGroupsData
+  getBandGroupsData,
+  checkLogin
 }

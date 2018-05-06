@@ -3,7 +3,7 @@ import axios from 'axios'
 
 function login(user) {
   return axios
-    .post(USER_URL, user)
+    .post('http://localhost:3000/login', user)
     .then(res => {
       sessionStorage.user = JSON.stringify(res.data.user)
       return res.data.user
@@ -13,14 +13,14 @@ function login(user) {
 
 function register(user) {
   return axios
-    .post(`${USER_URL}/data/user`, user)
+    .post(USER_URL, user)
     .then(res => console.log(res.data))
     .catch(err => {throw new Error('Register Failed')})
 }
 
 function logout() {
   return axios
-    .post(`${USER_URL}/logout`)
+    .post('http://localhost:3000/logout')
     .then(res => {
       delete sessionStorage.user;
     })

@@ -9,7 +9,6 @@ import UserList from "../components/UserList.vue";
 
 export default {
   created() {
-    console.log("elad");
 
     this.$store.dispatch({ type: "loadUsers" });
   },

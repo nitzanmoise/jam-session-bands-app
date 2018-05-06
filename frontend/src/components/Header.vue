@@ -3,7 +3,9 @@
 <div class="container-fluid main">
   <div id="myCarousel" class="carousel carousel-fade slide">
     <div class="carousel-inner" role="listbox">
-      <div class="item active background a"></div>
+      
+      <div class="item active background a"> </div>
+     
     </div>
   </div>
   <div class="covertext">
@@ -103,6 +105,7 @@ margin-top: 30px;
   background-size: 100% 100%;
   background-repeat: no-repeat;
   height:500px;
+  margin-bottom: 40px;
 }
 
 @media (max-width:991px) {
@@ -112,8 +115,9 @@ margin-top: 30px;
 }
 
 .carousel .background.a {
-  background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../assets/img/band-header.jpg");
+  background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../assets/img/headerbg.jpg");
 }
+
 
 .covertext {
   position: absolute; /* To make the div to be place anywhere. It is out of the document flow */

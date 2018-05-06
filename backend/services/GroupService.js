@@ -20,7 +20,6 @@ function add(group) {
   return new Promise((resolve, reject) => {
     DBService.dbConnect().then(db => {
       db.collection('groups').insertOne(group, (err, res) => {
-        console.log('res', res);
         db.collection('groups').findOne({_id: new mongo.ObjectID(res.insertedId)}, (err, groupFromDB)=>{
           if (err) reject(err)
           else resolve(groupFromDB)

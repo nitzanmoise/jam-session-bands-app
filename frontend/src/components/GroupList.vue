@@ -1,5 +1,6 @@
 <template>
   <section class="group-list">
+    <h1>Jam Session Groups</h1>
       <div v-for="group in groups" :key="group._id" >
         <div  @click="openGroupDetails(group._id)">
         <GroupPreview :group="group"></GroupPreview>
@@ -24,5 +25,7 @@ components:{
 </script>
 
 <style scoped>
-
+h1{
+  text-align: center;
+}
 </style>

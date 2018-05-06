@@ -12,7 +12,7 @@
           <div class="modal-body">
             <slot name="body">
              <form @submit.prevent="checkLogin">
-                  <label for="email"> E-mail: </label> <input name="email" ref="txtUserName" type="text" placeholder="Enter Your E-mail" v-model="user.email" />
+                  <label for="email"> E-mail: </label> <input name="email" ref="txtEmail" type="text" placeholder="Enter Your E-mail" v-model="user.email" />
                   <label for="password"> Password:  </label><input name= "password" type="password" placeholder="Enter Your Password" v-model="user.password"/>
                  <button class="submit" type="submit" :disabled="!this.user.email || !this.user.password">Log-In</button>
                        <h4>-Or-</h4> 
@@ -44,7 +44,7 @@ export default {
 
  data() {
         return {
-            user: {email: 'muki@muki.com', password: 'muki'}
+            user: {email: 'guest@guest.com', password: 'guest'}
         }
     },
     created() {
@@ -62,7 +62,7 @@ export default {
             .catch(err => {
                 console.log('Login Failed!');
                 EventBusService.$emit(SHOW_MSG, {txt: `Wrong Credentials, please try again`, type: 'danger'});
-                this.$refs.txtUserName.focus();
+                this.$refs.txtEmail.focus();
             })
            
         },
@@ -72,11 +72,12 @@ export default {
                 console.log('You have been logged-in!')
                 EventBusService.$emit(SHOW_MSG, {txt: `Welcome ${this.user.name}`});
                   this.$router.push('/');
+                  this.$emit('close');
             })
             .catch(err => {
                 console.log('Login Failed!');
                 EventBusService.$emit(SHOW_MSG, {txt: `Wrong Credentials, please try again`, type: 'danger'});
-                this.$refs.txtUserName.focus();
+                this.$refs.txtEmail.focus();
             })
            
         }
