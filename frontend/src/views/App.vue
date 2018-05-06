@@ -1,29 +1,33 @@
 <template>
 <div id="app">
   <header>
-        <navbar :loginModal="loginModal"  @loginModal="loginModal = true"></navbar>
+        <nav-Bar :loginModal="loginModal"  @loginModal="loginModal = true" :joinModal="joinModal"  @joinModal="joinModal = true" ></nav-Bar>
   </header>
        <router-view></router-view>
        <div>
-
-       <login v-if="loginModal" @close="loginModal = false" ></login>
+       <log-in v-if="loginModal" @close="loginModal = false" @joinModal="joinModal = true, loginModal = false" ></log-in>
+       <join-register v-if="joinModal" @close="joinModal = false" @loginModal="loginModal = true, joinModal = false"></join-register>
        </div>
        <div>
     <footer>
-       <Footer></Footer>
+       <app-footer></app-footer>
    </footer>
    </div>
   </div>
 </template>
 
 <script>
-import Navbar from "../components/Navbar.vue";
-import Footer from "../components/Footer.vue";
-import login from '../components/Login.vue'
+import NavBar from "../components/Navbar.vue";
+import AppFooter from "../components/Footer.vue";
+import logIn from '../components/Login.vue';
+import joinRegister from '../components/join.vue';
+
 export default {
   data (){
     return {
-      loginModal: false
+      loginModal: false,
+      joinModal: false,
+      guestLoginModal: false,
     }
   },
   methods: {
@@ -37,9 +41,10 @@ export default {
   },
 
   components: {
-    Navbar,
-    Footer,
-    login
+    NavBar,
+    AppFooter,
+    logIn,
+    joinRegister,
   }
 };
 </script>

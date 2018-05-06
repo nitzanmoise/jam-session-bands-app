@@ -1,23 +1,21 @@
 <template>
 <section class="header">
 <div class="container-fluid main">
-
   <div id="myCarousel" class="carousel carousel-fade slide">
     <div class="carousel-inner" role="listbox">
       <div class="item active background a"></div>
     </div>
   </div>
-  
   <div class="covertext">
     <div class="col-lg-10" style="float:none; margin:0 auto;">
       <h1 class="title">Jam Session!</h1> <h2 class="title">Your Talent is Needed!</h2> 
       <h3 class="subtitle">Search for a band that needs your talent:</h3>
     </div>
     <div class="searchBar">
-   <input type="text" v-model="search" @input='emitFilter' placeholder="Search Jam Session Groups" />
-   <ul v-if="search">
-     <li v-if="search" v-for="group in groups" :key="group._id" @click="openGroupDetails(group._id)">{{ group.name }}</li>
-   </ul>
+        <input type="text" v-model="search" @input='emitFilter' placeholder="Search Jam Session Groups" />
+      <ul v-if="search">
+        <li v-if="search" v-for="group in groups" :key="group._id" @click="openGroupDetails(group._id)">{{ group.name }}</li>
+      </ul>
     </div>
   </div>
   
@@ -93,6 +91,7 @@ input{
 padding:10px;
 width: 300px;
 font-family: Verdana, Geneva, Tahoma, sans-serif;
+margin-top: 30px;
 }
 .container-fluid.main{
   position: relative; /* To make the navbar positions relative to this container */
