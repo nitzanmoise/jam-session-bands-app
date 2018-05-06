@@ -2,8 +2,6 @@
 <div class="group-details-container">
     <section class="group-details"> 
         <div class="backround-img">
-                <!-- <div class="header-info">
-                </div> -->
                 <div class="header-info">
                      <h1>{{group.name}}</h1>
                     <h3 >{{group.location}}</h3>
@@ -19,22 +17,30 @@
                 
         </div>
         <div class="main-container">
-        <div class="members-container">
+          <div class="members-container">
+           <!-- <div>  -->
             <h1 class="members-header">Members</h1>
-            <div v-for="member in members" :key="member._id" >
+            <div v-for="member in members" :key="member._id" class="member-details" >
                 <div class="member-img-container" @click="goToMemberDetails(member._id)">
                     <img :src="member.image" class="member-image">
                 </div>
                 <div class="member-name-container">
-                <h1 class="member-name" @click="goToMemberDetails(member._id)">{{member.fullName}}</h1>
+                    <h1 class="member-name" @click="goToMemberDetails(member._id)">{{member.fullName}}</h1>
+                    <h3 v-for="talant in member.talants" :key="talant._id">
+                        {{talant}}
+                    </h3>   
                 </div>
             </div>
-            </div>
-            <div class="about">
-                {{group.about}}
-            <iframe allowtransparency="true" scrolling="no" frameborder="no" src="https://w.soundcloud.com/icon/?url=http%3A%2F%2Fsoundcloud.com%2Fnitzan-moise&color=orange_white&size=32" style="width: 32px; height: 32px;">
-            </iframe>
-            </div>
+          </div>
+        <div class="about">
+                <h2>{{group.about}}</h2>
+                <iframe allowtransparency="true" scrolling="no" frameborder="no" src="https://w.soundcloud.com/icon/?url=http%3A%2F%2Fsoundcloud.com%2Fnitzan-moise&color=orange_white&size=32" style="width: 32px; height: 32px;">
+                </iframe>
+            <h2>Looking for:</h2>      
+            <h1 v-for="need in needs" :key="need._id">
+                {{need}}
+            </h1>
+        </div>  
         </div>    
     </section>
 </div>
@@ -59,7 +65,13 @@ export default {
   computed: {
           genres(){
             return  this.group.genre
-      }
+      },
+       needs(){
+            return  this.group.need
+      },
+        //   talents(){
+        //       return this.members.talents
+        //   }
   },
   created() {
     var groupId = this.$route.params.id;
@@ -79,13 +91,13 @@ export default {
 </script>
 
 <style scoped>
-.group-details {
+.group-details-container {
   font-family: "Interstate", "Lucida Grande", "Lucida Sans Unicode",
     "Lucida Sans", Garuda, Verdana, Tahoma, sans-serif;
 
-  width: 98%;
+  /* width: 98%; */
   height: 100%;
-  margin-left: 1%;
+  /* margin-left: 1%; */
   background-color: white;
   display:flex;
   flex-flow: column wrap;
@@ -128,12 +140,15 @@ export default {
 }
  .members-header{
      font-family:  Painting_With_Chocolate;
-    color: violet;
+    color: orange;
     font-size: 2em;
     width: 35%;
    text-align: center;
    padding: 10px;
     }
+.member-name-container h3{
+    float: left;
+}    
 .about {
     margin-top: 10%;
     font-size: 28px;
@@ -143,7 +158,8 @@ export default {
   cursor: pointer;
     width: 35%;
   text-align: center;
-  padding: 10px;
+  float: left;
+  
 }
 .group-details-container {
   background-color: rgb(244, 245, 247);
@@ -197,4 +213,13 @@ export default {
     font-family: Painting_With_Chocolate;
     src: url('../../public/fonts/Painting_With_Chocolate_regular/Painting_With_Chocolate.ttf');
 }
+@font-face {
+    font-family: music-instuments ;
+    src: url("../../public/fonts/kr-music-class/music-instuments.ttf");
+}
+h5{
+    color: steelblue;
+    font-family: music-instuments ;
+    font-size: 30px;
+}    
 </style>

@@ -27,6 +27,7 @@
                 </div>
                 <div class="group-name-container">
                 <h1 class="group-name" @click="goToGroupDetails(group._id)">{{group.name}}</h1>
+                    <h5>a</h5>
                 </div>
             </div>
             </div>
@@ -122,7 +123,7 @@ export default {
 }
 .groups-header {
   font-family: Painting_With_Chocolate;
-  color: violet;
+  color: orange;
   font-size: 2em;
   width: 35%;
   text-align: center;
@@ -191,5 +192,12 @@ export default {
 @font-face {
   font-family: Painting_With_Chocolate;
   src: url("../../public/fonts/Painting_With_Chocolate_regular/Painting_With_Chocolate.ttf");
+}
+@font-face {
+    font-family: music-instuments ;
+    src: url("../../public/fonts/kr-music-class/music-instuments.ttf");
+}
+h5{
+    font-family: music-instuments ;
 }
 </style>
