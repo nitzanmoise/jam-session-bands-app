@@ -1,11 +1,11 @@
 <template>
   <section class="user-list">
     <ul>
-      <li v-for="user in users" :key="user._id" >
+      <div v-for="user in users" :key="user._id" >
         <div  @click="openUserDetails(user._id)">
         <UserPriview :user="user"></UserPriview>
         </div>
-      </li>
+      </div>
     </ul>
   </section>
 </template>
