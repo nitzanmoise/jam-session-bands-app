@@ -68,11 +68,10 @@ export default {
       store.commit({ type: "updateGroup", group });
       
       });
-    },
-    updateReqs(store, {joinReq}){
-         return GroupService.updateReqs(joinReq).then(reqs => {
-           console.log('this is updated reqs', reqs);
-           
+    },  
+    updateReqs(store, {joinReq, admins}){
+         return GroupService.updateReqs(joinReq, admins).then(res => {
+           console.log('this is updated reqs', res);
          })
     },
     addGroup(store, { group }){

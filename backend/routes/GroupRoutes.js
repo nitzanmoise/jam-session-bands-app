@@ -5,7 +5,7 @@ const GROUP_URL = '/data/group';
 module.exports = app => {
   app.get(GROUP_URL ,(req, res) => {
     GroupService.query().then(groups => {
-      console.log('Groups: ', groups);
+      // console.log('Groups: ', groups);
       res.json(groups)
     })
   }),
@@ -55,6 +55,25 @@ module.exports = app => {
       .catch(() => res.status(500).send("problem"));
   }),
 
+
+  app.put(`${GROUP_URL}/:id/joinReq`, function (req, res){
+    GroupService.sendJoinReqs(req.body)
+            .then(result =>{
+                res.json(result)
+            })
+            .catch(err => {
+              res.status(500).send()
+            })
+    // const _id = req.params.id;
+    // joinReq = req.body
+    //joinRequest
+    //admins
+    // console.log(joinReq)
+    // GroupService.updat eReqs(joinReq ,_id )
+    // .then(group=> res.json(group))
+    // .catch(err=> res.status(500).send(('Could not update group')))
+  })
+
   app.put(`${GROUP_URL}/:id`, function (req, res){
     const _id = req.params.id;
     const upadteFileds = req.body;
@@ -62,15 +81,6 @@ module.exports = app => {
     .then(group=> res.json(group))
     .catch(err=> res.status(500).send(('Could not update group')))
   })
-
-  app.put(`${GROUP_URL}/:id/joinReq`, function (req, res){
-    const _id = req.params.id;
-    joinReq = req.body
-    GroupService.updateReqs(joinReq ,_id )
-    .then(group=> res.json(group))
-    .catch(err=> res.status(500).send(('Could not update group')))
-  })
-
 
 
 }

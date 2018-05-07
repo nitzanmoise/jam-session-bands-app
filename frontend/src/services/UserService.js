@@ -47,7 +47,7 @@ function getUsers() {
 }
 
 function updateUser(user) {
-   return axios.put(USER_URL, user)
+   return axios.put(USER_UR, user)
 }
 
 function deleteUser(userId) {

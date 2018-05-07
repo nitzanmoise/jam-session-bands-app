@@ -31,44 +31,36 @@
  
 </template>
   <script>
-  export default {
-  props: ['group'],
+export default {
+  props: ["group"],
   computed: {
     loggedinUser() {
       return this.$store.getters.loggedinUser;
     }
   },
   methods: {
-  openGroupDetails(groupId){
-    this.$router.push(`/GroupDetails/${groupId}`)
-  },
-  sendJoinReq(groupId){
-    console.log('THIS IS DROUP ID DDDDDDDDDDDDDDDDDDDDDD', groupId, this.loggedinUser);
-    if (!this.loggedinUser){ console.log('you not logged in');
-    }else{
-      console.log('yes you log in', this.group.members, this.loggedinUser)
-      this.group.members.forEach(member=> {
-        var loggedinUserId = this.loggedinUser._id
-        var joinReq = {loggedinUserId, groupId}
-        console.log('this is req', req);
-         
-        if (member.isAdmin){
-          console.log('thiss is admin',member);
-          var group = this.group
-          console.log('group',group);
-          
-          this.$store.dispatch({ type: "updateReqs" , joinReq});
-        }
-       
-      });
+    openGroupDetails(groupId) {
+      this.$router.push(`/GroupDetails/${groupId}`);
+    },
+    sendJoinReq(groupId) {
+      console.log(
+        "THIS IS DROUP ID DDDDDDDDDDDDDDDDDDDDDD",
+        groupId,
+        this.loggedinUser
+      );
+      if (!this.loggedinUser) {
+        console.log("you not logged in");
+      } else {
+        console.log("yes you log in", this.group.members, this.loggedinUser);
+        var askerId  = this.loggedinUser._id;
+        var joinReq = { askerId, groupId };
+        var admins = this.group.members.filter(({ isAdmin }) => isAdmin);
+        this.$store.dispatch({ type: "updateReqs", joinReq, admins });
+      }
     }
-    
-    
   }
-
-  }
-  }
-  </script>
+};
+</script>
 
 <style>
 @font-face {
@@ -76,67 +68,66 @@
   src: url("../../public/fonts/magettas-demo/Magettas Regular DEMO.otf");
 }
 .card {
-    height:400px;
-    width: 300px;
-    margin: 20px;
-      text-align: center;
-      cursor: pointer;
-    /* border: solid 2px black; */
-    /* box-shadow: 2px 4px 54px 0px rgba(0,0,0,0.62); */
+  height: 400px;
+  width: 300px;
+  margin: 20px;
+  text-align: center;
+  cursor: pointer;
+  /* border: solid 2px black; */
+  /* box-shadow: 2px 4px 54px 0px rgba(0,0,0,0.62); */
 }
-span{
-    /* font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
-    margin: 20px;
-    font-size: 1.2em;
-    font-weight: bold;
+span {
+  /* font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
+  margin: 20px;
+  font-size: 1.2em;
+  font-weight: bold;
 }
-  
-  .bottom {
-    margin-top: 13px;
-    line-height: 12px;
-  }
 
-  .button {
-    padding: 0;
-    float: right;
-    color: orange;
-    font-family: Magettas Regular DEMO;
-  }
+.bottom {
+  margin-top: 13px;
+  line-height: 12px;
+}
 
-  .image {
-    display: block;
-    padding-left: 15%;
-    width:200px;
-    height: 180px;
-    margin-top: 10px;
-  }
+.button {
+  padding: 0;
+  float: right;
+  color: orange;
+  font-family: Magettas Regular DEMO;
+}
 
-  .clearfix:before,
-  .clearfix:after {
-      display: table;
-      content: "";
-  }
-  
-  .clearfix:after {
-      clear: both
-  }
-  .seeking-container{
-    display: flex;
-    justify-content: space-around;
-    width: 200px;
-    padding-left: 5%;
-    
-  }
-  .seeking{
-    padding-bottom: 5px;
-  }
+.image {
+  display: block;
+  padding-left: 15%;
+  width: 200px;
+  height: 180px;
+  margin-top: 10px;
+}
 
-  h3{
-    font-weight: normal;
-  }
-  .icon{
-    margin-top: 12px;
-  }
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
+
+.clearfix:after {
+  clear: both;
+}
+.seeking-container {
+  display: flex;
+  justify-content: space-around;
+  width: 200px;
+  padding-left: 5%;
+}
+.seeking {
+  padding-bottom: 5px;
+}
+
+h3 {
+  font-weight: normal;
+}
+.icon {
+  margin-top: 12px;
+}
 </style>
 
 

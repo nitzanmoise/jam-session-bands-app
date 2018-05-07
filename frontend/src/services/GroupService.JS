@@ -37,8 +37,9 @@ function deleteGroup(groupId) {
   return axios.delete(_getGroupUrl(groupId));
 }
 
-function updateReqs(joinReq){
-    return axios.put(_getGroupUrl(joinReq.groupId)+'/joinReq', req)
+function updateReqs(joinReq, admins){
+    console.log('in service')
+    return axios.put(_getGroupUrl(joinReq.groupId)+'/joinReq', {joinReq, admins})
 }
 
 function getGroupById(groupId) {
