@@ -19,6 +19,8 @@
             </div>
           </div>  
           <el-button @click="sendJoinReq(group._id)" type="text" class="button">Join The Band</el-button>
+          <button @click="openGroupDetails(group._id)">View Group Details</button>
+          <button type="text" class="button">Join The Band</button>
         </div>
       </div>
     </el-card>
@@ -74,8 +76,8 @@
   src: url("../../public/fonts/magettas-demo/Magettas Regular DEMO.otf");
 }
 .card {
-    height:350px;
-    width: 350px;
+    height:400px;
+    width: 300px;
     margin: 20px;
       text-align: center;
       cursor: pointer;
