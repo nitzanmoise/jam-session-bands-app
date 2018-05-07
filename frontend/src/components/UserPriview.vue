@@ -18,7 +18,7 @@
                 <img class="icon" :src="'./img/instruments/'+need+'.png'" alt="" width="25px;" height="25px;">                        
             </div>
           </div>  
-          <el-button @click="sendJoinReq(user._id)" type="text" class="button">Join The Band</el-button>
+          <el-button  type="text" class="button">Join The Band</el-button>
           <button @click="openUserDetails(user._id)">View User Details</button>
           <button type="text" class="button">Join The Band</button>
         </div>
@@ -42,22 +42,22 @@ export default {
     openUserDetails(userId) {
       this.$router.push(`/UserDetails/${userId}`);
     },
-    sendJoinReq(userId) {
-      console.log(
-        "THIS IS DROUP ID DDDDDDDDDDDDDDDDDDDDDD",
-        userId,
-        this.loggedinUser
-      );
-      if (!this.loggedinUser) {
-        console.log("you not logged in");
-      } else {
-        console.log("yes you log in", this.user.members, this.loggedinUser);
-        var askerId  = this.loggedinUser._id;
-        var joinReq = { askerId, userId };
-        var admins = this.user.members.filter(({ isAdmin }) => isAdmin);
-        this.$store.dispatch({ type: "updateReqs", joinReq, admins });
-      }
-    }
+    // sendJoinReq(userId) {
+    //   console.log(
+    //     "THIS IS DROUP ID DDDDDDDDDDDDDDDDDDDDDD",
+    //     userId,
+    //     this.loggedinUser
+    //   );
+    //   if (!this.loggedinUser) {
+    //     console.log("you not logged in");
+    //   } else {
+    //     console.log("yes you log in", this.user.members, this.loggedinUser);
+    //     var askerId  = this.loggedinUser._id;
+    //     var joinReq = { askerId, userId };
+    //     var admins = this.user.members.filter(({ isAdmin }) => isAdmin);
+    //     this.$store.dispatch({ type: "updateReqs", joinReq, admins });
+    //   }
+    // }
   }
 };
 </script>

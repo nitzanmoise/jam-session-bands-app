@@ -4,7 +4,7 @@ import App from './views/App.vue'
 import Home from './views/Home.vue'
 // import Login from './views/Login.vue'
 // import Join from './views/Join.vue'
-import UserSearch from './views/UserSearch.vue'
+import UsersPage from './views/UsersPage.vue'
 import UserDetails from './views/UserDetails.vue'
 import UserEdit from './views/UserEdit.vue'
 import GroupDetails from './views/GroupDetails.vue'
@@ -43,6 +43,11 @@ export default new Router({
       component: UserEdit
     },
     {
+      path: '/UsersPage',
+      name: 'UsersPage',
+      component: UsersPage
+    },
+    {
       path: '/GroupDetails/:id',
       name: 'GroupDetails',
       component: GroupDetails
@@ -52,11 +57,7 @@ export default new Router({
       name: 'GroupEdit',
       component: GroupEdit
     },
-    {
-      path: '/UserSearch',
-      name: 'UserSearch',
-      component: UserSearch
-    },
+   
     {
       path: '/UserDetails/:id',
       name: 'UserDetails',
