@@ -57,7 +57,11 @@ export default new Router({
       name: 'GroupEdit',
       component: GroupEdit
     },
-   
+    {
+      path: '/UsersPage',
+      name: 'UsersPage',
+      component: UsersPage
+    },
     {
       path: '/UserDetails/:id',
       name: 'UserDetails',
