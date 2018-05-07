@@ -101,7 +101,7 @@ export default {
   width: 300px;
   margin: 0px auto;
   padding: 20px 30px;
-  background-color: rgb(195, 190, 255);
+  background-color: lightgray;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
   transition: all .3s ease;

@@ -11,7 +11,7 @@
   <div class="covertext">
     <div class="col-lg-10" style="float:none; margin:0 auto;">
       <h1 class="title">Jam Session!</h1> 
-      <h3 class="subtitle">What is your talant?</h3>
+      <h3 class="subtitle">What is your talent?</h3>
     </div>
     <div class="searchBar">
         <input type="text" v-model="search" @input='emitFilter' placeholder="Search Jam Session Groups" />
