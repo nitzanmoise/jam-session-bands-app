@@ -16,18 +16,18 @@ export default {
     EventBusService.$on(SHOW_MSG, msg => {
       console.log({ msg });
      this.$swal({
-         background: "orange",
         title: msg.txt,
         position: "center",
         showConfirmButton: false,
-        timer: 3000
+        timer: 3000,
+        type: msg.type
       });
     });
   },
   data() {
     return {
       alive: false,
-      msg: null
+      msg: null,
     };
   },
   computed: {

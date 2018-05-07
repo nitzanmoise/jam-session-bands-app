@@ -23,6 +23,7 @@ h1{
   font-size: 1.7em;
   margin: 0px;
   background-color: grey;
+  color: white;
   padding: 30px;
   border-top: 1px solid white;
 }
