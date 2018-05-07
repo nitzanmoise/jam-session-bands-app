@@ -19,8 +19,8 @@
             </div>
           </div>  
           <el-button @click="sendJoinReq(group._id)" type="text" class="button">Join The Band</el-button>
-          <button @click="openGroupDetails(group._id)">View Group Details</button>
-          <button type="text" class="button">Join The Band</button>
+          <el-button @click="openGroupDetails(group._id)" class="button">View Group Details</el-button>
+         
         </div>
       </div>
     </el-card>

@@ -3,6 +3,7 @@ import GroupService from "../services/GroupService.js";
 export default {
   state: {
     groups : [],
+    currGroup:[],
     groupFilter: '',
   },
   mutations: {
@@ -20,6 +21,7 @@ export default {
     },
     addGroup(state, { group }) {
       state.groups = [group, ...state.groups];
+      
     },
     updateGroup(state, { group }) {
       const groupIdx = state.groups.findIndex(
@@ -40,6 +42,9 @@ export default {
             return group.content.toLowerCase().includes(state.search)
         })
         return search
+    },
+    currGroupForDisplay(state){
+      return state.currGroup
     }
   },
   actions: {

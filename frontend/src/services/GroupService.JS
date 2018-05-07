@@ -30,7 +30,9 @@ function updateGroup(groop) {
 }
 
 function addGroup(group) {
-    return axios.post(GROUP_URL, group);  
+    return axios.post(GROUP_URL, group).then(res => {
+      return res.data
+    })  
 }
 
 function deleteGroup(groupId) {
