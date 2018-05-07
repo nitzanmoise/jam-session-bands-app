@@ -2,8 +2,7 @@
    <div class="user-details-container">
     <section class="user-details"> 
         <div class="backround-img">
-                <!-- <div class="header-info">
-                </div> -->
+               
                 <div class="header-info">
                      <h1>{{user.fullName}}</h1>
                     <h3 >{{user.location}}</h3>
@@ -80,10 +79,10 @@ export default {
 .user-details-container {
   font-family: "Interstate", "Lucida Grande", "Lucida Sans Unicode",
     "Lucida Sans", Garuda, Verdana, Tahoma, sans-serif;
-
-  /* width: 98%; */
+display: flex;
+  flex-flow: column;
+  width: 100%;
   height: 100%;
-  /* margin-left: 1%; */
   background-color: white;
 }
 .backround-img {
@@ -139,8 +138,7 @@ export default {
   width: 35%;
   text-align: center;
   padding: 10px;
-  /* border: 1px solid rgb(137, 138, 141); */
-  /* border-radius: 50%; */
+
 }
 .user-details-container {
   background-color: rgb(244, 245, 247);
@@ -185,6 +183,12 @@ export default {
 .main-container {
   display: flex;
 }
+ .button {
+    padding: 0;
+    float: right;
+    color: orange;
+    font-family: Magettas Regular DEMO;
+  }
 @font-face {
   font-family: Condition3D-Italic;
   src: url("../../public/fonts/Condition3D-Italic.ttf");

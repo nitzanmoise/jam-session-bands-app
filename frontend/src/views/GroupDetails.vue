@@ -26,25 +26,32 @@
                 </div>
                 <div class="member-name-container">
                     <h1 class="member-name" @click="goToMemberDetails(member._id)">{{member.fullName}}</h1>
-                    <div v-for="talant in member.talants" :key="talant._id">
+                    <div  v-for="talant in member.talants" :key="talant._id">
                       <span>
-                        <img :src="'./img/instruments/'+talant+'.png'" alt="" width="25px;" height="25px;">                        
-                        </span>
+                        <img :src="'./img/instruments/'+talant+'.png'"  width="25px;" height="25px;">                        
+                      </span>
                     </div>   
                 </div>
             </div>
           </div>
         <div class="about">
-                <h2>{{group.about}}</h2>
-                <iframe allowtransparency="true" scrolling="no" frameborder="no" src="https://w.soundcloud.com/icon/?url=http%3A%2F%2Fsoundcloud.com%2Fnitzan-moise&color=orange_white&size=32" style="width: 32px; height: 32px;">
-                </iframe>
-            <h2>Looking for:</h2>      
-            <div v-for="need in needs" :key="need._id">
-                        <img :src="'./img/instruments/'+need+'.png'" alt="" width="100px;" height="100px;">                        
-                
-            </div>
+                <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/428166729&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+          <h3>Who are we?</h3>
+                <h4>{{group.about}}</h4>
+                <!-- <iframe allowtransparency="true" scrolling="no" frameborder="no" :src="'https://w.soundcloud.com/icon/?url=http%3A%2F%2Fsoundcloud.com%2F'+group.name+'&color=orange_white&size=32'" style="width: 32px; height: 32px;">
+                </iframe> -->
+        <div class="need">
+            <h3>Looking for:</h3> 
+              <div  v-for="need in needs" :key="need._id">
+                  <img  :src="'./img/instruments/'+need+'.png'" alt=""  width="40px;" height="40px;"> 
+                  Talent                      
+              </div>
+          <el-button type="text" class="button">Join The Band</el-button>
+              
         </div>  
-        </div>    
+      </div>    
+
+        </div>  
     </section>
 </div>
 </template>
@@ -102,6 +109,11 @@ display: flex;
   /* margin-left: 1%; */
   background-color: white;
 }
+.group-details{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
 .backround-img {
   display: flex;
   justify-content: space-around;
@@ -130,13 +142,19 @@ display: flex;
   border: solid rgb(199, 182, 182) 5px;
   background-size: cover;
   box-shadow: gray 1px inset;
-  margin-left: 25px;
+  margin-left: 24px;
 }
 .members-container {
   padding-left: 5%;
-  padding-top: 5%;
+  padding-top: 2%;
   display: flex;
   flex-direction: column;
+        width: 20%;
+        border-right: black solid 1px;
+  /* background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+         */
+  
   
 }
  .members-header{
@@ -149,11 +167,16 @@ display: flex;
     }
 .member-name-container h3{
     float: left;
+    
 }    
 .about {
-    margin-top: 10%;
-    font-size: 28px;
+    margin-top: 4%;
+    /* font-size: 28px; */
+        width: 35%;
+        padding-left: 5%;
+    
 }
+
 .member-name {
     font-family:Magettas Regular DEMO;
   cursor: pointer;
@@ -206,6 +229,29 @@ display: flex;
 .main-container{
     display: flex;
 }
+.need{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+    margin-top: 10%;
+        /* width: 8%; */
+    margin-left: 5%;
+        padding-left: 5%;
+    
+  
+}
+ .button {
+   font-size: 2em;
+   margin-top: 10%;
+   color: orange;
+    /* border: orange solid 1px; */
+  }
+/* .need div{
+  }
+.need-img{
+  margin-left: -20px;
+  
+} */
 @font-face {
     font-family: Condition3D-Italic;
     src: url('../../public/fonts/Condition3D-Italic.ttf');
