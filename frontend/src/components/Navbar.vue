@@ -64,6 +64,11 @@ export default {
   font-family: Magettas Regular DEMO;
   src: url("../../public/fonts/magettas-demo/Magettas Regular DEMO.otf");
 }
+  @font-face {
+  font-family: Shrikhand-Regular;
+  src: url("../../public/fonts/Shrikhand/Shrikhand-Regular.ttf");
+}
+
 .navbar{
   overflow: hidden;
     position: fixed; /* Set the navbar to fixed position */
@@ -80,30 +85,35 @@ button {
      /*border is optional*/
      /* border-bottom:1px solid #444;  */
      cursor: pointer;
-      font-family:Magettas Regular DEMO;
+     font-family: Shrikhand-Regular;
      text-decoration:none;
-     font-size: 1.5em;
-     line-height: 80PX;
+      font-size: 1.3em;
+     line-height: 70px;
   height: 80px;
 }
 li.el-menu-item {
   background-color: rgba(185, 171, 171, 1);
+  border: solid 1px black;
+}
+
+li.el-menu-item:first-child{
+  border-left: none;
 }
 a {
   font-family: "Interstate", "Lucida Grande", "Lucida Sans Unicode";
   text-decoration: none;
-  background-color: rgba(185, 171, 171, 1);
 }
+
 .el-menu{
-  height: 80px;
+  height: 70px;
 }
 .el-menu--horizontal>.el-menu-item{
   height: 100%;
 }
 a{
-  font-family:  Magettas Regular DEMO;
+ font-family: Shrikhand-Regular;
   text-decoration:none;
-  font-size: 1.5em;
+  font-size: 1.3em;
   line-height: 80px;
   height: 80px;
   
