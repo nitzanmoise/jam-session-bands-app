@@ -11,12 +11,12 @@
   <div class="covertext">
     <div class="col-lg-10" style="float:none; margin:0 auto;">
       <h1 class="title">Jam Session!</h1> 
-      <h3 class="subtitle">What is your talent?</h3>
+      <h3 class="subtitle">What is your music talent?</h3>
     </div>
     <div class="searchBar">
         <input type="text" v-model="search" @input='emitFilter' placeholder="Search Jam Session Groups" />
       <ul v-if="search">
-        <li v-if="search" v-for="group in groups" :key="group._id" @click="openGroupDetails(group._id)">{{ group.name }}</li>
+        <li v-if="search" v-for="group in groups" :key="group._id" @click="openGroupDetails(group._id)">{{group.name}} needs: {{ group.need.join(', ')}}</li>
       </ul>
     </div>
   </div>
@@ -112,8 +112,9 @@ margin-top: 30px;
   background-size: cover;
   background-repeat: no-repeat;
   height:500px;
-  margin-bottom: 40px;
+ 
 }
+
 
 @media (max-width:991px) {
   .carousel .background {

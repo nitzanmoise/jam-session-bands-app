@@ -1,10 +1,8 @@
 <template>
   <section class="group-list">
     <h1>Jam Session Groups</h1>
-      <div v-for="group in groups" :key="group._id" >
-        <div  @click="openGroupDetails(group._id)">
+      <div  v-for="group in groups" :key="group._id" >
         <GroupPreview :group="group"></GroupPreview>
-        </div>
       </div>
   </section>
 </template>
@@ -13,11 +11,6 @@
 import GroupPreview from '../components/GroupPreview.vue' 
 export default {
 props: ['groups'],
-methods: {
-openGroupDetails(groupId){
-  this.$router.push(`/GroupDetails/${groupId}`)
-}
-},
 components:{
     GroupPreview
   }
@@ -27,5 +20,11 @@ components:{
 <style scoped>
 h1{
   text-align: center;
+  font-size: 1.7em;
+  margin: 0px;
+  background-color: grey;
+  padding: 30px;
+  border-top: 1px solid white;
 }
+
 </style>

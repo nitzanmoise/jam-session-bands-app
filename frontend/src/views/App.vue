@@ -1,11 +1,12 @@
 <template>
 <div id="app">
   <header>
-        <nav-Bar :loginModal="loginModal"  @loginModal="loginModal = true" :joinModal="joinModal"  @joinModal="joinModal = true" ></nav-Bar>
+        <nav-Bar :loginModal="loginModal"  @loginModal="loginModal = true" :joinModal="joinModal"  @joinModal="joinModal = true" :group-create="groupCreate" @groupCreate="groupCreate= true" ></nav-Bar>
   </header>
-       <router-view></router-view>
+       <router-view class="groupList"></router-view>
        <log-in v-if="loginModal" @close="loginModal = false" @joinModal="joinModal = true, loginModal = false" ></log-in>
        <join-register v-if="joinModal" @close="joinModal = false" @loginModal="loginModal = true, joinModal = false"></join-register>
+       <group-create v-if="groupCreate" @close="groupCreate = false"></group-create>
         <user-msg></user-msg>
        <div>
     <footer>
@@ -20,6 +21,7 @@ import NavBar from "../components/Navbar.vue";
 import AppFooter from "../components/Footer.vue";
 import logIn from '../components/Login.vue';
 import joinRegister from '../components/join.vue';
+import groupCreate from '../components/GroupCreate.vue'
 import eventBus, {SHOW_MSG} from '../services/EventBusService.js'
 import EventBusService from '../services/EventBusService.js';
 import userMsg from '../components/UserMsg.vue'
@@ -35,7 +37,7 @@ export default {
     return {
       loginModal: false,
       joinModal: false,
-      guestLoginModal: false,
+      groupCreate: false,
     }
   },
   
@@ -54,7 +56,8 @@ export default {
     AppFooter,
     logIn,
     joinRegister,
-    userMsg
+    userMsg,
+    groupCreate
   }
 };
 </script>
@@ -71,10 +74,11 @@ export default {
 
 }
 *{
-  
   font-family: Magettas Regular DEMO;
 }
-
+.groupList{
+  border: 1px solid grey;
+}
 
 </style>
 

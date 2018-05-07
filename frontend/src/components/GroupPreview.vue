@@ -1,22 +1,23 @@
-<template functional>
+<template>
 
 <section  class="group-preview">
 
-  <el-col :span="6" :key="o" :offset="index > 0 ? 2 : 0">
+  <el-col :span="5" >
     <el-card :body-style="{ padding: '10px' }" class="card">
-        <span>{{props.group.name}}</span>
-      <img :src="props.group.image" class="image">
+        <span>{{group.name}}</span>
+      <img :src="group.image" class="image">
       <div style="padding: 14px;">
         <div class="bottom clearfix">
           <div class="seeking-container">
             <div class="seeking">
               <h3>Seeking:</h3>
             </div>      
-            <div v-for="need in props.group.need" :key="need._id">  
+            <div v-for="need in group.need" :key="need._id">  
                 <img class="icon" :src="'./img/instruments/'+need+'.png'" alt="" width="25px;" height="25px;">                        
             </div>
           </div>  
-          <el-button type="text" class="button">Join The Band</el-button>
+          <button @click="openGroupDetails(group._id)">View Group Details</button>
+          <button type="text" class="button">Join The Band</button>
         </div>
       </div>
     </el-card>
@@ -33,7 +34,7 @@
   src: url("../../public/fonts/magettas-demo/Magettas Regular DEMO.otf");
 }
 .card {
-    height:300px;
+    height:400px;
     width: 300px;
     margin: 20px;
       text-align: center;
@@ -98,7 +99,12 @@ span{
 
 <script>
 export default {
-
+  props: ['group'],
+methods: {
+openGroupDetails(groupId){
+  this.$router.push(`/GroupDetails/${groupId}`)
+}
+},
 }
 </script>
 
