@@ -87,6 +87,23 @@ function updateGroup(upadteFileds, _id) {
   });
 }
 
+function updateReqs(joinReq ,_id ){
+  console.log('inside edit user')
+  const updateObj = {
+    // $set: { member.reqs: joinReq }
+  }
+  _id = new mongo.ObjectID(_id);
+  return new Promise((resolve, reject) => {
+    DBService.dbConnect().then(dataBase => {
+      dataBase.collection("groups").updateOne({ _id }, updateObj, (err, updatedGroup) => {
+          if (err) return console.log('Update User Error!')
+          else resolve(updatedGroup);
+          dataBase.close();
+        });
+    });
+  });
+}
+
 function getBandMembersData(memberIds){
   var mongoIds = memberIds.map(id => new mongo.ObjectID(id) )
   return new Promise((resolve, reject) => {
@@ -107,5 +124,6 @@ module.exports = {
   getById,
   remove,
   updateGroup,
-  getBandMembersData
+  getBandMembersData,
+  updateReqs
 }

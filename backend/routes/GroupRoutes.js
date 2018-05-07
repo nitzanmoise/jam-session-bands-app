@@ -23,8 +23,8 @@ module.exports = app => {
     })
   })
 
-  // app.get(`${GROUP_URL}/user` , isLoggedIn, (req, res) => {
-  //   GroupService.query(req.session.user._id).then(groups => {
+  //` app.get(`${GROUP_URL}/user` , isLoggedIn, (req, res) => {
+  //`   GroupService.query(req.session.user._id).then(groups => {
   //     console.log('Groups: ', groups);
   //     res.json(groups)
   //   })
@@ -58,10 +58,19 @@ module.exports = app => {
   app.put(`${GROUP_URL}/:id`, function (req, res){
     const _id = req.params.id;
     const upadteFileds = req.body;
-    GroupService.updateGroup(upadteFileds,_id )
+    GroupService.updateGroup(upadteFileds, _id )
     .then(group=> res.json(group))
     .catch(err=> res.status(500).send(('Could not update group')))
   })
+
+  app.put(`${GROUP_URL}/:id/joinReq`, function (req, res){
+    const _id = req.params.id;
+    joinReq = req.body
+    GroupService.updateReqs(joinReq ,_id )
+    .then(group=> res.json(group))
+    .catch(err=> res.status(500).send(('Could not update group')))
+  })
+
 
 
 }

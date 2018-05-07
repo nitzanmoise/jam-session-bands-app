@@ -21,15 +21,21 @@ function getGroups(filter) {
             .catch(e => console.log('No Groups', e))
 }
 
-function saveGroup(group) {
-    if (group._id) return axios.put(GROUP_URL, group)
-    else return axios.post(GROUP_URL, group);  
+function updateGroup(groop) {
+    return axios.put(GROUP_URL+'/'+group._id, group)
+}
+
+function addGroup(group) {
+    return axios.post(GROUP_URL, group);  
 }
 
 function deleteGroup(groupId) {
     return axios.delete(_getGroupUrl(groupId))
 }
 
+function updateReqs(joinReq){
+    return axios.put(_getGroupUrl(joinReq.groupId)+'/joinReq', req)
+}
 
 function getGroupById(groupId) {
     return axios
@@ -48,9 +54,11 @@ function getGroupMembers(group){
 
 export default {
     getGroups,
-    saveGroup,
+    updateGroup,
+    addGroup,
     deleteGroup,
     emptyGroup,
     getGroupById,
-    getGroupMembers
+    getGroupMembers,
+    updateReqs
 }

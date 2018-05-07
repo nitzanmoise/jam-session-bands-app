@@ -58,18 +58,29 @@ export default {
         return group;
       });
     },
-    deleteGroup(store, { groupId }) {
+    deleteGroup(store, { group }) {
       return GroupService.deleteGroup(groupId).then(() => {
         store.commit({ type: "deleteGroup", groupId });
       });
     },
-    saveGroup(store, { group }) {
-      const isEdit = !!group.id;
-      return GroupService.saveGroup(group).then(group => {
-        if (isEdit) store.commit({ type: "updateGroup", group });
-        else store.commit({ type: "addGroup", group });
-        return group;
+    updateGroup(store, { groupId }) {
+      return GroupService.updateGroup(groupId).then(group => {
+      store.commit({ type: "updateGroup", group });
+      
       });
+    },
+    updateReqs(store, {joinReq}){
+         return GroupService.updateReqs(joinReq).then(reqs => {
+           console.log('this is updated reqs', reqs);
+           
+         })
+    },
+    addGroup(store, { group }){
+      return GroupService.addGroup(group).then(group => {
+
+        store.commit({ type: "addGroup", group });
+        return group;
+      })
     },
     getGroupMembers(store, {group}){
          return GroupService.getGroupMembers(group).then(members => {
