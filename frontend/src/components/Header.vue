@@ -97,6 +97,7 @@ ul{
 }
 
 
+
 input{
 padding:10px;
 width: 300px;
@@ -140,6 +141,7 @@ margin-top: 30px;
   font-size: 60px;
   color: orange;
   text-align: center;
+  margin-top: 100px;
 }
 
 .subtitle {

@@ -16,7 +16,7 @@ function getGroups(filter) {
                 } else  {
 
                 return res.data.filter( group=> 
-                    group.name.toLowerCase().includes(filter.toLowerCase())
+                    group.talent.toLowerCase().includes(filter.toLowerCase())
                 )}})
             .catch(e => console.log('No Groups', e))
 }

@@ -4,13 +4,9 @@
         <nav-Bar :loginModal="loginModal"  @loginModal="loginModal = true" :joinModal="joinModal"  @joinModal="joinModal = true" ></nav-Bar>
   </header>
        <router-view></router-view>
-       <div>
-             <div v-if="alive" class="alert" :class="alertClass" >
-             {{msg.txt}}
-      </div>
        <log-in v-if="loginModal" @close="loginModal = false" @joinModal="joinModal = true, loginModal = false" ></log-in>
        <join-register v-if="joinModal" @close="joinModal = false" @loginModal="loginModal = true, joinModal = false"></join-register>
-       </div>
+        <user-msg></user-msg>
        <div>
     <footer>
        <app-footer></app-footer>
@@ -26,27 +22,23 @@ import logIn from '../components/Login.vue';
 import joinRegister from '../components/join.vue';
 import eventBus, {SHOW_MSG} from '../services/EventBusService.js'
 import EventBusService from '../services/EventBusService.js';
+import userMsg from '../components/UserMsg.vue'
 
 export default {
+  created(){
+ if (sessionStorage.user) {
+            this.$store.commit({type: 'setUser', user: JSON.parse(sessionStorage.user)})
+        }
+
+  },
   data (){
     return {
       loginModal: false,
       joinModal: false,
       guestLoginModal: false,
-      alive : false,
-      msg: null
     }
   },
-  created (){
-    EventBusService.$on(SHOW_MSG, (msg) => {
-       this.msg = msg;
-            var delay = msg.delay || 2000;
-            this.alive = true;
-            setTimeout(() => {
-                this.alive = false;
-            }, delay)
-        })
-  },
+  
   methods: {
     filterGroups(filter) {
       this.$store.commit({
@@ -56,18 +48,13 @@ export default {
       this.$store.dispatch({ type: "loadGroups" });
     }
   },
-  computed: {
-        alertClass() {
-            if (!this.msg) return;
-            return `alert-${this.msg.type}`
-        }
-    },
 
   components: {
     NavBar,
     AppFooter,
     logIn,
     joinRegister,
+    userMsg
   }
 };
 </script>

@@ -1,12 +1,17 @@
-import EventBusService, {SHOW_MSG} from '../services/EventBusService.js'
 
-export default {
-    template: `
-    <div v-if="alive" class="alert" :class="alertClass" >
+
+
+
+<template>
+  <div v-if="alive" class="alert" :class="alertClass" >
         {{msg.txt}}
-    </div>
-    `,
-    created() {
+</div>
+</template>
+
+<script>
+import EventBusService, {SHOW_MSG} from '../services/EventBusService.js'
+export default {
+created() {
         EventBusService.$on(SHOW_MSG, msg=>{
             // console.log('show-msg', msg);
             this.msg = msg;
@@ -30,3 +35,11 @@ export default {
         }
     }
 }
+
+</script>
+
+<style>
+
+</style>
+
+
