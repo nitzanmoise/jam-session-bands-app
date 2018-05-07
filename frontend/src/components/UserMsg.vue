@@ -9,37 +9,40 @@
 </template>
 
 <script>
-import EventBusService, {SHOW_MSG} from '../services/EventBusService.js'
+import $ from "jquery";
+import EventBusService, { SHOW_MSG } from "../services/EventBusService.js";
 export default {
-created() {
-        EventBusService.$on(SHOW_MSG, msg=>{
-            // console.log('show-msg', msg);
-            this.msg = msg;
-            var delay = msg.delay || 2000;
-            this.alive = true;
-            setTimeout(() => {
-                this.alive = false;
-            }, delay)
-        })
-    },
-    data() {
-        return {
-            alive : false,
-            msg: null
-        }
-    },
-    computed: {
-        alertClass() {
-            if (!this.msg) return;
-            return `alert-${this.msg.type}`
-        }
+  created() {
+    EventBusService.$on(SHOW_MSG, msg => {
+      console.log({ msg });
+     this.$swal({
+         background: "orange",
+        title: msg.txt,
+        position: "center",
+        showConfirmButton: false,
+        timer: 3000
+      });
+    });
+  },
+  data() {
+    return {
+      alive: false,
+      msg: null
+    };
+  },
+  computed: {
+    alertClass() {
+      if (!this.msg) return;
+      return `alert-${this.msg.type}`;
     }
-}
-
+  }
+};
 </script>
 
 <style>
-
+.sweet-alert {
+  background-color: rgb(255, 255, 255);
+}
 </style>
 
 

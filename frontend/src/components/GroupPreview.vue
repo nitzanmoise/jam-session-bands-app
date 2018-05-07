@@ -44,6 +44,8 @@
 span{
     /* font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
     margin: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
 }
   
   .bottom {
@@ -62,7 +64,7 @@ span{
     display: block;
     padding-left: 15%;
     width:200px;
-    height: 150px;
+    height: 180px;
     margin-top: 10px;
   }
 
@@ -84,6 +86,10 @@ span{
   }
   .seeking{
     padding-bottom: 5px;
+  }
+
+  h3{
+    font-weight: normal;
   }
   .icon{
     margin-top: 12px;

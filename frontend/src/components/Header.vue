@@ -96,8 +96,6 @@ ul{
   align-items: center;
 }
 
-
-
 input{
 padding:10px;
 width: 300px;
@@ -111,7 +109,7 @@ margin-top: 30px;
 
 .carousel .background {
   background-position: center center;
-  background-size: 100% 100%;
+  background-size: cover;
   background-repeat: no-repeat;
   height:500px;
   margin-bottom: 40px;

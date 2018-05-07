@@ -44,7 +44,8 @@ export default {
 
  data() {
         return {
-            user: {email: 'guest@guest.com', password: 'guest'}
+            user: {email: '', password: ''},
+            guest: {email: 'guest@guest.com', password: 'guest'}
         }
     },
     created() {
@@ -54,28 +55,31 @@ export default {
     methods: {
         checkLogin() {
             this.$store.dispatch({type: 'login', userCredentials:this.user})
-            .then(res => {
+            .then(loggedinUser => {
                 console.log('You have been logged-in!')
-                EventBusService.$emit(SHOW_MSG, {txt: `Welcome ${this.user.name}`});
+                EventBusService.$emit(SHOW_MSG, {txt: `Welcome ${loggedinUser.fullName}!`});
                   this.$router.push('/');
+                  this.$emit('close');
             })
             .catch(err => {
                 console.log('Login Failed!');
+                this.$emit('close');
                 EventBusService.$emit(SHOW_MSG, {txt: `Wrong Credentials, please try again`, type: 'danger'});
                 this.$refs.txtEmail.focus();
             })
            
         },
         logInAsGuest(){
-          this.$store.dispatch({type: 'login', userCredentials:this.user})
-            .then(res => {
+          this.$store.dispatch({type: 'login', userCredentials:this.guest})
+            .then(loggedinUser => {
                 console.log('You have been logged-in!')
-                EventBusService.$emit(SHOW_MSG, {txt: `Welcome ${this.user.name}`});
+                EventBusService.$emit(SHOW_MSG, {txt: `Welcome ${loggedinUser.fullName}`});
                   this.$router.push('/');
                   this.$emit('close');
             })
             .catch(err => {
                 console.log('Login Failed!');
+                 this.$emit('close');
                 EventBusService.$emit(SHOW_MSG, {txt: `Wrong Credentials, please try again`, type: 'danger'});
                 this.$refs.txtEmail.focus();
             })
@@ -149,6 +153,7 @@ input{
   margin-bottom: 20px;
   margin-left: 0px;
   font-family: "Open Sans", Helvetica;
+  width:286px;
 }
 form{
   display: flex;

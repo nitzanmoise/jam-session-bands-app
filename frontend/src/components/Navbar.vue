@@ -32,6 +32,9 @@
 </template>
 
 <script>
+import EventBusService, { SHOW_MSG } from '../services/EventBusService.js'
+
+
 export default {
   props: ["loginModal", "joinModal"],
   data() {
@@ -46,6 +49,7 @@ export default {
     },
     logout() {
       console.log("Logging out!");
+      EventBusService.$emit(SHOW_MSG, {txt: `You Logged Out!`, type: 'danger'});
       this.$store.dispatch("logout").then(() => {
         this.$router.push("/");
       });

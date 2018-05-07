@@ -42,6 +42,7 @@ export default {
           return UserService.login(userCredentials)
           .then(user=>{
             store.commit({type: 'setUser', user});
+            return store.state.loggedinUser
           })
         },
         logout(store) {
