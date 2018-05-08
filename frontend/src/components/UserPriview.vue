@@ -5,22 +5,20 @@
   <el-col :span="6">
     <el-card :body-style="{ padding: '10px' }" class="card">
       <div @click="openUserDetails(user._id)">
-        <span>{{user.name}}</span>
+        <span>{{user.fullName}}</span>
       <img :src="user.image" class="image">
       </div>
       <div style="padding: 14px;">
         <div class="bottom clearfix">
           <div class="seeking-container">
             <div class="seeking">
-              <h3>Seeking:</h3>
+              <h3>Talents</h3>
             </div>      
-            <div v-for="need in user.need" :key="need._id">  
-                <img class="icon" :src="'./img/instruments/'+need+'.png'" alt="" width="25px;" height="25px;">                        
+            <div v-for="talant in user.talants" :key="talant._id">  
+                <img class="icon" :src="'./img/instruments/'+talant+'.png'" alt="" width="25px;" height="25px;">                        
             </div>
           </div>  
-          <el-button  type="text" class="button">Join The Band</el-button>
-          <button @click="openUserDetails(user._id)">View User Details</button>
-          <button type="text" class="button">Join The Band</button>
+          <el-button type="text" class="button">Ask To Join Your Band!</el-button>
         </div>
       </div>
     </el-card>

@@ -39,8 +39,6 @@ function getUsers() {
   return axios
           .get(USER_URL)
           .then(res => { 
-              console.log('this is users' ,res.data);
-              
              return res.data 
           })
           .catch(e => console.log('No Users', e))
