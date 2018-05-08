@@ -21,11 +21,11 @@
         <div class="groups-container">
             <h1 class="groups-header">Groups</h1>
             <div v-for="group in groups" :key="group._id" >
-                <div class="group-img-container"  @click="goToGroupDetails(group._id)">
+                <div class="group-img-container"  @click="goToGroupEdit(group._id)">
                     <img :src="group.image" class="group-image">
                 </div>
                 <div class="group-name-container">
-                <h1 class="group-name" @click="goToGroupDetails(group._id)">{{group.name}}</h1>
+                <h1 class="group-name" @click="goToGroupEdit(group._id)">{{group.name}}</h1>
                     <h5>a</h5>
                 </div>
             </div>
@@ -36,7 +36,7 @@
             </iframe>
             </div>
         </div>    
-        <button class="addMember" @click="addMember"> Add a Member</button>
+        <!-- <button class="addMember" @click="addMember"> Add a Member</button> -->
     </section>
 </div>
 </template>
@@ -58,9 +58,9 @@ export default {
       }
    },
   methods:{
-      goToGroupDetails(id){
+      goToGroupEdit(id){
        console.log('this is group id', id);
-        this.$router.push(`/GroupDetails/${id}`)
+        this.$router.push(`/Group/Edit/${id}`)
           
       }
   },
