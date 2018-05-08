@@ -36,7 +36,7 @@
             </iframe>
             </div>
         </div>    
-        <button class="addMember" @click="addMember"> Add a Member</button>
+        <!-- <button class="addMember" @click="addMember"> Add a Member</button> -->
     </section>
 </div>
 </template>
