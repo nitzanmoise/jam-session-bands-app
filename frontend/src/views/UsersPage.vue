@@ -1,14 +1,14 @@
 <template>
 
 <section class="usersPage">
- <Header @filtered="filterUsers" :users="users"></Header>
+ <users-header @filtered="filterUsers" :users="users"></users-header>
  <UserList :users="users"></UserList>
 </section>
 
 </template>
 
 <script>
-import Header from "../components/Header.vue";
+import UsersHeader from "../components/UsersHeader.vue";
 import UserList from "../components/UserList.vue";
 import Footer from "../components/Footer.vue";
 export default {
@@ -33,7 +33,7 @@ export default {
   components: {
     UserList,
     Footer,
-    Header
+    UsersHeader
   }
 };
 </script>

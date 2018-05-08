@@ -18,14 +18,14 @@
                 
         </div>
         <div class="main-container">
-        <div class="users-container">
-            <h1 class="users-header">Users</h1>
-            <div v-for="user in users" :key="user._id" >
-                <div class="user-img-container"  @click="goToUserDetails(user._id)">
-                    <img :src="user.image" class="user-image">
+        <div class="groups-container">
+            <h1 class="groups-header">Groups</h1>
+            <div v-for="group in groups" :key="group._id" >
+                <div class="group-img-container"  @click="goToGroupDetails(group._id)">
+                    <img :src="group.image" class="group-image">
                 </div>
-                <div class="user-name-container">
-                <h1 class="user-name" @click="goToUserDetails(user._id)">{{user.name}}</h1>
+                <div class="group-name-container">
+                <h1 class="group-name" @click="goToGroupDetails(group._id)">{{group.name}}</h1>
                     <h5>a</h5>
                 </div>
             </div>
@@ -36,6 +36,7 @@
             </iframe>
             </div>
         </div>    
+        <button class="addMember" @click="addMember"> Add a Member</button>
     </section>
 </div>
 </template>
@@ -45,18 +46,21 @@ export default {
   data() {
     return {
       user: {},
-      users: {},
+      groups: {},
     };
   },
    computed: {
           genres(){
             return  this.user.genre
+      },
+      addMember(){
+        
       }
    },
   methods:{
-      goToUserDetails(id){
-       console.log('this is user id', id);
-        this.$router.push(`/UserDetails/${id}`)
+      goToGroupDetails(id){
+       console.log('this is group id', id);
+        this.$router.push(`/GroupDetails/${id}`)
           
       }
   },
@@ -66,9 +70,9 @@ export default {
     this.$store.dispatch({ type: "getUserById", userId }).then(user => {
       console.log("this i user", user);
       this.user = user;
-      this.$store.dispatch({ type: "getUserUsers", user }).then(users => {
-        console.log("this is user users", users.data);
-        this.users = users.data;
+      this.$store.dispatch({ type: "getUserGroups", user }).then(groups => {
+        console.log("this is user groups", groups.data);
+        this.groups = groups.data;
       });
     });
   }
@@ -105,7 +109,7 @@ display: flex;
   padding-top: 5%;
   padding-bottom: 2%;
 }
-.user-image {
+.group-image {
   width: 25%;
   cursor: pointer;
   border-radius: 50%;
@@ -114,13 +118,13 @@ display: flex;
   box-shadow: gray 1px inset;
   margin-left: 25px;
 }
-.users-container {
+.groups-container {
   padding-left: 5%;
   padding-top: 5%;
   display: flex;
   flex-direction: column;
 }
-.users-header {
+.groups-header {
   font-family: Painting_With_Chocolate;
   color: orange;
   font-size: 2em;
@@ -132,7 +136,7 @@ display: flex;
   margin-top: 10%;
   font-size: 28px;
 }
-.user-name {
+.group-name {
   font-family: Condition3D-Italic;
   cursor: pointer;
   width: 35%;

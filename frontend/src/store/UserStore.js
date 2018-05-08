@@ -46,18 +46,13 @@ export default {
           })
         },
         logout(store) {
-            console.log(store);
             return UserService.logout()
             .then(()=>{
               store.commit({type: 'setUser', user: null});
             })
           },
           loadUsers(store) {
-            console.log("nitzan");
-      
             return UserService.getUsers().then(users => {
-              console.log("users", users);
-      
               store.commit({ type: "setUsers", users });
             });
           },
