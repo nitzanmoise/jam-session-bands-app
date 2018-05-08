@@ -27,6 +27,10 @@
         <button tag='a' id='show-modal' @click='logout' >Log Out</button>
       </el-menu-item>
       
+      <el-menu-item index='6' v-if='$store.getters.loggedinUser'>
+        <button tag='a' id='show-modal' @click='routeToMyProfile($store.getters.loggedinUser._id)' >My Profile</button>
+      </el-menu-item>
+      
       
   <!-- </div> -->
 </el-menu>
@@ -48,6 +52,9 @@ export default {
   methods: {
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
+    },
+    routeToMyProfile(id){
+      this.$router.push(`/UserEdit/${id}`);
     },
     logout() {
       console.log('Logging out!');
