@@ -27,28 +27,26 @@
                 <div class="member-name-container">
                     <h1 class="member-name" @click="goToMemberDetails(member._id)">{{member.fullName}}</h1>
                     <div  v-for="talant in member.talants" :key="talant._id">
-                      <span>
-                        <img :src="'./img/instruments/'+talant+'.png'"  width="25px;" height="25px;">                        
-                      </span>
+                        <img :src="'./img/instruments/'+talant+'.png'" :title="talant" alt="" width="25px;" height="25px;">                        
                     </div>   
                 </div>
             </div>
           </div>
         <div class="about">
                 <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/428166729&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
-          <h3>Who are we?</h3>
-                <h4>{{group.about}}</h4>
+          <h1>Who are we?</h1>
+                <h3>{{group.about}}</h3>
                 <!-- <iframe allowtransparency="true" scrolling="no" frameborder="no" :src="'https://w.soundcloud.com/icon/?url=http%3A%2F%2Fsoundcloud.com%2F'+group.name+'&color=orange_white&size=32'" style="width: 32px; height: 32px;">
                 </iframe> -->
-        <div class="need">
-            <h3>Looking for:</h3> 
-              <div  v-for="need in needs" :key="need._id">
-                  <img  :src="'./img/instruments/'+need+'.png'" alt=""  width="40px;" height="40px;"> 
-                  Talent                      
-              </div>
-          <el-button type="text" class="button">Join The Band</el-button>
               
         </div>  
+        <div class="need">
+            <h3>Looking for:</h3> 
+              <div class="need-img" v-for="need in needs" :key="need._id">
+                  <img  :src="'./img/instruments/'+need+'.png'" alt=""  width="25px;" height="25px;">
+                  <h3>Talent</h3> 
+              </div>
+          <el-button type="text" class="button">Join The Band</el-button>
       </div>    
 
         </div>  
@@ -121,7 +119,7 @@ display: flex;
   background-size: cover;
   background-position: bottom;
   width: 100%;
-  height: 20%;
+  height: 25%;
 }
 .group-image {
   width: 35%;
@@ -130,19 +128,19 @@ display: flex;
   box-shadow: gray 1px inset;
 }
 .img-container {
-  width: 55%;
+  /* width: 55%; */
 
   padding-top: 5%;
   padding-bottom: 2%;
 }
 .member-image {
-  width: 25%;
+  width: 30%;
   cursor: pointer;
   border-radius: 50%;
   border: solid rgb(199, 182, 182) 5px;
   background-size: cover;
   box-shadow: gray 1px inset;
-  margin-left: 24px;
+  /* margin-left: 24px; */
 }
 .members-container {
   padding-left: 5%;
@@ -166,9 +164,12 @@ display: flex;
    padding: 10px;
     }
 .member-name-container h3{
-    float: left;
-    
-}    
+    float: left;  
+} 
+.member-name-container img {
+      padding: 20px;
+
+}   
 .about {
     margin-top: 4%;
     /* font-size: 28px; */
@@ -180,7 +181,7 @@ display: flex;
 .member-name {
     font-family:Magettas Regular DEMO;
   cursor: pointer;
-    width: 35%;
+    /* width: 35%; */
   text-align: center;
   float: left;
   
@@ -230,20 +231,29 @@ display: flex;
     display: flex;
 }
 .need{
-  display: flex;
+  /* display: flex; */
   flex-direction: row;
   justify-content: space-around;
-    margin-top: 10%;
+    margin-top: 3%;
         /* width: 8%; */
     margin-left: 5%;
-        padding-left: 5%;
     
   
 }
+.need-img {
+  margin-left: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+.need-img img{
+  margin-right: 15px;
+  padding-top: 10px;
+}
  .button {
-   font-size: 2em;
-   margin-top: 10%;
+   font-size: 1.5em;
+   /* margin-top: 10%; */
    color: orange;
+       margin-top: 40%;
     /* border: orange solid 1px; */
   }
 /* .need div{

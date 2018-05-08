@@ -5,7 +5,7 @@ var DBService = require("./DBService");
 // DBService.dbConnect()
 //     .then( db => {
 //       db.collection('users')
-//         .updateMany({}, {$set: {joinReqs : []}}, function (){
+//         .updateMany({ "talants" : Bass}, function (){
 //         console.log('asdasdasd')
 //       })
 //     })
