@@ -64,7 +64,7 @@ export default {
             .catch(err => {
                 console.log('Login Failed!');
                 this.$emit('close');
-                EventBusService.$emit(SHOW_MSG, {txt: `Wrong Credentials, please try again`, type: 'danger'});
+                EventBusService.$emit(SHOW_MSG, {txt: `Wrong Credentials, please try again`, type: 'error'});
                 this.$refs.txtEmail.focus();
             })
            
@@ -73,14 +73,14 @@ export default {
           this.$store.dispatch({type: 'login', userCredentials:this.guest})
             .then(loggedinUser => {
                 console.log('You have been logged-in!')
-                EventBusService.$emit(SHOW_MSG, {txt: `Welcome ${loggedinUser.fullName}`});
+                EventBusService.$emit(SHOW_MSG, {txt: `Welcome ${loggedinUser.fullName}`, type:'success'});
                   this.$router.push('/');
                   this.$emit('close');
             })
             .catch(err => {
                 console.log('Login Failed!');
                  this.$emit('close');
-                EventBusService.$emit(SHOW_MSG, {txt: `Wrong Credentials, please try again`, type: 'danger'});
+                EventBusService.$emit(SHOW_MSG, {txt: `Wrong Credentials, please try again`, type: 'error'});
                 this.$refs.txtEmail.focus();
             })
            
