@@ -25,17 +25,7 @@ export default new Router({
       name: 'home',
       component: Home
     },
-    // {
-    //   path: '/Login',
-    //   name: 'login',
-    //   component: Login
-    // },
-    
-    // {
-    //   path: '/Join',
-    //   name: 'Join',
-    //   component: Join
-    // },
+   
     
     {
       path: '/UserEdit/:id',
