@@ -36,7 +36,7 @@
             </iframe>
             </div>
         </div>    
-        <button class="addMember" @click="addMember"> Add a Member</button>
+        <!-- <button class="addMember" @click="addMember"> Add a Member</button> -->
     </section>
 </div>
 </template>
@@ -53,9 +53,9 @@ export default {
           genres(){
             return  this.user.genre
       },
-      addMember(){
+      // addMember(){
         
-      }
+      // }
    },
   methods:{
       goToGroupDetails(id){
@@ -83,7 +83,7 @@ export default {
 .user-details-container {
   font-family: "Interstate", "Lucida Grande", "Lucida Sans Unicode",
     "Lucida Sans", Garuda, Verdana, Tahoma, sans-serif;
-display: flex;
+  display: flex;
   flex-flow: column;
   width: 100%;
   height: 100%;

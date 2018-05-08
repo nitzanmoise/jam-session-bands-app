@@ -28,7 +28,9 @@
       </el-menu-item>
       
       <el-menu-item index='6' v-if='$store.getters.loggedinUser'>
+        
         <button tag='a' id='show-modal' @click='routeToMyProfile($store.getters.loggedinUser._id)' >My Profile</button>
+          <a href="" class="badge1" data-badge="27"></a>
       </el-menu-item>
       
       
@@ -58,9 +60,9 @@ export default {
     },
     logout() {
       console.log('Logging out!');
-      EventBusService.$emit(SHOW_MSG, {txt: `You Logged Out!`, type: 'danger'});
-      this.$store.dispatch('logout').then(() => {
         this.$router.push('/');
+      EventBusService.$emit(SHOW_MSG, {txt: `You Logged Out!`, type: 'error'});
+      this.$store.dispatch('logout').then(() => {
       });
     }
   },
@@ -134,6 +136,28 @@ a{
 
 li.el-menu-item:hover {
   background-color: rgba(0, 0, 0, 1);
+}
+
+
+/* BADGE CSS */
+.badge1 {
+   position:relative;
+   font-family: Verdana, Geneva, Tahoma, sans-serif;
+   font-size: 1em
+}
+.badge1[data-badge]:after {
+   content:attr(data-badge);
+   position:absolute;
+   top:-20px;
+   right:-15px;
+   font-size:.7em;
+   background:orange;
+   color:white;
+   width:18px;height:18px;
+   text-align:center;
+   line-height:18px;
+   border-radius:50%;
+   box-shadow:0 0 1px #333;
 }
 </style>
 

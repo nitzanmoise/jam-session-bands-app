@@ -16,8 +16,8 @@
                   <label for="password"> Password:  </label><input name= "password" type="password" placeholder="Enter Your Password" v-model="user.password"/>
                  <button class="submit" type="submit" :disabled="!this.user.email || !this.user.password">Log-In</button>
                        <h4>-Or-</h4> 
-                 <button class="guestLogIn" @click="logInAsGuest"> Log In as a Guest</button>
             </form>
+                 <button class="guestLogIn" @click="logInAsGuest"> Log In as a Guest</button>
             </slot>
           </div>
           <div class="modal-footer">
@@ -63,7 +63,6 @@ export default {
             })
             .catch(err => {
                 console.log('Login Failed!');
-                this.$emit('close');
                 EventBusService.$emit(SHOW_MSG, {txt: `Wrong Credentials, please try again`, type: 'error'});
                 this.$refs.txtEmail.focus();
             })
@@ -79,8 +78,7 @@ export default {
             })
             .catch(err => {
                 console.log('Login Failed!');
-                 this.$emit('close');
-                EventBusService.$emit(SHOW_MSG, {txt: `Wrong Credentials, please try again`, type: 'error'});
+                EventBusService.$emit(SHOW_MSG, {txt: `There was an error logging you in! sorry!`, type: 'error'});
                 this.$refs.txtEmail.focus();
             })
            
