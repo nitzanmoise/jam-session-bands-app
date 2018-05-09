@@ -45,7 +45,7 @@ module.exports = app => {
       if (userFromDB) {
         delete userFromDB.password;
         req.session.user = userFromDB;
-
+        
         res.json({ token: "Beareloginr: puk115th@b@5t", user: userFromDB });
       } else {
         req.session.user = null;

@@ -4,7 +4,7 @@
     <h1>Jam Session Groups</h1>
     <div class="groups-container">
       <div  v-for="group in groups" :key="group._id" class="group">
-        <GroupPreview :group="group"></GroupPreview>
+        <GroupPreview @openLogin = "openLogin" :group="group"></GroupPreview>
       </div>
       </div>
   </section>
@@ -14,6 +14,11 @@
 import GroupPreview from "../components/GroupPreview.vue";
 export default {
   props: ["groups"],
+  methods:{
+    openLogin(){
+      this.$emit('openLogin')
+    }
+  },
   components: {
     GroupPreview
   }
@@ -35,8 +40,11 @@ h1 {
 .group {
   display: flex;
   flex-flow: column wrap;
-
-  margin-bottom: 50px;
+  border-radius: 20px;
+  margin: 20px;
+  text-align: center;
+  box-shadow: 2px 4px 54px 0px rgba(0,0,0,0.62);
+  background-color: #eeeeee;
 
 }
 

@@ -113,7 +113,7 @@ function addUser(user) {
     DBService.dbConnect().then(db => {
       db
         .collection("users")
-        .findOne({ name: user.name }, function(err, userFromDB) {
+        .findOne({ name: user.fullName }, function(err, userFromDB) {
           // If name is already used!
           if (userFromDB) {
             // console.log("Name is already used!");
@@ -131,18 +131,20 @@ function addUser(user) {
   });
 }
 
-function updateUser(upadteFileds, _id) {
-  // console.log("inside edit user");
+function updateUser(updateFields, _id) {
+  // delete updateFields._id
+  updateFields._id = new mongo.ObjectID(updateFields._id);
   const updateObj = {
-    $set: upadteFileds
+    $set: updateFields
   };
-  _id = new mongo.ObjectID(_id);
   return new Promise((resolve, reject) => {
     DBService.dbConnect().then(dataBase => {
+      console.log();
       dataBase
         .collection("users")
-        .updateOne({ _id }, updateObj, (err, updatedUser) => {
-          if (err) return console.log("Update User Error!");
+        .updateOne({ _id: updateFields._id }, updateObj, (err, updatedUser) => {
+          console.log("INSIDE UPDATE USERRRRRRRRRR");
+          if (err) return console.log("Update Group Error!");
           else resolve(updatedUser);
           dataBase.close();
         });

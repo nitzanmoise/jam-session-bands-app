@@ -125,21 +125,28 @@ function updateGroup(updateFields, _id) {
 }
 
 function sendJoinReqs({ joinReq, admins }) {
+  var askerId = new mongo.ObjectID(joinReq.askerId)
   var adminsIds = admins.map(({ id }) => new mongo.ObjectID(id));
-  return new Promise((resolve, reject) => {
-    DBService.dbConnect().then(db => {
+  // return new Promise((resolve, reject) => {
+   return  DBService.dbConnect().then(db => {
       db
         .collection("users")
         .updateMany(
           { _id: { $in: adminsIds } },
-          { $push: { joinReqs: joinReq } },
-          (err, result) => {
-            if (err) reject(err);
-            else resolve(result.result);
-          }
-        );
+          { $push: { joinReqs: joinReq } }
+        )
+        .then(res => {
+        return  db
+          .collection("users")
+          .updateOne({_id: askerId},{$push: { sentReqsToJoinBands: joinReq }})
+        })
+          // (err, result) => {
+          //   if (err) reject(err);
+          //   else resolve(result.result);
+          // }
+        
     });
-  });
+  // });
 }
 
 function getBandMembersData(memberIds) {

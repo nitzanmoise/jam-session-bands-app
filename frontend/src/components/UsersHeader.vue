@@ -14,9 +14,9 @@
       <h3 class="subtitle">What Talents Are You Looking For?</h3>
     </div>
     <div class="searchBar">
-        <input type="text" v-model="search" @input='emitFilter' placeholder="Search Jam Session Groups" />
+        <input type="text" v-model="search" @input='emitFilter' placeholder="Search Users Talents" />
       <ul v-if="search">
-        <li v-if="search" v-for="group in groups" :key="group._id" @click="openGroupDetails(group._id)">{{group.name}} needs: {{ group.need.join(', ')}}</li>
+        <li v-if="search" v-for="user in users" :key="user._id" @click="openUserDetails(user._id)">{{user.fullName}} Plays: {{ user.talants.join(', ')}}</li>
       </ul>
     </div>
   </div>
@@ -31,7 +31,7 @@
 
 var _ = require('lodash');
 export default {
-  props:['groups'],
+  props:['users'],
    data() {
         return {
             search: ''
@@ -41,8 +41,8 @@ methods:{
         emitFilter(){
             this.$emit('filtered',this.search);
         },
-        openGroupDetails(groupId){
-        this.$router.push(`/GroupDetails/${groupId}`)
+        openUserDetails(Id){
+        this.$router.push(`/UserDetails/${groupId}`)
         }
         // searchBy:_.debounce(function (e) {
         //         this.emitFilter();
