@@ -11,8 +11,8 @@ module.exports = app => {
       .catch(() => res.status(500).send("problem getting users"));
   });
 
-  app.put(`${UER_URL}/:id/groupjoinReq`, function(req, res) {
-    UserService.sendGroupJoinReq(req.body)
+  app.put(`${USER_URL}/groupjoinReq`, function(req, res) {
+    UserService.sendGroupJoinReq(req.body.groupJoinReq)
       .then(result => {
         res.json(result);
       })
@@ -23,7 +23,7 @@ module.exports = app => {
 
   app.get(`${USER_URL}/:id`, (req, res) => {
     const userId = req.params.id;
-    console.log({ userId });
+    // console.log({ userId });
     UserService.getById(userId)
       .then(selectedUser => res.json(selectedUser))
       .catch(() => res.status(500).send("problem"));

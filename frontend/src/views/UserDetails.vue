@@ -17,7 +17,7 @@
                 </div>
                 
         </div>
-        <div class="main-container">
+    <div class="main-container">
         <div class="groups-container">
             <h1 class="groups-header">My Groups</h1>
             <div v-for="group in groups" :key="group._id" >
@@ -35,15 +35,20 @@
             <iframe allowtransparency="true" scrolling="no" frameborder="no" src="https://w.soundcloud.com/icon/?url=http%3A%2F%2Fsoundcloud.com%2Fnitzan-moise&color=orange_white&size=32" style="width: 32px; height: 32px;">
             </iframe>
             </div>
-      <div v-if="currLoggedInUser">
+      <div v-if="currLoggedInUser && joinReqs.length > 0">
            <h1>Join requets:</h1>
            <div v-for="req in joinReqs" :key="req.createdAt">
             <span @click="goToAsker(req.asker._id)">{{req.asker.fullName}}</span> asked to join {{req.group.name}}
-            <button @click="deleteReq(user._id, req.createdAt)" >Cancel</button><button @click="addAskerToGroupMembers(req.asker._id, req.group._id); deleteReq(user._id, req.createdAt)" >Agree</button>
+            <button @click="deleteReq(user._id, req.createdAt)">Cancel</button><button @click="addAskerToGroupMembers(req.asker._id, req.group._id); deleteReq(user._id, req.createdAt)" >Agree</button>
            </div>
-      </div>  
-        </div>    
-        <!-- <button class="addMember" @click="addMember"> Add a Member</button> -->
+      </div>
+      <div v-if="currLoggedInUser && groupReqs.length > 0">
+         <div class="groupJoinReqs" v-for="groupReq in groupReqs" :key="groupReq.createdAt">
+          <span @click="goToGroupDetails(groupReq.group._id)">{{groupReq.group.name}}</span> wants you to join them!
+          <button  @click="deleteReq(user._id, groupReq.createdAt)">Cancel</button><button @click="addAskerToGroupMembers(user._id, groupReq.group._id); deleteReq(user._id, groupReq.createdAt) ">Agree</button>
+        </div>
+      </div>    
+  </div>    
     </section>
 </div>
 </template>
@@ -54,7 +59,8 @@ export default {
     return {
       user: {},
       groups: {},
-      joinReqs: []
+      joinReqs: [],
+      groupReqs: []
     };
   },
   computed: {
@@ -102,7 +108,10 @@ export default {
   created() {
     var userId = this.$route.params.id;
     this.$store.dispatch({ type: "getUserById", userId }).then(user => {
+      console.log("this is userrrrrrrrrrrrrrrrrrr", user);
+
       this.user = user;
+
       this.$store.dispatch({ type: "getUserGroups", user }).then(groups => {
         this.groups = groups.data;
       });
@@ -113,11 +122,11 @@ export default {
           type: "getUserById",
           userId: askerId
         });
-        var groupJoinPrm = this.$store.dispatch({
+        var groupToJoinPrm = this.$store.dispatch({
           type: "getGroupById",
           groupId
         });
-        return Promise.all([askerPrm, groupJoinPrm, createdAt]);
+        return Promise.all([askerPrm, groupToJoinPrm, createdAt]);
       }
     );
 
@@ -127,8 +136,24 @@ export default {
           return { asker, group, createdAt };
         })
       )
-      .then(reqs => (this.joinReqs = reqs)); // this.loggedinUser.joinReqs.forEach(joinReq => {
+      .then(reqs => (this.joinReqs = reqs));
     console.log("thi is this.joinReqs", this.joinReqs);
+
+    var groupJoinReqPrms = this.loggedinUser.groupJoinReq.map(
+      ({ groupId, userId, createdAt }) => {
+        return this.$store
+          .dispatch({
+            type: "getGroupById",
+            groupId
+          })
+          .then(group => {
+            return { group, createdAt };
+          });
+      }
+    );
+    Promise.all(groupJoinReqPrms).then(
+      groupsReqs => (this.groupReqs = groupsReqs)
+    );
   },
   watch: {
     loggedinUser: {
@@ -140,11 +165,11 @@ export default {
               type: "getUserById",
               userId: askerId
             });
-            var groupJoinPrm = this.$store.dispatch({
+            var groupToJoinPrm = this.$store.dispatch({
               type: "getGroupById",
               groupId
             });
-            return Promise.all([askerPrm, groupJoinPrm, createdAt]);
+            return Promise.all([askerPrm, groupToJoinPrm, createdAt]);
           }
         );
 
@@ -158,6 +183,21 @@ export default {
             this.joinReqs = reqs;
             // alert("chiko menash");
           }); // this.loggedinUser.joinReqs.forEach(joinReq => {
+        var groupJoinReqPrms = this.loggedinUser.groupJoinReq.map(
+          ({ groupId, userId, createdAt }) => {
+            return this.$store
+              .dispatch({
+                type: "getGroupById",
+                groupId
+              })
+              .then(group => {
+                return { group, createdAt };
+              });
+          }
+        );
+        Promise.all(groupJoinReqPrms).then(
+          groupsReqs => (this.groupReqs = groupsReqs)
+        );
       },
       deep: true
     }

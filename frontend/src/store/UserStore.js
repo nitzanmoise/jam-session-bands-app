@@ -28,9 +28,10 @@ export default {
       state.users = users;
     },
     updateReqs(state, { timeStamp }) {
-      // make sure that userloogend in user reqs havea filterd arr
-      // than ave loggedin innto ssesion stotage
       state.loggedinUser.joinReqs = state.loggedinUser.joinReqs.filter(
+        req => req.createdAt !== timeStamp
+      );
+      state.loggedinUser.groupJoinReq = state.loggedinUser.groupJoinReq.filter(
         req => req.createdAt !== timeStamp
       );
       console.log("moshe ch", state.loggedinUser.joinReqs.length);

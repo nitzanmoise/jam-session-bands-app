@@ -42,26 +42,54 @@ function getById(userId) {
           console.log(err);
           return reject(err);
         }
-        console.log("selected user", res);
+        // console.log("selected user", res);
         resolve(res);
       });
     });
   });
 }
 
-function sendGroupJoinReq({ groupJoinReq }) {
-  var adminsIds = admins.map(({ id }) => new mongo.ObjectID(id));
+function sendGroupJoinReq(joinReq) {
+  var userId = joinReq.userId;
+  console.log("gtoup reqqqqqq", joinReq);
+
+  var mongoId = new mongo.ObjectID(userId);
   return new Promise((resolve, reject) => {
     DBService.dbConnect().then(db => {
-      db.collection("users").updateMany(
+      db.collection("users").update(
         {
-          _id: {
-            $in: adminsIds
-          }
+          _id: mongoId
         },
         {
           $push: {
-            joinReqs: joinReq
+            groupJoinReq: joinReq
+          }
+        },
+        (err, result) => {
+          if (err) {
+            console.log(err);
+            reject(err);
+          } else {
+            console.log(result.result);
+            resolve(result.result);
+          }
+        }
+      );
+    });
+  });
+}
+
+function deleteRequest({ userId, timeStamp }) {
+  // console.log({ userId, timeStamp });
+  var mongoId = new mongo.ObjectID(userId);
+  return new Promise((resolve, reject) => {
+    DBService.dbConnect().then(db => {
+      db.collection("users").updateOne(
+        { _id: mongoId },
+        {
+          $pull: {
+            joinReqs: { createdAt: timeStamp },
+            groupJoinReq: { createdAt: timeStamp }
           }
         },
         (err, result) => {
@@ -73,27 +101,8 @@ function sendGroupJoinReq({ groupJoinReq }) {
   });
 }
 
-function deleteRequest({ userId, timeStamp }) {
-  console.log({ userId, timeStamp });
-  var mongoId = new mongo.ObjectID(userId);
-  return new Promise((resolve, reject) => {
-    DBService.dbConnect().then(db => {
-      db
-        .collection("users")
-        .updateOne(
-          { _id: mongoId },
-          { $pull: { joinReqs: { createdAt: timeStamp } } },
-          (err, result) => {
-            if (err) reject(err);
-            else resolve(result.result);
-          }
-        );
-    });
-  });
-}
-
 function validateDetails(user) {
-  console.log(user);
+  // console.log(user);
   return user.email !== "Shluki@Shluki.com";
 }
 
@@ -107,7 +116,7 @@ function addUser(user) {
         .findOne({ name: user.name }, function(err, userFromDB) {
           // If name is already used!
           if (userFromDB) {
-            console.log("Name is already used!");
+            // console.log("Name is already used!");
             reject("Name is already used!");
             db.close();
           } else {
@@ -123,7 +132,7 @@ function addUser(user) {
 }
 
 function updateUser(upadteFileds, _id) {
-  console.log("inside edit user");
+  // console.log("inside edit user");
   const updateObj = {
     $set: upadteFileds
   };
@@ -164,5 +173,6 @@ module.exports = {
   updateUser,
   getBandGroupsData,
   checkLogin,
-  deleteRequest
+  deleteRequest,
+  sendGroupJoinReq
 };

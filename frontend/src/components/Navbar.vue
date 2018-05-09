@@ -29,7 +29,7 @@
       <el-menu-item index='6' v-if='$store.getters.loggedinUser'>
         
         <button tag='a' id='show-modal' @click='routeToMyProfile($store.getters.loggedinUser._id)' >My Profile</button>
-          <a href="" class="badge1" data-badge="27"></a>
+          <a href="" class="badge1" title="Join requesrs" :data-badge="counter"></a>
       </el-menu-item>
       
   
@@ -46,9 +46,16 @@ export default {
     return {
       activeIndex: "1",
       activeIndex2: "1"
+      // counter: this.loggedinUser.joinReqs.length
     };
   },
   computed: {
+    counter() {
+      return (
+        this.loggedinUser.joinReqs.length +
+        this.loggedinUser.groupJoinReq.length
+      );
+    },
     loggedinUser() {
       return this.$store.getters.loggedinUser;
     }

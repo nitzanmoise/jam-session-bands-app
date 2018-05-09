@@ -15,7 +15,7 @@ function login(user) {
 
 function sendGroupJoinReq(groupJoinReq) {
   console.log("in service");
-  return axios.put(_getUserUrl(groupJoinReq.userId) + "/groupJoinReq", {
+  return axios.put(USER_URL + "/groupJoinReq", {
     groupJoinReq
   });
 }
@@ -93,5 +93,6 @@ export default {
   emptyUser,
   getUserById,
   getUserGroups,
-  deleteReq
+  deleteReq,
+  sendGroupJoinReq
 };

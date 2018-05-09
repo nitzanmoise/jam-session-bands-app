@@ -3,10 +3,19 @@ var DBService = require("./DBService");
 // find({ skills: { $in:  ['guitar', 'chelo']} })
 
 // DBService.dbConnect().then(db => {
-//   db.collection("users").delete({}, { $set: { groupJoinReq: [] } }, function() {
-//     console.log("asdasdasd");
-//   });
+//   db.collection("users").updateMany(
+//     {},
+//     {
+//       $set: {
+//         sentReqsToTalents: []
+//       }
+//     },
+//     function() {
+//       console.log("asdasdasd");
+//     }
+//   );
 // });
+
 function query() {
   return new Promise((resolve, reject) => {
     DBService.dbConnect().then(db => {
@@ -24,21 +33,19 @@ function query() {
 
 function addAskerToGroupMembers({ askerId, groupId }) {
   // console.log({ askerId, groupId });
-  var mongoId = new mongo.ObjectID(groupId);
+  var groupMongoId = new mongo.ObjectID(groupId);
+  var userMongoId = new mongo.ObjectID(askerId);
+
   var newMember = { id: askerId, isAdmin: false, position: "Guitar" };
-  return new Promise((resolve, reject) => {
-    DBService.dbConnect().then(db => {
-      db
-        .collection("groups")
-        .updateOne(
-          { _id: mongoId },
-          { $push: { members: newMember } },
-          (err, result) => {
-            if (err) reject(err);
-            else resolve(result.result);
-          }
-        );
-    });
+  return DBService.dbConnect().then(db => {
+    return db
+      .collection("groups")
+      .updateOne({ _id: groupMongoId }, { $push: { members: newMember } })
+      .then(res => {
+        return db
+          .collection("users")
+          .updateOne({ _id: userMongoId }, { $push: { groups: groupId } });
+      });
   });
 }
 
