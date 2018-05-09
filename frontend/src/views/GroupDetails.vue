@@ -31,6 +31,9 @@
                     </div>   
                 </div>
             </div>
+
+                 <button v-if="currLoggedInUser" class="addMember" @click="routeToUsers(group._id)"> Add a Member</button>
+            
           </div>
         <div class="about">
                 <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/428166729&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
@@ -46,7 +49,7 @@
                   <img  :src="'./img/instruments/'+need+'.png'" alt=""  width="25px;" height="25px;">
                   <h3>Talent</h3> 
               </div>
-          <el-button type="text" class="button">Join The Band</el-button>
+          <el-button @click="sendJoinReq(group._id)" type="text" class="button">Join The Band</el-button>
       </div>    
 
         </div>  
@@ -55,6 +58,8 @@
 </template>
 
 <script>
+import EventBusService, { SHOW_MSG } from "../services/EventBusService.js";
+
 export default {
   data() {
     return {
@@ -66,6 +71,32 @@ export default {
     goToMemberDetails(id) {
       console.log("this is member id", id);
       this.$router.push(`/UserDetails/${id}`);
+    },
+    sendJoinReq(groupId) {
+      if (!this.loggedinUser) {
+        console.log("you not logged in");
+      } else {
+        console.log("yes you log in", this.group.members, this.loggedinUser);
+        var askerId = this.loggedinUser._id;
+        var askerName = this.loggedinUser.fullName;
+        var createdAt = Date.now();
+        var joinReq = { askerId, askerName, groupId, createdAt };
+        console.log("thi is join req", joinReq);
+
+        var admins = this.group.members.filter(({ isAdmin }) => isAdmin);
+        this.$store.dispatch({ type: "updateReqs", joinReq, admins });
+      }
+    },
+    routeToUsers(id) {
+      console.log("group id", id);
+
+      this.$router.push(`/usersPage/${id}`);
+      var userMsg = {
+        txt: "Check Out Our Users! Add Them To Your Band!",
+        type: "info"
+      };
+      EventBusService.$emit(SHOW_MSG, userMsg);
+      this.$emit("close");
     }
   },
   computed: {
@@ -74,6 +105,18 @@ export default {
     },
     needs() {
       return this.group.need;
+    },
+    loggedinUser() {
+      return this.$store.getters.loggedinUser;
+    },
+    currLoggedInUser() {
+      if (!this.loggedinUser || !this.group.members) return;
+      console.log("group members", this.group.members);
+
+      var currMemberAdmin = this.group.members.find(member => {
+        return member.isAdmin && member.id === this.loggedinUser._id;
+      });
+      if (currMemberAdmin) return true;
     }
   },
   created() {
@@ -83,6 +126,7 @@ export default {
       this.group = group;
       this.$store.dispatch({ type: "getGroupMembers", group }).then(members => {
         this.members = members.data;
+        console.log("memebers", this.members);
       });
     });
   }

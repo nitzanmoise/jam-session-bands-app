@@ -49,6 +49,30 @@ function getById(userId) {
   });
 }
 
+function sendGroupJoinReq({ groupJoinReq }) {
+  var adminsIds = admins.map(({ id }) => new mongo.ObjectID(id));
+  return new Promise((resolve, reject) => {
+    DBService.dbConnect().then(db => {
+      db.collection("users").updateMany(
+        {
+          _id: {
+            $in: adminsIds
+          }
+        },
+        {
+          $push: {
+            joinReqs: joinReq
+          }
+        },
+        (err, result) => {
+          if (err) reject(err);
+          else resolve(result.result);
+        }
+      );
+    });
+  });
+}
+
 function deleteRequest({ userId, timeStamp }) {
   console.log({ userId, timeStamp });
   var mongoId = new mongo.ObjectID(userId);

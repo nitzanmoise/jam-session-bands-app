@@ -21,7 +21,7 @@
         <div class="groups-container">
             <h1 class="groups-header">My Groups</h1>
             <div v-for="group in groups" :key="group._id" >
-                <div class="group-img-container"  @click="goToGroupEdit(group._id)">
+                <div class="group-img-container"  @click="goToGroupDetails(group._id)">
                     <img :src="group.image" class="group-image">
                 </div>
                     <button @click="goToGroupEdit(group._id)" :disabled="!checkIfAdmin(group)">Edit This Group</button>
@@ -39,7 +39,7 @@
            <h1>Join requets:</h1>
            <div v-for="req in joinReqs" :key="req.createdAt">
             <span @click="goToAsker(req.asker._id)">{{req.asker.fullName}}</span> asked to join {{req.group.name}}
-            <button @click="deleteReq(user._id, req.createdAt)" >Cancel</button><button @click="addAskerToGroupMembers(req.asker._id, req.group._id)" >Agree</button>
+            <button @click="deleteReq(user._id, req.createdAt)" >Cancel</button><button @click="addAskerToGroupMembers(req.asker._id, req.group._id); deleteReq(user._id, req.createdAt)" >Agree</button>
            </div>
       </div>  
         </div>    
@@ -65,7 +65,7 @@ export default {
     loggedinUser() {
       return this.$store.getters.loggedinUser;
     },
-    currLoggedInUser(){
+    currLoggedInUser() {
       if (this.loggedinUser._id === this.user._id) return true;
     }
   },

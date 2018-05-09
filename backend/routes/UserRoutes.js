@@ -11,6 +11,16 @@ module.exports = app => {
       .catch(() => res.status(500).send("problem getting users"));
   });
 
+  app.put(`${UER_URL}/:id/groupjoinReq`, function(req, res) {
+    UserService.sendGroupJoinReq(req.body)
+      .then(result => {
+        res.json(result);
+      })
+      .catch(err => {
+        res.status(500).send();
+      });
+  });
+
   app.get(`${USER_URL}/:id`, (req, res) => {
     const userId = req.params.id;
     console.log({ userId });

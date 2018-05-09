@@ -95,6 +95,10 @@ export default {
         store.commit({ type: "updateReqs", timeStamp });
       });
     },
+    sendGroupJoinReq(store, { groupJoinReq }) {
+      console.log("inside store", groupJoinReq);
+      UserService.sendGroupJoinReq(groupJoinReq);
+    },
     getUserById(store, { userId }) {
       return UserService.getUserById(userId).then(user => {
         return user;

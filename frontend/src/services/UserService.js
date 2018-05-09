@@ -13,6 +13,13 @@ function login(user) {
     });
 }
 
+function sendGroupJoinReq(groupJoinReq) {
+  console.log("in service");
+  return axios.put(_getUserUrl(groupJoinReq.userId) + "/groupJoinReq", {
+    groupJoinReq
+  });
+}
+
 function register(user) {
   return axios
     .post(USER_URL, user)

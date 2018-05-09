@@ -39,7 +39,6 @@
                </div>
                  <button class="submit" type="submit" :disabled="!this.group.name || !this.group.genre || !this.group.about">Save Group</button> 
             </form>
-                 <button class="addMember" @click="routeToUsers"> Add a Member</button>
             </slot>
           </div>
           <div class="modal-footer">
@@ -90,13 +89,16 @@ export default {
           EventBusService.$emit(SHOW_MSG, userMsg);
         });
     },
-    setNeed(value){
-       this.group.need.push(value);
+    setNeed(value) {
+      this.group.need.push(value);
     },
-    routeToUsers(){
+    routeToUsers() {
       this.$router.push("/usersPage");
-      var userMsg = { txt: "Check Out Our Users! Add Them To Your Band!", type: "info" };
-          EventBusService.$emit(SHOW_MSG, userMsg);
+      var userMsg = {
+        txt: "Check Out Our Users! Add Them To Your Band!",
+        type: "info"
+      };
+      EventBusService.$emit(SHOW_MSG, userMsg);
       this.$emit("close");
     }
   },

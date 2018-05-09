@@ -48,7 +48,7 @@ export default new Router({
       component: UserDetails
     },
     {
-      path: "/UsersPage",
+      path: "/UsersPage/:id",
       name: "UsersPage",
       component: UsersPage
     }

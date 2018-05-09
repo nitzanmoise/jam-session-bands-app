@@ -2,13 +2,11 @@ const mongo = require("mongodb");
 var DBService = require("./DBService");
 // find({ skills: { $in:  ['guitar', 'chelo']} })
 
-// DBService.dbConnect()
-//     .then( db => {
-//       db.collection('users')
-//         .updateMany({ "talants" : Bass}, function (){
-//         console.log('asdasdasd')
-//       })
-//     })
+// DBService.dbConnect().then(db => {
+//   db.collection("users").delete({}, { $set: { groupJoinReq: [] } }, function() {
+//     console.log("asdasdasd");
+//   });
+// });
 function query() {
   return new Promise((resolve, reject) => {
     DBService.dbConnect().then(db => {
@@ -102,13 +100,19 @@ function updateGroup(updateFields, _id) {
   };
   return new Promise((resolve, reject) => {
     DBService.dbConnect().then(dataBase => {
-    console.log()
-      dataBase.collection("groups").updateOne({ _id: updateFields._id }, updateObj , (err, updatedGroup) => {
-          console.log('INSIDE UPDATE GROUPPPP')
-          if (err) return console.log("Update Group Error!");
-          else resolve(updatedGroup);
-          dataBase.close();
-        })
+      console.log();
+      dataBase
+        .collection("groups")
+        .updateOne(
+          { _id: updateFields._id },
+          updateObj,
+          (err, updatedGroup) => {
+            console.log("INSIDE UPDATE GROUPPPP");
+            if (err) return console.log("Update Group Error!");
+            else resolve(updatedGroup);
+            dataBase.close();
+          }
+        );
     });
   });
 }
