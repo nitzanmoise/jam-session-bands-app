@@ -13,9 +13,9 @@
                 <img class="icon" :src="'./img/instruments/'+need+'.png'" alt="" width="25px;" height="25px;">                        
               </div>
           </div>  
+  </div>
           <el-button @click="sendJoinReq(group._id)" type="text" class="button">Join The Band</el-button>
           <el-button @click="openGroupDetails(group._id)" type="text" class="button">View Group Details</el-button>
-  </div>
   </div>
 
  
@@ -51,7 +51,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @font-face {
   font-family: Magettas Regular DEMO;
   src: url("../../public/fonts/magettas-demo/Magettas Regular DEMO.otf");

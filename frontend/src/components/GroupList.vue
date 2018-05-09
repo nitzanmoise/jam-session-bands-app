@@ -1,4 +1,5 @@
 <template>
+
   <section class="group-list">
     <h1>Jam Session Groups</h1>
     <div class="groups-container">

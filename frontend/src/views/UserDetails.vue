@@ -35,7 +35,7 @@
             <iframe allowtransparency="true" scrolling="no" frameborder="no" src="https://w.soundcloud.com/icon/?url=http%3A%2F%2Fsoundcloud.com%2Fnitzan-moise&color=orange_white&size=32" style="width: 32px; height: 32px;">
             </iframe>
             </div>
-      <div v-if="checkIfUserLogedIn(user._id)">
+      <div v-if="currLoggedInUser">
            <h1>Join requets:</h1>
            <div v-for="req in joinReqs" :key="req.createdAt">
             <span @click="goToAsker(req.asker._id)">{{req.asker.fullName}}</span> asked to join {{req.group.name}}
@@ -64,6 +64,9 @@ export default {
     addMember() {},
     loggedinUser() {
       return this.$store.getters.loggedinUser;
+    },
+    currLoggedInUser(){
+      if (this.loggedinUser._id === this.user._id) return true;
     }
   },
 
