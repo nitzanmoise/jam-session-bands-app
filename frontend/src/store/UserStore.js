@@ -1,11 +1,16 @@
 import UserService from "../services/UserService.js";
+import GroupService from "../services/GroupService.js";
 
 export default {
   state: {
     loggedinUser: null,
-    users: []
+    users: [],
+    userFilter: ""
   },
   mutations: {
+    setUserFilter(state, { filter }) {
+      state.userFilter = filter;
+    },
     setUser(state, { user }) {
       state.loggedinUser = user;
     },
@@ -36,6 +41,9 @@ export default {
       console.log("moshe ch", state.loggedinUser.joinReqs.length);
 
       sessionStorage.user = JSON.stringify(state.loggedinUser);
+    },
+    addRequest(state, { joinReq }) {
+      state.loggedinUser.sentReqsToJoinBands.push(joinReq);
     }
   },
   getters: {
@@ -59,7 +67,7 @@ export default {
       });
     },
     loadUsers(store) {
-      return UserService.getUsers().then(users => {
+      return UserService.getUsers(store.state.userFilter).then(users => {
         store.commit({ type: "setUsers", users });
       });
     },
@@ -81,8 +89,8 @@ export default {
       });
     },
     getUserGroups(store, { user }) {
-      return UserService.getUserGroups(user).then(groups => {
-        return groups;
+      return UserService.getUserGroups(user).then(users => {
+        return users;
       });
     },
     updateUser(store, { user }) {
@@ -98,6 +106,14 @@ export default {
     getUserById(store, { userId }) {
       return UserService.getUserById(userId).then(user => {
         return user;
+      });
+    },
+    updateReqs(store, { joinReq, admins }) {
+      console.log("elad");
+      return GroupService.updateReqs(joinReq, admins).then(res => {
+        console.log("befire the commit    ");
+        store.commit({ type: "addRequest", joinReq });
+        sessionStorage.user = JSON.stringify(store.state.loggedinUser);
       });
     }
   }

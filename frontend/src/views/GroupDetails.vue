@@ -20,8 +20,9 @@
           <div class="members-container">
            <!-- <div>  -->
             <h1 class="members-header">Members</h1>
+            <div class="card">
             <div v-for="member in members" :key="member._id" class="member-details" >
-                <div class="member-img-container" @click="goToMemberDetails(member._id)" :style="{ backgroundImage: `url(${member.image})`, width: 50+'px', height: 50+'px' }">
+                <div class="member-img-container" @click="goToMemberDetails(member._id)" :style="{ backgroundImage: `url(${member.image})`}">
                     <!-- <img :src="member.image" class="member-image"> -->
                 </div>
                 <div class="member-name-container">
@@ -29,6 +30,7 @@
                     <div  v-for="talant in member.talants" :key="talant._id">
                         <img :src="'./img/instruments/'+talant+'.png'" :title="talant" alt="" width="25px;" height="25px;">                        
                     </div>   
+                  </div>
                 </div>
             </div>
           </div>
@@ -137,15 +139,21 @@ export default {
   /* margin-left: 24px; */
 }
 .members-container {
-  padding-left: 5%;
-  padding-top: 2%;
+  margin-left: 30px;
   display: flex;
   flex-direction: column;
-  width: 20%;
-  border-right: black solid 1px;
-  /* background-color: rgba(0, 0, 0, 0.8);
-  color: #fff;
-         */
+      
+}
+.member-details{
+  text-align: center;
+  cursor: pointer;
+  border-radius: 20px;
+  box-shadow: 2px 4px 54px 0px rgba(0,0,0,0.62);
+  background-color: #eeeeee;
+  width: 170px;
+  height: 250px;
+  margin-bottom: 20px;
+  padding:10px;
 }
 .members-header {
   font-family: Shrikhand-Regular;
@@ -161,7 +169,11 @@ export default {
 .member-img-container {
   background-size: cover;
   background-position: center center;
-  width: 30%;
+  width: 100px;
+  height: 100px;
+  margin-left:30px;
+  margin-top: 0px;
+  padding: 0;
   cursor: pointer;
   border-radius: 50%;
   border: solid rgb(199, 182, 182) 5px;
@@ -181,7 +193,7 @@ export default {
 .member-name {
   font-family: Magettas Regular DEMO;
   cursor: pointer;
-  /* width: 35%; */
+ margin-left: 10px;
   text-align: center;
   float: left;
 }

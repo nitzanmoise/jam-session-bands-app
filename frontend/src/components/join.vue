@@ -27,7 +27,7 @@
             <input type="link" placeholder="Enter an Audio Link to Your Work" v-model="user.audio" />
             <input type="Text" placeholder="Enter Where You Are From" v-model="user.links" />
             <input type="text" placeholder="Enter Your Talent (What Do You Play?)" v-model="user.image" /> -->
-            <button type="submit" @click="register">Register</button>
+            <button type="submit">Register</button>
         </form>
             </slot>
           </div>
@@ -36,7 +36,7 @@
             <slot name="footer">
               <hr>
               <h4>Already have an Account? Log In!</h4>
-              <button class="login" @click="$emit('loginModal', true)"> Log-in</button>
+              <button class="login" @click="$emit('openLogin', true)"> Log-in</button>
               <button class="modal-default-button" @click="$emit('close')">&#10006;</button>
             </slot>
           </div>
@@ -58,16 +58,34 @@ export default {
     },
     data() {
         return {
-            user: {name: '', password: ''}
+            user: {
+              email: '',
+              password: '',
+              fullName: '',
+              image: "http://www.medicine20congress.com/ocs/public/profiles/5856.jpg",
+              description: "",
+              genre: [],
+              links: "",
+              location: "",
+              talants: [],
+              groups: [],
+              dateOfBirth: null,
+              audio: "",
+              joinReqs: [],
+              groupJoinReq: []
+              }
         }
     },
     methods: {
         register() {
             UserService.register(this.user)
             .then(res => {
-                console.log('Register Completed, now try to log-in!')
+                console.log('Register Completed, Please Log In!')
                 EventBusService.$emit(SHOW_MSG, {txt: 'Registration Completed! please login'});
-                this.$router.push('/');
+                this.$emit('close')
+                this.$emit('loginModal', true)
+
+                
             })
             .catch(err => console.log('Register Failed!'))
         }

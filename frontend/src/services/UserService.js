@@ -37,23 +37,37 @@ function emptyUser() {
   return { name: "", details: "" };
 }
 
-function getUsers() {
-  // var criteria = {}
-  // if (filter){
-  //     criteria = `?name=${filter.text || ''}`
-  // }
+  function getUsers(filter) {
+    return axios
+      .get(USER_URL)
+      .then(res => {
+        if (!filter) {
+          return res.data;
+        } else if (filter === "") {
+          return res.data;
+        } else {
+          return res.data.filter(user => {
+            return user.talants.some(talant => {
+              return talant.toLowerCase().includes(filter.toLowerCase());
+            });
+          });
+        }
+      })
+      .catch(e => console.log("No Groups", e));
+  }
+
+function updateUser(user) {
   return axios
-    .get(USER_URL)
+    .put(USER_URL + "/" + user._id, user)
     .then(res => {
       return res.data;
     })
-    .catch(e => console.log("No Users", e));
+    .catch(e => {
+      var userMsg = { txt: "User Update Failed!", type: "error" };
+      EventBusService.$emit(SHOW_MSG, userMsg);
+      console.log("Failed to Update", e);
+    });
 }
-
-function updateUser(user) {
-  return axios.put(USER_UR, user);
-}
-
 function deleteUser(userId) {
   return axios.delete(_getUserUrl(userId));
 }

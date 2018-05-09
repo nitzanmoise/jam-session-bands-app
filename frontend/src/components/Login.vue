@@ -58,14 +58,13 @@ export default {
             .then(loggedinUser => {
                 console.log('You have been logged-in!')
                 EventBusService.$emit(SHOW_MSG, {txt: `Welcome ${loggedinUser.fullName}!`});
-                  this.$router.push('/');
+                  this.$router.push(`/UserDetails/${loggedinUser._id}`);
                   this.$emit('close');
             })
             .catch(err => {
                 console.log('Login Failed!');
                 EventBusService.$emit(SHOW_MSG, {txt: `Wrong Credentials, please try again`, type: 'error'});
-                this.$refs.txtEmail.focus();
-                 this.$emit('close');
+                this.$emit('close');
             })
            
         },

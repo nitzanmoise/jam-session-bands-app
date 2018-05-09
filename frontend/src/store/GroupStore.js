@@ -28,7 +28,8 @@ export default {
     },
     setGroups(state, { groups }) {
       state.groups = groups;
-    }
+    },
+   
   },
   getters: {
     groupsForDisplay(state) {
@@ -65,12 +66,6 @@ export default {
       return GroupService.updateGroup(group).then(group => {
         store.commit({ type: "updateGroup", group });
       });
-    },
-    updateReqs(store, { joinReq, admins }) {
-      return GroupService.updateReqs(joinReq, admins).then(res => {});
-    },
-    updateReqs(store, { joinReq, admins }) {
-      return GroupService.updateReqs(joinReq, admins).then(res => {});
     },
     addGroup(store, { group }) {
       return GroupService.addGroup(group).then(group => {

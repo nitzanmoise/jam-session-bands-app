@@ -1,35 +1,31 @@
 <template>
    <div class="user-details-container">
     <section class="user-details"> 
-        <div class="backround-img">
-               
-                <div class="header-info">
-                     <h1>{{user.fullName}}</h1>
-                    <h3 >{{user.location}}</h3>
-                    <div>
-                        <h4 v-for="genre in genres" :key="genre._id">
-                            {{genre}}   
-                        </h4>
-                    </div>
-                </div>
-                <div class="img-container">
-                    <img :src="user.image" class="user-image">
-                </div>
-                
+        <div class="backround-img">  
+            <div class="header-info">
+                    <h1>{{user.fullName}}</h1>
+                    <h3>{{user.location}}</h3>
+                    <h4 v-for="genre in genres" :key="genre._id"> {{genre}} </h4>
+           </div>
+              <div class="img-container">
+                   <img :src="user.image" class="user-image">
+                   <button class="user-edit-btn" @click="goToUserEdit(user._id)" v-if="loggedinUser">Edit Your Profile!</button>
+              </div>
         </div>
-        <div class="main-container">
-        <div class="groups-container">
-            <h1 class="groups-header">My Groups</h1>
-            <div v-for="group in groups" :key="group._id" >
-                <div class="group-img-container"  @click="goToGroupEdit(group._id)">
+  <div class="main-container">
+    <div class="groups-container">
+        <h1 class="groups-header">My Groups</h1>
+      <div class="groups-card">
+          <div class="items" v-for="group in groups" :key="group._id" >
+              <div class="group-img-container"  @click="goToGroupEdit(group._id)">
                     <img :src="group.image" class="group-image">
-                </div>
-                    <button @click="goToGroupEdit(group._id)" :disabled="!checkIfAdmin(group)">Edit This Group</button>
-                <div class="group-name-container">
+              </div>
+               
                 <h1 class="group-name" @click="goToGroupDetails(group._id)">{{group.name}}</h1>
-                </div>
-            </div>
-            </div>
+                <button @click="goToGroupEdit(group._id)" :disabled="!checkIfAdmin(group)">Edit This Group</button>
+          </div>
+      </div>
+      </div>
             <div class="about">
                 {{user.description}}
             <iframe allowtransparency="true" scrolling="no" frameborder="no" src="https://w.soundcloud.com/icon/?url=http%3A%2F%2Fsoundcloud.com%2Fnitzan-moise&color=orange_white&size=32" style="width: 32px; height: 32px;">
@@ -42,13 +38,15 @@
             <button @click="deleteReq(user._id, req.createdAt)" >Cancel</button><button @click="addAskerToGroupMembers(req.asker._id, req.group._id)" >Agree</button>
            </div>
       </div>  
-        </div>    
+  </div>    
         <!-- <button class="addMember" @click="addMember"> Add a Member</button> -->
     </section>
 </div>
 </template>
 
 <script>
+import EventBusService, { SHOW_MSG } from '../services/EventBusService.js'
+
 export default {
   data() {
     return {
@@ -66,6 +64,7 @@ export default {
       return this.$store.getters.loggedinUser;
     },
     currLoggedInUser(){
+      if(this.loggedinUser === null) return
       if (this.loggedinUser._id === this.user._id) return true;
     }
   },
@@ -73,7 +72,9 @@ export default {
   methods: {
     deleteReq(userId, timeStamp, user) {
       // console.log("deletereq", userId, timeStamp);
-      this.$store.dispatch({ type: "deleteReq", userId, timeStamp });
+      this.$store.dispatch({ type: "deleteReq", userId, timeStamp }) .then(res => {
+        EventBusService.$emit(SHOW_MSG, {txt: `Request Removed`, type:'success'}); 
+      })
     },
     goToGroupDetails(id) {
       console.log("this is group id", id);
@@ -81,6 +82,9 @@ export default {
     },
     goToGroupEdit(id) {
       this.$router.push(`/Group/Edit/${id}`);
+    },
+    goToUserEdit(id){
+      this.$router.push(`/UserEdit/${id}`);
     },
     goToAsker(id) {
       this.$router.push(`/UserDetails/${id}`);
@@ -107,6 +111,7 @@ export default {
         this.groups = groups.data;
       });
     });
+    if(this.loggedinUser === null) return
     var joinReqPrms = this.loggedinUser.joinReqs.map(
       ({ askerId, groupId, createdAt }) => {
         var askerPrm = this.$store.dispatch({
@@ -128,12 +133,11 @@ export default {
         })
       )
       .then(reqs => (this.joinReqs = reqs)); // this.loggedinUser.joinReqs.forEach(joinReq => {
-    console.log("thi is this.joinReqs", this.joinReqs);
+    console.log("this is this.joinReqs", this.joinReqs);
   },
   watch: {
     loggedinUser: {
       handler() {
-        console.log("has changeedededed hasdas");
         var joinReqPrms = this.loggedinUser.joinReqs.map(
           ({ askerId, groupId, createdAt }) => {
             var askerPrm = this.$store.dispatch({
@@ -156,8 +160,7 @@ export default {
           )
           .then(reqs => {
             this.joinReqs = reqs;
-            // alert("chiko menash");
-          }); // this.loggedinUser.joinReqs.forEach(joinReq => {
+          }); 
       },
       deep: true
     }
@@ -191,22 +194,36 @@ export default {
 }
 .img-container {
   width: 55%;
-
   padding-top: 5%;
   padding-bottom: 2%;
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.groups-card{
+
+  text-align: center;
+  cursor: pointer;
+  border-radius: 20px;
+  /* border: solid 2px black; */
+  box-shadow: 2px 4px 54px 0px rgba(0,0,0,0.62);
+ background-color: #eeeeee;
+    width: 170px;
+    height: 270px;
+    padding: 10px;
+    margin-bottom: 20px;
 }
 .group-image {
-  width: 25%;
+     width: 150px;
   cursor: pointer;
   border-radius: 50%;
   border: solid rgb(199, 182, 182) 5px;
   background-size: cover;
   box-shadow: gray 1px inset;
-  margin-left: 25px;
+  margin-top: 10px;
+
 }
 .groups-container {
-  padding-left: 5%;
-  padding-top: 5%;
   display: flex;
   flex-direction: column;
 }
@@ -217,6 +234,12 @@ export default {
   width: 35%;
   text-align: center;
   padding: 10px;
+  height: 100px;
+}
+.group-name{
+  margin:0;
+  padding: 0;
+  width:100%
 }
 .about {
   margin-top: 10%;
@@ -225,9 +248,10 @@ export default {
 .group-name {
   font-family: Condition3D-Italic;
   cursor: pointer;
-  width: 35%;
+  width: 100%;
   text-align: center;
-  padding: 10px;
+  margin: 0 10px 10px 0;
+  
 }
 .user-details-container {
   background-color: rgb(244, 245, 247);
@@ -277,7 +301,19 @@ button {
   color: orange;
   font-family: Magettas Regular DEMO;
   height: 30px;
-  background-color: rgb(209, 234, 243);
+  border-radius: 5px;
+  font-size: 1.2em;
+  line-height: 100%;
+  background-color: white;
+}
+.user-edit-btn{
+  width: 173px;
+  border-radius: 5px;
+  margin-top: 10px;
+  font-size: 1.2em;
+  line-height: 100%;
+  background-color: white;
+
 }
 
 .el-button {

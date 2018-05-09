@@ -3,7 +3,6 @@ const GROUP_URL = "/data/group";
 
 module.exports = app => {
   app.put(`${GROUP_URL}/addMember`, function(req, res) {
-    console.log("inside addmemner");
     GroupService.addAskerToGroupMembers(req.body)
       .then(result => {
         res.json(result);
@@ -21,13 +20,10 @@ module.exports = app => {
   }),
     app.post(`${GROUP_URL}/members`, (req, res) => {
       const members = req.body.members;
-      console.log("members", members);
 
       var membersIds = members.map(member => member.id);
-      console.log("thi is membrs id", membersIds);
 
       GroupService.getBandMembersData(membersIds).then(members => {
-        console.log("group members", members);
         res.json(members);
       });
     });
@@ -42,7 +38,6 @@ module.exports = app => {
   app.get(`${GROUP_URL}/:id`, (req, res) => {
     const groupId = req.params.id;
     GroupService.getById(groupId).then(group => {
-      console.log("group: ", group);
       res.json(group);
     });
   });
@@ -62,11 +57,14 @@ module.exports = app => {
       .catch(() => res.status(500).send("problem"));
   });
   app.put(`${GROUP_URL}/:id/joinReq`, function(req, res) {
+    console.log('before the datbase manolte')
     GroupService.sendJoinReqs(req.body)
       .then(result => {
+        console.log("afte tje database maniplatine");
         res.json(result);
       })
       .catch(err => {
+        console.log('on the cathc')
         res.status(500).send();
       });
   });
