@@ -1,5 +1,8 @@
-
 @import "compass/css3";
 
 @import url(https://fonts.googleapis.com/css?family=Varela+Round);
 @import url(https://fonts.googleapis.com/css?family=Lusitana);
+
+body {
+  margin: 0;
+}

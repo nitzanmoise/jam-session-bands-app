@@ -14,8 +14,7 @@ function getGroups(filter) {
       } else if (filter === "") {
         return res.data;
       } else {
-      
-      return res.data.filter(group => {
+        return res.data.filter(group => {
           return group.need.some(need => {
             return need.toLowerCase().includes(filter.toLowerCase());
           });
@@ -25,31 +24,39 @@ function getGroups(filter) {
     .catch(e => console.log("No Groups", e));
 }
 
-function updateGroup(group) {
-    return axios.put(GROUP_URL+'/'+group._id, group).then(res => {
+function addAskerToGroupMembers(askerId, groupId) {
+  return axios.put(GROUP_URL + "/addMember", { askerId, groupId });
+}
 
-      return res.data
+function updateGroup(group) {
+  return axios
+    .put(GROUP_URL + "/" + group._id, group)
+    .then(res => {
+      return res.data;
     })
-    .catch(e=> {
+    .catch(e => {
       var userMsg = { txt: "Groups Update Failed!", type: "error" };
       EventBusService.$emit(SHOW_MSG, userMsg);
-      console.log('Failed to Update', e)
-    })
+      console.log("Failed to Update", e);
+    });
 }
 
 function addGroup(group) {
-    return axios.post(GROUP_URL, group).then(res => {
-      return res.data
-    })  
+  return axios.post(GROUP_URL, group).then(res => {
+    return res.data;
+  });
 }
 
 function deleteGroup(groupId) {
   return axios.delete(_getGroupUrl(groupId));
 }
 
-function updateReqs(joinReq, admins){
-    console.log('in service')
-    return axios.put(_getGroupUrl(joinReq.groupId)+'/joinReq', {joinReq, admins})
+function updateReqs(joinReq, admins) {
+  console.log("in service");
+  return axios.put(_getGroupUrl(joinReq.groupId) + "/joinReq", {
+    joinReq,
+    admins
+  });
 }
 
 function getGroupById(groupId) {
@@ -65,12 +72,13 @@ function getGroupMembers(group) {
 }
 
 export default {
-    getGroups,
-    updateGroup,
-    addGroup,
-    deleteGroup,
-    emptyGroup,
-    getGroupById,
-    getGroupMembers,
-    updateReqs
-}
+  getGroups,
+  updateGroup,
+  addGroup,
+  deleteGroup,
+  emptyGroup,
+  getGroupById,
+  getGroupMembers,
+  updateReqs,
+  addAskerToGroupMembers
+};

@@ -1,7 +1,8 @@
 <template>
 
 
-  <div class="card" @click="openGroupDetails(group._id)">
+  <div class="card">
+    <div  @click="openGroupDetails(group._id)">
         <h2>{{group.name}}</h2>
     <div class="band-image">
       <img :src="group.image" class="image">
@@ -14,6 +15,7 @@
           </div>  
           <el-button @click="sendJoinReq(group._id)" type="text" class="button">Join The Band</el-button>
           <el-button @click="openGroupDetails(group._id)" type="text" class="button">View Group Details</el-button>
+  </div>
   </div>
 
  
@@ -35,8 +37,12 @@ export default {
         console.log("you not logged in");
       } else {
         console.log("yes you log in", this.group.members, this.loggedinUser);
-        var askerId  = this.loggedinUser._id;
-        var joinReq = { askerId, groupId };
+        var askerId = this.loggedinUser._id;
+        var askerName = this.loggedinUser.fullName;
+        var createdAt = Date.now();
+        var joinReq = { askerId, askerName, groupId, createdAt };
+        console.log("thi is join req", joinReq);
+
         var admins = this.group.members.filter(({ isAdmin }) => isAdmin);
         this.$store.dispatch({ type: "updateReqs", joinReq, admins });
       }
@@ -58,9 +64,8 @@ export default {
   border-radius: 20px;
   /* border: solid 2px black; */
   box-shadow: 2px 4px 54px 0px rgba(0,0,0,0.62);
-  background-size: cover;
-  background-position: stretch;
-  background-repeat: no-repeat
+ background-color: #eeeeee;
+
 }
 h2 {
   /* font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
@@ -71,7 +76,7 @@ h2 {
 
 .button {
   padding: 0px;
- justify-content: center;
+  justify-content: center;
   color: orange;
   font-family: Magettas Regular DEMO;
   font-size: 1.2em;

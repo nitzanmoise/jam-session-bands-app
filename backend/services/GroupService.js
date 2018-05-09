@@ -24,6 +24,26 @@ function query() {
   });
 }
 
+function addAskerToGroupMembers({ askerId, groupId }) {
+  // console.log({ askerId, groupId });
+  var mongoId = new mongo.ObjectID(groupId);
+  var newMember = { id: askerId, isAdmin: false, position: "Guitar" };
+  return new Promise((resolve, reject) => {
+    DBService.dbConnect().then(db => {
+      db
+        .collection("groups")
+        .updateOne(
+          { _id: mongoId },
+          { $push: { members: newMember } },
+          (err, result) => {
+            if (err) reject(err);
+            else resolve(result.result);
+          }
+        );
+    });
+  });
+}
+
 function add(group) {
   return new Promise((resolve, reject) => {
     DBService.dbConnect().then(db => {
@@ -103,15 +123,13 @@ function sendJoinReqs({ joinReq, admins }) {
           { _id: { $in: adminsIds } },
           { $push: { joinReqs: joinReq } },
           (err, result) => {
-            if (err) reject(err)
-            else resolve(result.result)
+            if (err) reject(err);
+            else resolve(result.result);
           }
         );
     });
   });
 }
-
-
 
 function getBandMembersData(memberIds) {
   var mongoIds = memberIds.map(id => new mongo.ObjectID(id));
@@ -136,5 +154,6 @@ module.exports = {
   remove,
   updateGroup,
   getBandMembersData,
-  sendJoinReqs
+  sendJoinReqs,
+  addAskerToGroupMembers
 };
