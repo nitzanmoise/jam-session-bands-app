@@ -3,7 +3,9 @@
 
   <div class="card" @click="openGroupDetails(group._id)">
         <h2>{{group.name}}</h2>
+    <div class="band-image">
       <img :src="group.image" class="image">
+    </div>
           <div class="seeking-container">
               <h3>Seeking:</h3>
               <div v-for="need in group.need" :key="need._id">  
@@ -11,7 +13,7 @@
               </div>
           </div>  
           <el-button @click="sendJoinReq(group._id)" type="text" class="button">Join The Band</el-button>
-          <el-button @click="openGroupDetails(group._id)" class="button">View Group Details</el-button>
+          <el-button @click="openGroupDetails(group._id)" type="text" class="button">View Group Details</el-button>
   </div>
 
  
@@ -49,20 +51,22 @@ export default {
   src: url("../../public/fonts/magettas-demo/Magettas Regular DEMO.otf");
 }
 .card {
-  height: 400px;
-  width: 300px;
+
   margin: 20px;
   text-align: center;
   cursor: pointer;
   border-radius: 20px;
   /* border: solid 2px black; */
   box-shadow: 2px 4px 54px 0px rgba(0,0,0,0.62);
+  background-size: cover;
+  background-position: stretch;
+  background-repeat: no-repeat
 }
 h2 {
   /* font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
-   margin: 20px;
-  font-size: 1.7em;
+  font-size: 1.4em;
   font-weight: bold;
+ margin:10px;
 }
 
 .button {
@@ -70,31 +74,35 @@ h2 {
  justify-content: center;
   color: orange;
   font-family: Magettas Regular DEMO;
-  font-size: 1.5em;
+  font-size: 1.2em;
   margin-bottom: 10px;
 }
 
 .image {
   display: block;
-  padding-left: 15%;
-  width: 200px;
-  height: 180px;
-  margin-top: 10px;
+  width: 100%;
+  height: 100%;
+}
+.band-image{
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .seeking-container {
   display: flex;
   justify-content: space-around;
-  width: 200px;
-  padding-left: 5%;
+  width: 100%;
 }
 
 h3 {
   font-weight: normal;
+  margin-top: 15px;
+ 
 }
 .icon {
   margin-top: 12px;
 }
+
 </style>
 
 
