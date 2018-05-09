@@ -8,7 +8,6 @@ export default {
   },
   mutations: {
     setGroupFilter(state, { filter }) {
-      console.log("filter", filter);
       state.groupFilter = filter;
     },
 
@@ -23,7 +22,7 @@ export default {
     },
     updateGroup(state, { group }) {
       const groupIdx = state.groups.findIndex(
-        currGroup => currGroup.id === group.id
+        currGroup => currGroup._id === group._id
       );
       state.groups.splice(groupIdx, 1, group);
     },
@@ -62,10 +61,13 @@ export default {
         store.commit({ type: "deleteGroup", groupId });
       });
     },
-    updateGroup(store, { groupId }) {
-      return GroupService.updateGroup(groupId).then(group => {
+    updateGroup(store, { group }) {
+      return GroupService.updateGroup(group).then(group => {
         store.commit({ type: "updateGroup", group });
       });
+    },
+    updateReqs(store, { joinReq, admins }) {
+      return GroupService.updateReqs(joinReq, admins).then(res => {});
     },
     updateReqs(store, { joinReq, admins }) {
       return GroupService.updateReqs(joinReq, admins).then(res => {});

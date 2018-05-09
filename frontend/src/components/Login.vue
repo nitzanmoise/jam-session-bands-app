@@ -65,6 +65,7 @@ export default {
                 console.log('Login Failed!');
                 EventBusService.$emit(SHOW_MSG, {txt: `Wrong Credentials, please try again`, type: 'error'});
                 this.$refs.txtEmail.focus();
+                 this.$emit('close');
             })
            
         },
@@ -80,6 +81,7 @@ export default {
                 console.log('Login Failed!');
                 EventBusService.$emit(SHOW_MSG, {txt: `There was an error logging you in! sorry!`, type: 'error'});
                 this.$refs.txtEmail.focus();
+                 this.$emit('close');
             })
            
         }

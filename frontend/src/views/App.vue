@@ -3,7 +3,7 @@
   <header>
         <nav-Bar :loginModal="loginModal"  @loginModal="loginModal = true" :joinModal="joinModal"  @joinModal="joinModal = true" :group-create="groupCreate" @groupCreate="groupCreate= true" ></nav-Bar>
   </header>
-       <router-view class="groupList"></router-view>
+       <router-view></router-view>
        <log-in v-if="loginModal" @close="loginModal = false" @joinModal="joinModal = true, loginModal = false" ></log-in>
        <join-register v-if="joinModal" @close="joinModal = false" @loginModal="loginModal = true, joinModal = false"></join-register>
        <group-create v-if="groupCreate" @close="groupCreate = false"></group-create>

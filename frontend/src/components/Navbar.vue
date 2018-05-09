@@ -9,14 +9,13 @@
   text-color='white'
   active-text-color='orange'
   height='100%'>
-  
-  <!-- <div class='homeCreate'> -->
+ 
        <el-menu-item index='1'><router-link tag='a' class='home' to='/'>Home</router-link></el-menu-item>
       <el-menu-item index='2'> 
        <button tag='a' id='show-modal' @click="$emit('groupCreate', true)">Create Group</button>
         </el-menu-item>
- <!-- </div>
- <div class='register'> -->
+
+
       <el-menu-item index='3' v-if='!$store.getters.loggedinUser' >
         <button tag='a' id='show-modal' @click="$emit('joinModal', true)">Join</button>
       </el-menu-item>
@@ -33,8 +32,7 @@
           <a href="" class="badge1" data-badge="27"></a>
       </el-menu-item>
       
-      
-  <!-- </div> -->
+  
 </el-menu>
 </section>
 </template>
@@ -60,7 +58,7 @@ export default {
       console.log(key, keyPath);
     },
     routeToMyProfile(id) {
-      this.$router.push(`/UserEdit/${id}`);
+      this.$router.push(`/UserDetails/${id}`);
     },
     logout() {
       console.log("Logging out!");

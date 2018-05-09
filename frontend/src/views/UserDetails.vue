@@ -24,9 +24,9 @@
                 <div class="group-img-container"  @click="goToGroupEdit(group._id)">
                     <img :src="group.image" class="group-image">
                 </div>
+                    <button @click="goToGroupEdit(group._id)" :disabled="!checkIfAdmin(group)">Edit This Group</button>
                 <div class="group-name-container">
-                <h1 class="group-name" @click="goToGroupEdit(group._id)">{{group.name}}</h1>
-                    <h5>a</h5>
+                <h1 class="group-name" @click="goToGroupDetails(group._id)">{{group.name}}</h1>
                 </div>
             </div>
             </div>
@@ -66,10 +66,15 @@ export default {
       return this.$store.getters.loggedinUser;
     }
   },
+
   methods: {
     deleteReq(userId, timeStamp, user) {
       // console.log("deletereq", userId, timeStamp);
       this.$store.dispatch({ type: "deleteReq", userId, timeStamp });
+    },
+    goToGroupDetails(id) {
+      console.log("this is group id", id);
+      this.$router.push(`/GroupDetails/${id}`);
     },
     goToGroupEdit(id) {
       this.$router.push(`/Group/Edit/${id}`);
@@ -84,6 +89,11 @@ export default {
         askerId,
         groupId
       });
+    },
+    checkIfAdmin(group) {
+      if (!this.loggedinUser) return false;
+      var member = group.members.find(({ id }) => id === this.loggedinUser._id);
+      return member ? member.isAdmin : false;
     }
   },
   created() {
@@ -259,11 +269,17 @@ export default {
 .main-container {
   display: flex;
 }
-.button {
-  padding: 0;
-  float: right;
+button {
+  padding: 5px;
   color: orange;
   font-family: Magettas Regular DEMO;
+  height: 30px;
+  background-color: rgb(209, 234, 243);
+}
+
+.el-button {
+  color: orange;
+  box-shadow: 0px 1px 64px -5px rgba(0, 0, 0, 0.36);
 }
 @font-face {
   font-family: Condition3D-Italic;
