@@ -57,6 +57,7 @@ module.exports = app => {
 
 
   app.put(`${GROUP_URL}/:id/joinReq`, function (req, res){
+    
     GroupService.sendJoinReqs(req.body)
             .then(result =>{
                 res.json(result)

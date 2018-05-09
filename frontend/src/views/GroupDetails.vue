@@ -79,15 +79,11 @@ export default {
       
   },
   created() {
-    var groupId = this.$route.params.id;
-    console.log("this is groupid", groupId);
+    console.log('i am the crested of detials')
+    var groupId = this.$route.params.id; 
     this.$store.dispatch({ type: "getGroupById", groupId }).then(group => {
       this.group = group;
-      console.log('this ig genres', this.group.genre);
-      
-      console.log("this is group", group);
-      this.$store.dispatch({ type: "getGroupMembers", group }).then(members => {
-        console.log("this is group members", members.data);
+      this.$store.dispatch({ type: "getGroupMembers", group }).then(members => {   
         this.members = members.data;
       });
     });

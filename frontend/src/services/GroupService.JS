@@ -25,8 +25,16 @@ function getGroups(filter) {
     .catch(e => console.log("No Groups", e));
 }
 
-function updateGroup(groop) {
-    return axios.put(GROUP_URL+'/'+group._id, group)
+function updateGroup(group) {
+    return axios.put(GROUP_URL+'/'+group._id, group).then(res => {
+
+      return res.data
+    })
+    .catch(e=> {
+      var userMsg = { txt: "Groups Update Failed!", type: "error" };
+      EventBusService.$emit(SHOW_MSG, userMsg);
+      console.log('Failed to Update', e)
+    })
 }
 
 function addGroup(group) {

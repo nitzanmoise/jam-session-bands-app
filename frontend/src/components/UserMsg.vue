@@ -16,11 +16,11 @@ export default {
     EventBusService.$on(SHOW_MSG, msg => {
       console.log({ msg });
      this.$swal({
-        title: msg.txt,
+        title: `<span style='font-family: Shrikhand-Regular; color: orange'>${msg.txt}`,
         position: "center",
         showConfirmButton: false,
-        timer: 3000,
-        type: msg.type
+        timer: 2000,
+        type: msg.type,
       });
     });
   },
@@ -40,8 +40,13 @@ export default {
 </script>
 
 <style>
-.sweet-alert {
-  background-color: rgb(255, 255, 255);
+@font-face {
+  font-family: Shrikhand-Regular;
+  src: url('../../public/fonts/Shrikhand/Shrikhand-Regular.ttf');
+}
+.sweet-alert{ 
+  background-color: lightblue;
+  
 }
 </style>
 

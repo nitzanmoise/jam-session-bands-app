@@ -1,33 +1,19 @@
 <template>
 
-<section  class="group-preview">
 
-  <el-col :span="6">
-    <el-card :body-style="{ padding: '10px' }" class="card">
-      <div @click="openGroupDetails(group._id)">
-        <span>{{group.name}}</span>
+  <div class="card" @click="openGroupDetails(group._id)">
+        <h2>{{group.name}}</h2>
       <img :src="group.image" class="image">
-      </div>
-      <div style="padding: 14px;">
-        <div class="bottom clearfix">
           <div class="seeking-container">
-            <div class="seeking">
               <h3>Seeking:</h3>
-            </div>      
-            <div v-for="need in group.need" :key="need._id">  
+              <div v-for="need in group.need" :key="need._id">  
                 <img class="icon" :src="'./img/instruments/'+need+'.png'" alt="" width="25px;" height="25px;">                        
-            </div>
+              </div>
           </div>  
           <el-button @click="sendJoinReq(group._id)" type="text" class="button">Join The Band</el-button>
           <el-button @click="openGroupDetails(group._id)" class="button">View Group Details</el-button>
-         
-        </div>
-      </div>
-    </el-card>
-  </el-col>
+  </div>
 
-
-</section>
  
 </template>
   <script>
@@ -43,11 +29,6 @@ export default {
       this.$router.push(`/GroupDetails/${groupId}`);
     },
     sendJoinReq(groupId) {
-      console.log(
-        "THIS IS DROUP ID DDDDDDDDDDDDDDDDDDDDDD",
-        groupId,
-        this.loggedinUser
-      );
       if (!this.loggedinUser) {
         console.log("you not logged in");
       } else {
@@ -73,26 +54,24 @@ export default {
   margin: 20px;
   text-align: center;
   cursor: pointer;
+  border-radius: 20px;
   /* border: solid 2px black; */
-  /* box-shadow: 2px 4px 54px 0px rgba(0,0,0,0.62); */
+  box-shadow: 2px 4px 54px 0px rgba(0,0,0,0.62);
 }
-span {
+h2 {
   /* font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
-  margin: 20px;
-  font-size: 1.2em;
+   margin: 20px;
+  font-size: 1.7em;
   font-weight: bold;
 }
 
-.bottom {
-  margin-top: 13px;
-  line-height: 12px;
-}
-
 .button {
-  padding: 0;
-  float: right;
+  padding: 0px;
+ justify-content: center;
   color: orange;
   font-family: Magettas Regular DEMO;
+  font-size: 1.5em;
+  margin-bottom: 10px;
 }
 
 .image {
@@ -103,23 +82,11 @@ span {
   margin-top: 10px;
 }
 
-.clearfix:before,
-.clearfix:after {
-  display: table;
-  content: "";
-}
-
-.clearfix:after {
-  clear: both;
-}
 .seeking-container {
   display: flex;
   justify-content: space-around;
   width: 200px;
   padding-left: 5%;
-}
-.seeking {
-  padding-bottom: 5px;
 }
 
 h3 {

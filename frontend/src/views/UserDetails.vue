@@ -24,9 +24,9 @@
                 <div class="group-img-container"  @click="goToGroupDetails(group._id)">
                     <img :src="group.image" class="group-image">
                 </div>
+                    <button @click="goToGroupEdit(group._id)" :disabled="!checkIfAdmin(group)">Edit This Group</button>
                 <div class="group-name-container">
                 <h1 class="group-name" @click="goToGroupDetails(group._id)">{{group.name}}</h1>
-                    <h5>a</h5>
                 </div>
             </div>
             </div>
@@ -46,23 +46,33 @@ export default {
   data() {
     return {
       user: {},
-      groups: {},
+      groups: {}
     };
   },
-   computed: {
-          genres(){
-            return  this.user.genre
-      },
-      // addMember(){
-        
-      // }
-   },
-  methods:{
-      goToGroupDetails(id){
-       console.log('this is group id', id);
-        this.$router.push(`/GroupDetails/${id}`)
-          
-      }
+  computed: {
+    genres() {
+      return this.user.genre;
+    },
+    loggedinUser() {
+      return this.$store.state.UserStore.loggedinUser;
+    }
+    // addMember(){
+
+    // }
+  },
+  methods: {
+    goToGroupDetails(id) {
+      console.log("this is group id", id);
+      this.$router.push(`/GroupDetails/${id}`);
+    },
+    goToGroupEdit(id) {
+      this.$router.push(`/Group/Edit/${id}`);
+    },
+    checkIfAdmin(group) {
+      if (!this.loggedinUser) return false;
+      var member = group.members.find(({ id }) => id === this.loggedinUser._id);
+      return member ? member.isAdmin : false;
+    }
   },
   created() {
     var userId = this.$route.params.id;
@@ -75,7 +85,8 @@ export default {
         this.groups = groups.data;
       });
     });
-  }
+  },
+  watch: {}
 };
 </script>
 
@@ -142,7 +153,6 @@ export default {
   width: 35%;
   text-align: center;
   padding: 10px;
-
 }
 .user-details-container {
   background-color: rgb(244, 245, 247);
@@ -187,12 +197,18 @@ export default {
 .main-container {
   display: flex;
 }
- .button {
-    padding: 0;
-    float: right;
-    color: orange;
-    font-family: Magettas Regular DEMO;
-  }
+button {
+  padding: 5px;
+  color: orange;
+  font-family: Magettas Regular DEMO;
+  height: 30px;
+  background-color: rgb(209, 234, 243);
+}
+
+.el-button {
+  color: orange;
+  box-shadow: 0px 1px 64px -5px rgba(0, 0, 0, 0.36);
+}
 @font-face {
   font-family: Condition3D-Italic;
   src: url("../../public/fonts/Condition3D-Italic.ttf");
@@ -202,10 +218,10 @@ export default {
   src: url("../../public/fonts/Painting_With_Chocolate_regular/Painting_With_Chocolate.ttf");
 }
 @font-face {
-    font-family: music-instuments ;
-    src: url("../../public/fonts/kr-music-class/music-instuments.ttf");
+  font-family: music-instuments;
+  src: url("../../public/fonts/kr-music-class/music-instuments.ttf");
 }
-h5{
-    font-family: music-instuments ;
+h5 {
+  font-family: music-instuments;
 }
 </style>

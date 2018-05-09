@@ -74,21 +74,21 @@ function remove(groupId) {
   });
 }
 
-function updateGroup(upadteFileds, _id) {
-  console.log("inside edit user");
+function updateGroup(updateFields, _id) {
+  // delete updateFields._id
+  updateFields._id = new mongo.ObjectID(updateFields._id);
   const updateObj = {
-    $set: upadteFileds
+    $set: updateFields
   };
-  _id = new mongo.ObjectID(_id);
   return new Promise((resolve, reject) => {
     DBService.dbConnect().then(dataBase => {
-      dataBase
-        .collection("groups")
-        .updateOne({ _id }, updateObj, (err, updatedGroup) => {
-          if (err) return console.log("Update User Error!");
+    console.log()
+      dataBase.collection("groups").updateOne({ _id: updateFields._id }, updateObj , (err, updatedGroup) => {
+          console.log('INSIDE UPDATE GROUPPPP')
+          if (err) return console.log("Update Group Error!");
           else resolve(updatedGroup);
           dataBase.close();
-        });
+        })
     });
   });
 }
