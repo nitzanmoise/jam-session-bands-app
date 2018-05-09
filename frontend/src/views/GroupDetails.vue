@@ -21,8 +21,8 @@
            <!-- <div>  -->
             <h1 class="members-header">Members</h1>
             <div v-for="member in members" :key="member._id" class="member-details" >
-                <div class="member-img-container" @click="goToMemberDetails(member._id)">
-                    <img :src="member.image" class="member-image">
+                <div class="member-img-container" @click="goToMemberDetails(member._id)" :style="{ backgroundImage: `url(${member.image})`, width: 50+'px', height: 50+'px' }">
+                    <!-- <img :src="member.image" class="member-image"> -->
                 </div>
                 <div class="member-name-container">
                     <h1 class="member-name" @click="goToMemberDetails(member._id)">{{member.fullName}}</h1>
@@ -59,31 +59,29 @@ export default {
   data() {
     return {
       group: { name: "" },
-      members: {},
+      members: {}
     };
   },
-  methods:{
-      goToMemberDetails(id){
-       console.log('this is member id', id);
-        this.$router.push(`/UserDetails/${id}`)
-          
-      }
+  methods: {
+    goToMemberDetails(id) {
+      console.log("this is member id", id);
+      this.$router.push(`/UserDetails/${id}`);
+    }
   },
   computed: {
-          genres(){
-            return  this.group.genre
-      },
-       needs(){
-            return  this.group.need
-      },
-      
+    genres() {
+      return this.group.genre;
+    },
+    needs() {
+      return this.group.need;
+    }
   },
   created() {
-    console.log('i am the crested of detials')
-    var groupId = this.$route.params.id; 
+    console.log("i am the crested of detials");
+    var groupId = this.$route.params.id;
     this.$store.dispatch({ type: "getGroupById", groupId }).then(group => {
       this.group = group;
-      this.$store.dispatch({ type: "getGroupMembers", group }).then(members => {   
+      this.$store.dispatch({ type: "getGroupMembers", group }).then(members => {
         this.members = members.data;
       });
     });
@@ -94,16 +92,16 @@ export default {
 <style scoped>
 .group-details-container {
   font-family: Magettas Regular DEMO;
-display: flex;
+  display: flex;
   /* width: 98%; */
   flex-flow: column;
   height: 100%;
   width: 100%;
-  
+
   /* margin-left: 1%; */
   background-color: white;
 }
-.group-details{
+.group-details {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -143,44 +141,49 @@ display: flex;
   padding-top: 2%;
   display: flex;
   flex-direction: column;
-        width: 20%;
-        border-right: black solid 1px;
+  width: 20%;
+  border-right: black solid 1px;
   /* background-color: rgba(0, 0, 0, 0.8);
   color: #fff;
          */
-  
-  
 }
- .members-header{
-     font-family:  Shrikhand-Regular;
-    color: orange;
-    font-size: 2em;
-    width: 35%;
-   text-align: center;
-   padding: 10px;
-    }
-.member-name-container h3{
-    float: left;  
-} 
+.members-header {
+  font-family: Shrikhand-Regular;
+  color: orange;
+  font-size: 2em;
+  width: 35%;
+  text-align: center;
+  padding: 10px;
+}
+/* .member-name-container h3 {
+  float: left;
+} */
+.member-img-container {
+  background-size: cover;
+  background-position: center center;
+  width: 30%;
+  cursor: pointer;
+  border-radius: 50%;
+  border: solid rgb(199, 182, 182) 5px;
+  background-size: cover;
+  box-shadow: gray 1px inset;
+}
 .member-name-container img {
-      padding: 20px;
-
-}   
+  padding: 20px;
+}
 .about {
-    margin-top: 4%;
-    /* font-size: 28px; */
-        width: 35%;
-        padding-left: 5%;
-    
+  margin-top: 4%;
+  /* font-size: 28px; */
+  width: 35%;
+  padding-left: 5%;
 }
 
 .member-name {
-    font-family:Magettas Regular DEMO;
+  font-family: Magettas Regular DEMO;
   cursor: pointer;
-    /* width: 35%; */
+  /* width: 35%; */
   text-align: center;
   float: left;
-  
 }
 .group-details-container {
   background-color: rgb(244, 245, 247);
@@ -195,7 +198,6 @@ display: flex;
   color: #fff;
   float: left;
   margin-bottom: 5px;
-  
 }
 .header-info h3 {
   margin-top: 0px;
@@ -223,35 +225,33 @@ display: flex;
   align-items: flex-start;
   margin-top: 5%;
 }
-.main-container{
-    display: flex;
+.main-container {
+  display: flex;
 }
-.need{
+.need {
   /* display: flex; */
   flex-direction: row;
   justify-content: space-around;
-    margin-top: 3%;
-        /* width: 8%; */
-    margin-left: 5%;
-    
-  
+  margin-top: 3%;
+  /* width: 8%; */
+  margin-left: 5%;
 }
 .need-img {
   margin-left: 20px;
-    display: flex;
-    justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
 }
-.need-img img{
+.need-img img {
   margin-right: 15px;
   padding-top: 10px;
 }
- .button {
-   font-size: 1.5em;
-   /* margin-top: 10%; */
-   color: orange;
-       margin-top: 40%;
-    /* border: orange solid 1px; */
-  }
+.button {
+  font-size: 1.5em;
+  /* margin-top: 10%; */
+  color: orange;
+  margin-top: 40%;
+  /* border: orange solid 1px; */
+}
 /* .need div{
   }
 .need-img{
@@ -259,16 +259,16 @@ display: flex;
   
 } */
 @font-face {
-    font-family: Condition3D-Italic;
-    src: url('../../public/fonts/Condition3D-Italic.ttf');
+  font-family: Condition3D-Italic;
+  src: url("../../public/fonts/Condition3D-Italic.ttf");
 }
 @font-face {
-    font-family: Painting_With_Chocolate;
-    src: url('../../public/fonts/Painting_With_Chocolate_regular/Painting_With_Chocolate.ttf');
+  font-family: Painting_With_Chocolate;
+  src: url("../../public/fonts/Painting_With_Chocolate_regular/Painting_With_Chocolate.ttf");
 }
 @font-face {
-    font-family: music-instuments ;
-    src: url("../../public/fonts/kr-music-class/music-instuments.ttf");
+  font-family: music-instuments;
+  src: url("../../public/fonts/kr-music-class/music-instuments.ttf");
 }
 @font-face {
   font-family: Magettas Regular DEMO;
@@ -276,7 +276,6 @@ display: flex;
 }
 @font-face {
   font-family: Shrikhand-Regular;
-  src: url('../../public/fonts/Shrikhand/Shrikhand-Regular.ttf');
+  src: url("../../public/fonts/Shrikhand/Shrikhand-Regular.ttf");
 }
-   
 </style>

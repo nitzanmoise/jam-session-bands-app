@@ -10,30 +10,31 @@
 </template>
 
 <script>
-import GroupPreview from '../components/GroupPreview.vue' 
+import GroupPreview from "../components/GroupPreview.vue";
 export default {
-props: ['groups'],
-components:{
+  props: ["groups"],
+  components: {
     GroupPreview
   }
-}
+};
 </script>
 
 <style scoped>
-h1{
+h1 {
   text-align: center;
   font-size: 1.7em;
   margin: 0px;
-  background-color: grey;
-  color: white;
+  background-color: whitesmoke;
+  color: #756a6a;
   padding: 30px;
   border-top: 1px solid white;
+  box-shadow: inset 0px -9px 30px #c9c9c9;
 }
 
-.group{
-  display:flex;
+.group {
+  display: flex;
   flex-flow: column wrap;
-height: 400px;
+  height: 400px;
   width: 300px;
   margin: 20px;
 }
@@ -42,9 +43,9 @@ height: 400px;
   width: 90%;
   max-width: 1240px;
   margin: 0 auto;
-   
+
   display: grid;
-   
+
   grid-template-columns: 3fr;
   grid-template-rows: auto;
   grid-gap: 20px;
