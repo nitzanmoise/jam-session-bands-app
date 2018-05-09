@@ -36,9 +36,14 @@
                 <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/428166729&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
           <h1>Who are we?</h1>
                 <h3>{{group.about}}</h3>
-                <!-- <iframe allowtransparency="true" scrolling="no" frameborder="no" :src="'https://w.soundcloud.com/icon/?url=http%3A%2F%2Fsoundcloud.com%2F'+group.name+'&color=orange_white&size=32'" style="width: 32px; height: 32px;">
-                </iframe> -->
-              
+        </div>
+        <div>
+          <div>
+            <h1>Join requets:</h1>
+            <div v-for="joinReq in loggedinUser.joinReqs"  :key="joinReq.id">
+                 {{joinReq.askerName}} wants to join {{group.name}}
+            </div>
+          </div>
         </div>  
         <div class="need">
             <h3>Looking for:</h3> 
@@ -60,37 +65,41 @@ export default {
     return {
       group: { name: "" },
       members: {},
+      joinReqs: { asker: "", groupToJoin: "" }
     };
   },
-  methods:{
-      goToMemberDetails(id){
-       console.log('this is member id', id);
-        this.$router.push(`/UserDetails/${id}`)
-          
-      }
+  methods: {
+    goToMemberDetails(id) {
+      console.log("this is member id", id);
+      this.$router.push(`/UserDetails/${id}`);
+    }
   },
   computed: {
-          genres(){
-            return  this.group.genre
-      },
-       needs(){
-            return  this.group.need
-      },
-      
+    genres() {
+      return this.group.genre;
+    },
+    needs() {
+      return this.group.need;
+    },
+    loggedinUser() {
+      return this.$store.getters.loggedinUser;
+    }
   },
   created() {
     var groupId = this.$route.params.id;
     console.log("this is groupid", groupId);
     this.$store.dispatch({ type: "getGroupById", groupId }).then(group => {
       this.group = group;
-      console.log('this ig genres', this.group.genre);
-      
+      console.log("this is genres", this.group.genre);
+
       console.log("this is group", group);
       this.$store.dispatch({ type: "getGroupMembers", group }).then(members => {
         console.log("this is group members", members.data);
         this.members = members.data;
       });
     });
+
+    // this.$store.dispatch({type: "getUserById", })
   }
 };
 </script>
@@ -98,16 +107,16 @@ export default {
 <style scoped>
 .group-details-container {
   font-family: Magettas Regular DEMO;
-display: flex;
+  display: flex;
   /* width: 98%; */
   flex-flow: column;
   height: 100%;
   width: 100%;
-  
+
   /* margin-left: 1%; */
   background-color: white;
 }
-.group-details{
+.group-details {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -147,44 +156,38 @@ display: flex;
   padding-top: 2%;
   display: flex;
   flex-direction: column;
-        width: 20%;
-        border-right: black solid 1px;
+  width: 20%;
+  border-right: black solid 1px;
   /* background-color: rgba(0, 0, 0, 0.8);
   color: #fff;
          */
-  
-  
 }
- .members-header{
-     font-family:  Painting_With_Chocolate;
-    color: orange;
-    font-size: 2em;
-    width: 35%;
-   text-align: center;
-   padding: 10px;
-    }
-.member-name-container h3{
-    float: left;  
-} 
+.members-header {
+  font-family: Shrikhand-Regular;
+  color: orange;
+  font-size: 2em;
+  width: 35%;
+  text-align: center;
+  padding: 10px;
+}
+.member-name-container h3 {
+  float: left;
+}
 .member-name-container img {
-      padding: 20px;
-
-}   
+  padding: 20px;
+}
 .about {
-    margin-top: 4%;
-    /* font-size: 28px; */
-        width: 35%;
-        padding-left: 5%;
-    
+  margin-top: 4%;
+  width: 35%;
+  padding-left: 5%;
 }
 
 .member-name {
-    font-family:Magettas Regular DEMO;
+  font-family: Magettas Regular DEMO;
   cursor: pointer;
-    /* width: 35%; */
+  /* width: 35%; */
   text-align: center;
   float: left;
-  
 }
 .group-details-container {
   background-color: rgb(244, 245, 247);
@@ -199,7 +202,6 @@ display: flex;
   color: #fff;
   float: left;
   margin-bottom: 5px;
-  
 }
 .header-info h3 {
   margin-top: 0px;
@@ -227,35 +229,33 @@ display: flex;
   align-items: flex-start;
   margin-top: 5%;
 }
-.main-container{
-    display: flex;
+.main-container {
+  display: flex;
 }
-.need{
+.need {
   /* display: flex; */
   flex-direction: row;
   justify-content: space-around;
-    margin-top: 3%;
-        /* width: 8%; */
-    margin-left: 5%;
-    
-  
+  margin-top: 3%;
+  /* width: 8%; */
+  margin-left: 5%;
 }
 .need-img {
   margin-left: 20px;
-    display: flex;
-    justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
 }
-.need-img img{
+.need-img img {
   margin-right: 15px;
   padding-top: 10px;
 }
- .button {
-   font-size: 1.5em;
-   /* margin-top: 10%; */
-   color: orange;
-       margin-top: 40%;
-    /* border: orange solid 1px; */
-  }
+.button {
+  font-size: 1.5em;
+  /* margin-top: 10%; */
+  color: orange;
+  margin-top: 40%;
+  /* border: orange solid 1px; */
+}
 /* .need div{
   }
 .need-img{
@@ -263,20 +263,23 @@ display: flex;
   
 } */
 @font-face {
-    font-family: Condition3D-Italic;
-    src: url('../../public/fonts/Condition3D-Italic.ttf');
+  font-family: Condition3D-Italic;
+  src: url("../../public/fonts/Condition3D-Italic.ttf");
 }
 @font-face {
-    font-family: Painting_With_Chocolate;
-    src: url('../../public/fonts/Painting_With_Chocolate_regular/Painting_With_Chocolate.ttf');
+  font-family: Painting_With_Chocolate;
+  src: url("../../public/fonts/Painting_With_Chocolate_regular/Painting_With_Chocolate.ttf");
 }
 @font-face {
-    font-family: music-instuments ;
-    src: url("../../public/fonts/kr-music-class/music-instuments.ttf");
+  font-family: music-instuments;
+  src: url("../../public/fonts/kr-music-class/music-instuments.ttf");
 }
 @font-face {
   font-family: Magettas Regular DEMO;
   src: url("../../public/fonts/magettas-demo/Magettas Regular DEMO.otf");
 }
-   
+@font-face {
+  font-family: Shrikhand-Regular;
+  src: url("../../public/fonts/Shrikhand/Shrikhand-Regular.ttf");
+}
 </style>

@@ -14,8 +14,7 @@ function getGroups(filter) {
       } else if (filter === "") {
         return res.data;
       } else {
-      
-      return res.data.filter(group => {
+        return res.data.filter(group => {
           return group.need.some(need => {
             return need.toLowerCase().includes(filter.toLowerCase());
           });
@@ -25,23 +24,30 @@ function getGroups(filter) {
     .catch(e => console.log("No Groups", e));
 }
 
+function addAskerToGroupMembers(askerId, groupId) {
+  return axios.put(GROUP_URL + "/addMember", { askerId, groupId });
+}
+
 function updateGroup(groop) {
-    return axios.put(GROUP_URL+'/'+group._id, group)
+  return axios.put(GROUP_URL + "/" + group._id, group);
 }
 
 function addGroup(group) {
-    return axios.post(GROUP_URL, group).then(res => {
-      return res.data
-    })  
+  return axios.post(GROUP_URL, group).then(res => {
+    return res.data;
+  });
 }
 
 function deleteGroup(groupId) {
   return axios.delete(_getGroupUrl(groupId));
 }
 
-function updateReqs(joinReq, admins){
-    console.log('in service')
-    return axios.put(_getGroupUrl(joinReq.groupId)+'/joinReq', {joinReq, admins})
+function updateReqs(joinReq, admins) {
+  console.log("in service");
+  return axios.put(_getGroupUrl(joinReq.groupId) + "/joinReq", {
+    joinReq,
+    admins
+  });
 }
 
 function getGroupById(groupId) {
@@ -57,12 +63,13 @@ function getGroupMembers(group) {
 }
 
 export default {
-    getGroups,
-    updateGroup,
-    addGroup,
-    deleteGroup,
-    emptyGroup,
-    getGroupById,
-    getGroupMembers,
-    updateReqs
-}
+  getGroups,
+  updateGroup,
+  addGroup,
+  deleteGroup,
+  emptyGroup,
+  getGroupById,
+  getGroupMembers,
+  updateReqs,
+  addAskerToGroupMembers
+};

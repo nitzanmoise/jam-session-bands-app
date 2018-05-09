@@ -156,7 +156,7 @@ display: flex;
   
 }
  .members-header{
-     font-family:  Painting_With_Chocolate;
+     font-family:  Shrikhand-Regular;
     color: orange;
     font-size: 2em;
     width: 35%;
@@ -277,6 +277,10 @@ display: flex;
 @font-face {
   font-family: Magettas Regular DEMO;
   src: url("../../public/fonts/magettas-demo/Magettas Regular DEMO.otf");
+}
+@font-face {
+  font-family: Shrikhand-Regular;
+  src: url('../../public/fonts/Shrikhand/Shrikhand-Regular.ttf');
 }
    
 </style>

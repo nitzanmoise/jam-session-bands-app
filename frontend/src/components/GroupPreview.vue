@@ -52,8 +52,12 @@ export default {
         console.log("you not logged in");
       } else {
         console.log("yes you log in", this.group.members, this.loggedinUser);
-        var askerId  = this.loggedinUser._id;
-        var joinReq = { askerId, groupId };
+        var askerId = this.loggedinUser._id;
+        var askerName = this.loggedinUser.fullName;
+        var createdAt = Date.now();
+        var joinReq = { askerId, askerName, groupId, createdAt };
+        console.log("thi is join req", joinReq);
+
         var admins = this.group.members.filter(({ isAdmin }) => isAdmin);
         this.$store.dispatch({ type: "updateReqs", joinReq, admins });
       }

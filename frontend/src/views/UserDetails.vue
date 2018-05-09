@@ -19,13 +19,13 @@
         </div>
         <div class="main-container">
         <div class="groups-container">
-            <h1 class="groups-header">Groups</h1>
+            <h1 class="groups-header">My Groups</h1>
             <div v-for="group in groups" :key="group._id" >
-                <div class="group-img-container"  @click="goToGroupDetails(group._id)">
+                <div class="group-img-container"  @click="goToGroupEdit(group._id)">
                     <img :src="group.image" class="group-image">
                 </div>
                 <div class="group-name-container">
-                <h1 class="group-name" @click="goToGroupDetails(group._id)">{{group.name}}</h1>
+                <h1 class="group-name" @click="goToGroupEdit(group._id)">{{group.name}}</h1>
                     <h5>a</h5>
                 </div>
             </div>
@@ -35,6 +35,13 @@
             <iframe allowtransparency="true" scrolling="no" frameborder="no" src="https://w.soundcloud.com/icon/?url=http%3A%2F%2Fsoundcloud.com%2Fnitzan-moise&color=orange_white&size=32" style="width: 32px; height: 32px;">
             </iframe>
             </div>
+      <div>
+           <h1>Join requets:</h1>
+           <div v-for="req in joinReqs" :key="req.createdAt">
+            <span @click="goToAsker(req.asker._id)">{{req.asker.fullName}}</span> asked to join {{req.group.name}}
+            <button @click="deleteReq(user._id, req.createdAt)" >Cancel</button><button @click="addAskerToGroupMembers(req.asker._id, req.group._id)" >Agree</button>
+           </div>
+      </div>  
         </div>    
         <!-- <button class="addMember" @click="addMember"> Add a Member</button> -->
     </section>
@@ -47,34 +54,100 @@ export default {
     return {
       user: {},
       groups: {},
+      joinReqs: []
     };
   },
-   computed: {
-          genres(){
-            return  this.user.genre
-      },
-      // addMember(){
-        
-      // }
-   },
-  methods:{
-      goToGroupDetails(id){
-       console.log('this is group id', id);
-        this.$router.push(`/GroupDetails/${id}`)
-          
-      }
+  computed: {
+    genres() {
+      return this.user.genre;
+    },
+    addMember() {},
+    loggedinUser() {
+      return this.$store.getters.loggedinUser;
+    }
+  },
+  methods: {
+    deleteReq(userId, timeStamp, user) {
+      // console.log("deletereq", userId, timeStamp);
+      this.$store.dispatch({ type: "deleteReq", userId, timeStamp });
+    },
+    goToGroupEdit(id) {
+      this.$router.push(`/Group/Edit/${id}`);
+    },
+    goToAsker(id) {
+      this.$router.push(`/UserDetails/${id}`);
+    },
+    addAskerToGroupMembers(askerId, groupId) {
+      console.log("this is asker is", askerId, "this is group id", groupId);
+      this.$store.dispatch({
+        type: "addAskerToGroupMembers",
+        askerId,
+        groupId
+      });
+    }
   },
   created() {
     var userId = this.$route.params.id;
-    console.log("this is userid", userId);
     this.$store.dispatch({ type: "getUserById", userId }).then(user => {
-      console.log("this i user", user);
       this.user = user;
       this.$store.dispatch({ type: "getUserGroups", user }).then(groups => {
-        console.log("this is user groups", groups.data);
         this.groups = groups.data;
       });
     });
+    var joinReqPrms = this.loggedinUser.joinReqs.map(
+      ({ askerId, groupId, createdAt }) => {
+        var askerPrm = this.$store.dispatch({
+          type: "getUserById",
+          userId: askerId
+        });
+        var groupJoinPrm = this.$store.dispatch({
+          type: "getGroupById",
+          groupId
+        });
+        return Promise.all([askerPrm, groupJoinPrm, createdAt]);
+      }
+    );
+
+    Promise.all(joinReqPrms)
+      .then(reqs =>
+        reqs.map(([asker, group, createdAt]) => {
+          return { asker, group, createdAt };
+        })
+      )
+      .then(reqs => (this.joinReqs = reqs)); // this.loggedinUser.joinReqs.forEach(joinReq => {
+    console.log("thi is this.joinReqs", this.joinReqs);
+  },
+  watch: {
+    loggedinUser: {
+      handler() {
+        console.log("has changeedededed hasdas");
+        var joinReqPrms = this.loggedinUser.joinReqs.map(
+          ({ askerId, groupId, createdAt }) => {
+            var askerPrm = this.$store.dispatch({
+              type: "getUserById",
+              userId: askerId
+            });
+            var groupJoinPrm = this.$store.dispatch({
+              type: "getGroupById",
+              groupId
+            });
+            return Promise.all([askerPrm, groupJoinPrm, createdAt]);
+          }
+        );
+
+        Promise.all(joinReqPrms)
+          .then(reqs =>
+            reqs.map(([asker, group, createdAt]) => {
+              return { asker, group, createdAt };
+            })
+          )
+          .then(reqs => {
+            this.joinReqs = reqs;
+            // alert("chiko menash");
+          }); // this.loggedinUser.joinReqs.forEach(joinReq => {
+      },
+      deep: true
+    }
   }
 };
 </script>
@@ -125,7 +198,7 @@ export default {
   flex-direction: column;
 }
 .groups-header {
-  font-family: Painting_With_Chocolate;
+  font-family: Shrikhand-Regular;
   color: orange;
   font-size: 2em;
   width: 35%;
@@ -142,7 +215,6 @@ export default {
   width: 35%;
   text-align: center;
   padding: 10px;
-
 }
 .user-details-container {
   background-color: rgb(244, 245, 247);
@@ -187,12 +259,12 @@ export default {
 .main-container {
   display: flex;
 }
- .button {
-    padding: 0;
-    float: right;
-    color: orange;
-    font-family: Magettas Regular DEMO;
-  }
+.button {
+  padding: 0;
+  float: right;
+  color: orange;
+  font-family: Magettas Regular DEMO;
+}
 @font-face {
   font-family: Condition3D-Italic;
   src: url("../../public/fonts/Condition3D-Italic.ttf");
@@ -202,10 +274,14 @@ export default {
   src: url("../../public/fonts/Painting_With_Chocolate_regular/Painting_With_Chocolate.ttf");
 }
 @font-face {
-    font-family: music-instuments ;
-    src: url("../../public/fonts/kr-music-class/music-instuments.ttf");
+  font-family: music-instuments;
+  src: url("../../public/fonts/kr-music-class/music-instuments.ttf");
 }
-h5{
-    font-family: music-instuments ;
+h5 {
+  font-family: music-instuments;
+}
+@font-face {
+  font-family: Shrikhand-Regular;
+  src: url("../../public/fonts/Shrikhand/Shrikhand-Regular.ttf");
 }
 </style>

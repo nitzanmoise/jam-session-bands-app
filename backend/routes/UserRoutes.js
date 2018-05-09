@@ -1,87 +1,82 @@
-var UserService = require('../services/UserService')
-const USER_URL = '/data/user';
+var UserService = require("../services/UserService");
+const USER_URL = "/data/user";
 
 module.exports = app => {
- app.get(USER_URL, (req, res) => {
-  // console.log(req.query);
-  UserService.query(req.query)
-  .then(users => {
-    console.log("ROUTE users: ", users);
-    res.json(users);
-  })
-    .catch(()=> res.status(500).send('problem getting users'))
-  
-})
+  app.get(USER_URL, (req, res) => {
+    // console.log(req.query);
+    UserService.query(req.query)
+      .then(users => {
+        res.json(users);
+      })
+      .catch(() => res.status(500).send("problem getting users"));
+  });
 
+  app.get(`${USER_URL}/:id`, (req, res) => {
+    const userId = req.params.id;
+    console.log({ userId });
+    UserService.getById(userId)
+      .then(selectedUser => res.json(selectedUser))
+      .catch(() => res.status(500).send("problem"));
+  });
 
-app.get(`${USER_URL}/:id`, (req, res) => {
-  const userId = req.params.id;
-  UserService.getById(userId)
-  .then(selectedUser => res.json(selectedUser))
-  .catch(() => res.status(500).send("problem"));
-})
+  app.put(`${USER_URL}/deleteReq`, (req, res) => {
+    UserService.deleteRequest(req.body)
+      .then(result => {
+        res.json(result);
+      })
+      .catch(err => {
+        res.status(500).send();
+      });
+  });
 
- 
-  app.post('/login', (req, res) => {
+  app.post("/login", (req, res) => {
     const user = req.body;
     UserService.checkLogin(user).then(userFromDB => {
-      console.log('userFromDB ekad', userFromDB)
       if (userFromDB) {
-        console.log('Login!', req.session);
         delete userFromDB.password;
         req.session.user = userFromDB;
 
-        res.json({ token: 'Beareloginr: puk115th@b@5t', user: userFromDB });
+        res.json({ token: "Beareloginr: puk115th@b@5t", user: userFromDB });
       } else {
-        console.log('Login NOT Successful');
         req.session.user = null;
-        res.status(403).send({ error: 'Login failed!' });
+        res.status(403).send({ error: "Login failed!" });
       }
     });
   });
 
-  app.put(`${USER_URL}/:id`, function (req, res){
+  app.put(`${USER_URL}/:id`, function(req, res) {
     const _id = req.params.id;
     const upadteFileds = req.body;
-    UserService.updateUser(upadteFileds,_id )
-    .then(user=> res.json(user))
-    .catch(err=> res.status(500).send(('Could not update user')))
-  })
+    UserService.updateUser(upadteFileds, _id)
+      .then(user => res.json(user))
+      .catch(err => res.status(500).send("Could not update user"));
+  });
 
-
-
-  app.post(USER_URL, function (req, res) {
-    console.log('addd user ')
+  app.post(USER_URL, function(req, res) {
     var user = req.body;
     UserService.addUser(user)
       .then(addedUser => res.json(addedUser))
-      .catch(err => res.status(403).send({ error: `Register failed, ERROR:${err}` }));
+      .catch(err =>
+        res.status(403).send({ error: `Register failed, ERROR:${err}` })
+      );
   });
 
-  app.post('/logout', function (req, res) {
+  app.post("/logout", function(req, res) {
     req.session.reset();
-    res.end('Loggedout');
+    res.end("Loggedout");
   });
 
   app.get(`${USER_URL}/:id`, isLoggedIn, (req, res) => {
     res.end(`Profile of ${req.session.user.name}`);
   });
 
-  
-  app.post(`${USER_URL}/groups`,(req, res) => {
-    const groups = req.body.groups;    
-    console.log('groups',groups);
-      
-    var groupsIds = groups.map(group => group.id)
-    console.log('thi is groups id', groupsIds );
-    
-      UserService.getBandGroupsData(groupsIds).then(groups => {
-        console.log('user groups', groups);
-        res.json(groups)
-      })
-    })
+  app.post(`${USER_URL}/groups`, (req, res) => {
+    const groups = req.body.groups;
 
+    var groupsIds = groups.map(group => group.id);
 
+    UserService.getBandGroupsData(groupsIds).then(groups => {
+      res.json(groups);
+    });
+  });
 };
-
-
