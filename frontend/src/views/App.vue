@@ -3,10 +3,10 @@
   <header>
         <nav-Bar :loginModal="loginModal"  @loginModal="loginModal = true" :joinModal="joinModal"  @joinModal="joinModal = true" :group-create="groupCreate" @groupCreate="groupCreate= true" ></nav-Bar>
   </header>
-       <router-view @openLogin="loginModal = true"></router-view>
+       <router-view @openLogin="rani"></router-view>
        <log-in v-if="loginModal" @close="loginModal = false" @joinModal="joinModal = true, loginModal = false" ></log-in>
        <join-register v-if="joinModal" @close="joinModal = false" @openLogin="joinModal = false, loginModal = true" @loginModal="openLogin"></join-register>
-       <group-create v-if="groupCreate" @close="groupCreate = false"></group-create>
+       <group-create v-if="isLoggedIn && groupCreate" @close="groupCreate = false"></group-create>
         <user-msg></user-msg>
        <div>
     <footer>
@@ -22,7 +22,10 @@ import AppFooter from "../components/Footer.vue";
 import logIn from "../components/Login.vue";
 import joinRegister from "../components/join.vue";
 import groupCreate from "../components/GroupCreate.vue";
-import eventBus, { SHOW_MSG } from "../services/EventBusService.js";
+import eventBus, {
+  SHOW_MSG,
+  REQUIRE_LOGIN
+} from "../services/EventBusService.js";
 import EventBusService from "../services/EventBusService.js";
 import userMsg from "../components/UserMsg.vue";
 
@@ -34,6 +37,12 @@ export default {
         user: JSON.parse(sessionStorage.user)
       });
     }
+
+    EventBusService.$on(REQUIRE_LOGIN, () => {
+      setTimeout(() => {
+        this.loginModal = true;
+      }, 2000);
+    });
   },
   data() {
     return {
@@ -51,11 +60,26 @@ export default {
       });
       this.$store.dispatch({ type: "loadGroups" });
     },
+    rani() {
+      console.log("open the modal of the laofin");
+    },
     openLogin() {
       setTimeout(() => {
         this.loginModal = true;
         this.joinModal = false;
       }, 2000);
+    }
+  },
+  computed: {
+    loggedinUser() {
+      return this.$store.getters.loggedinUser;
+    },
+    isLoggedIn() {
+      if (!this.loggedinUser) {
+        EventBusService.$on(REQUIRE_LOGIN, () => {
+          this.loginModal = true;
+        });
+      }
     }
   },
 

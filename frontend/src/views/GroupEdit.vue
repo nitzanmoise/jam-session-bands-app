@@ -5,8 +5,10 @@
                   <label for="name"> Name: </label> <input name="name" ref="name" type="text" placeholder="Enter New Group Name" v-model="group.name" />
                   <label for="about"> Description:  </label><input name= "about"  type="text" placeholder="Describe Your Group" v-model="group.about"/>
                   <label for="image"> Upload image:  </label><input name= "image" type="text" placeholder="insert an Image URL" v-model="group.image"/>
+                  <label for="bgImage"> Your Groups' Background Image:  </label><input name="bgImage" type="text" placeholder="Insert a Background Picture URL" v-model="group.bgImage"/>
                   <label for="location"> Location:  </label><input name="location" type="text" placeholder="Where Are You From?" v-model="group.location"/>
                   <label for="genre"> Genre:  </label><input name= "genre" type="text" placeholder="Genre of the Group" v-model="group.genre"/>
+                  <label for="embed"> Embed a track from SoundCloud (embed tag iframe): </label> <input name="embed" type="text" placeholder="Insert Embed Tag Here" v-model="user.embedLink"/>
                   <label for="need"> Looking For:  </label>
                   <select multiple>
                       <option value="guitar">guitar</option>

@@ -2,27 +2,37 @@
 
 
   <div class="card">
-    <div  @click="openGroupDetails(group._id)">
-        <h2>{{group.name}}</h2>
+    <div class="card-container">
     <div class="band-image">
-      <img :src="group.image" class="image">
+      <img :src="group.image" class="image" @click="openGroupDetails(group._id)">
     </div>
-          <div class="seeking-container">
+        <h2>{{group.name}}</h2>
+        <div class="bottom-card">
+        <div class="seeking-container">
+          <div class="need">
+          <div class="seeking-title">
               <h3>Seeking:</h3>
+          </div> 
+          <div class="emoji">
               <div v-for="need in group.need" :key="need._id">  
-                <img class="icon" :src="'./img/instruments/'+need+'.png'" alt="" width="25px;" height="25px;">                        
+                <img class="icon" :src="'./img/instruments/'+need+'.png'" alt="" width="20px;" height="20px;">                        
+                                       
               </div>
-          </div>  
+              <h3 v-if="needIsEmpty"> Group is Full! </h3> 
+              </div> 
+          </div>
+          <button v-if="!isSentRequest" @click="sendJoinReq(group._id)" type="text" class="button">Join The Band</button>
+          <h4 v-else >Request Sent</h4>
+         
   </div>
-          <el-button v-if="!isSentRequest" @click="sendJoinReq(group._id)" type="text" class="button">Join The Band</el-button>
-          <h4 v-else  >Request Sent</h4>
-          <el-button @click="openGroupDetails(group._id)" type="text" class="button">View Group Details</el-button>
+  </div>
+  </div>
   </div>
 
   
 </template>
   <script>
-import EventBusService, { SHOW_MSG } from "../services/EventBusService.js";
+import EventBusService, { SHOW_MSG , REQUIRE_LOGIN} from "../services/EventBusService.js";
 export default {
   props: ["group"],
   data() {
@@ -35,11 +45,16 @@ export default {
       return this.$store.getters.loggedinUser;
     },
     isSentRequest() {
-      if (!this.loggedinUser) return false 
+      if (!this.loggedinUser) {
+      return false 
+      } 
       var groupId = this.group._id;
       return this.loggedinUser.sentReqsToJoinBands.find(
         req => req.groupId === groupId
       );
+    },
+    needIsEmpty(){
+      if(this.group.need.length === 0) return true;
     }
   },
   methods: {
@@ -48,7 +63,11 @@ export default {
     },
     sendJoinReq(groupId) {
       if (!this.loggedinUser) {
-        this.$emit("openLogin");
+        EventBusService.$emit(REQUIRE_LOGIN);
+        EventBusService.$emit(SHOW_MSG, {
+              txt: `To Use This Feature Please Log In!`,
+              type: "error"
+        })
       } else {
         this.requestSent = true;
         console.log("yes you log in", this.group.members, this.loggedinUser);
@@ -77,56 +96,97 @@ export default {
   font-family: Magettas Regular DEMO;
   src: url("../../public/fonts/magettas-demo/Magettas Regular DEMO.otf");
 }
+@font-face {
+  font-family: Shrikhand-Regular;
+  src: url("../../public/fonts/Shrikhand/Shrikhand-Regular.ttf");
+}
 .card {
-  cursor: pointer;
+
+  height:100%;
 
   /* border: solid 2px black; */
 }
 h2 {
-  /* font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
-  font-size: 1.4em;
+  font-family: Shrikhand-Regular;
+ color: #756a6a;
+  font-size: 1.3em;
   font-weight: bold;
-  margin: 10px;
+  margin: 0;
+  width:100%;
 }
 
+.bottom-card{
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-end;
+}
+
+.card-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 .button {
-  padding: 0px;
-  justify-content: center;
+  line-height: 50%;
+  border:2px solid rgba(226, 226, 226, 0.548);
+  padding: 10px;
   color: orange;
   font-family: Magettas Regular DEMO;
+  height: 30px;
+  border-radius: 50px;
   font-size: 1.2em;
-  margin-bottom: 10px;
+  background-color: white;
+  margin-bottom: 15px;
+  cursor: pointer;
 }
 
 .image {
   display: block;
   width: 100%;
   height: 100%;
-}
-.band-image {
-  margin-left: 20px;
-  margin-right: 20px;
+    cursor: pointer;
 }
 
-.seeking-container {
+.seeking-title{
+  padding-left: 15px;
+}
+
+.seeking-container{
+
+  border-top: 1px solid rgba(226, 226, 226, 0.548);
+}
+
+.need{
+display:flex;
+flex-direction: row;
+width:100%;
+margin: 0 auto;
+
+align-items: flex-end;
+}
+
+.emoji{
   display: flex;
-  justify-content: space-around;
-  width: 100%;
+  align-items: flex-end;
 }
 
 h3 {
-  font-weight: normal;
-  margin-top: 15px;
+  font-size: 1em;
+  color: gray;
 }
 .icon {
-  margin-top: 12px;
+  margin-bottom:12px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 h4 {
   padding: 0px;
   justify-content: center;
-  color: rgb(82, 93, 245);
+  color: rgb(2, 124, 32);
   font-family: Magettas Regular DEMO;
-  font-size: 1.2em;
+  font-size: 1em;
   margin-bottom: 10px;
   margin-top: 0;
 }

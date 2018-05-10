@@ -34,13 +34,13 @@
       <div v-if="currLoggedInUser && joinReqs.length > 0">
            <h1>Join requets:</h1>
            <div v-for="req in joinReqs" :key="req.createdAt">
-            <span @click="goToAsker(req.asker._id)">{{req.asker.fullName}}</span> asked to join {{req.group.name}}
+            <span @click="goToAsker(req.asker._id)">{{req.asker.fullName}}</span> Asked To Join {{req.group.name}}
             <button @click="deleteReq(user._id, req.createdAt)">Cancel</button><button @click="addAskerToGroupMembers(req.asker._id, req.group._id); deleteReq(user._id, req.createdAt)" >Agree</button>
            </div>
       </div>
       <div v-if="currLoggedInUser && groupReqs.length > 0">
          <div class="groupJoinReqs" v-for="groupReq in groupReqs" :key="groupReq.createdAt">
-          <span @click="goToGroupDetails(groupReq.group._id)">{{groupReq.group.name}}</span> wants you to join them!
+          <span @click="goToGroupDetails(groupReq.group._id)">{{groupReq.group.name}}</span> Wants You To Join them!
           <button  @click="deleteReq(user._id, groupReq.createdAt)">Cancel</button><button @click="addAskerToGroupMembers(user._id, groupReq.group._id); deleteReq(user._id, groupReq.createdAt) ">Agree</button>
         </div>
       </div>    
@@ -106,7 +106,12 @@ export default {
         type: "addAskerToGroupMembers",
         askerId,
         groupId
-      });
+      }).then (res => {
+        EventBusService.$emit(SHOW_MSG, {
+            txt: `Request Approved`,
+            type: "success"
+          });
+      })
     },
     checkIfAdmin(group) {
       if (!this.loggedinUser) return false;
@@ -117,7 +122,6 @@ export default {
   created() {
     var userId = this.$route.params.id;
     this.$store.dispatch({ type: "getUserById", userId }).then(user => {
-      console.log("this is userrrrrrrrrrrrrrrrrrr", user);
 
       this.user = user;
 
@@ -147,7 +151,6 @@ export default {
         })
       )
       .then(reqs => (this.joinReqs = reqs));
-    console.log("thi is this.joinReqs", this.joinReqs);
 
     var groupJoinReqPrms = this.loggedinUser.groupJoinReq.map(
       ({ groupId, userId, createdAt }) => {

@@ -101,7 +101,7 @@ padding:10px;
 width: 300px;
 font-family: Verdana, Geneva, Tahoma, sans-serif;
 margin-top: 30px;
-border-radius: 10px;
+border-radius: 50px;
 }
 .container-fluid.main{
   position: relative; /* To make the navbar positions relative to this container */

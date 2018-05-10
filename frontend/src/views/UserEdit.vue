@@ -6,10 +6,12 @@
                   <label for="email"> E-mail:  </label><input name= "email"  type="email" placeholder="Change Your Email here" v-model="user.email"/>
                   <label for="password"> Password:  </label><input name= "password" type="text" placeholder="Change Your Password Here" v-model="user.password"/>
                   <label for="image"> Your Image:  </label><input name="image" type="text" placeholder="Insert a Picture URL" v-model="user.image"/>
+                  <label for="bgImage"> Your Background Image:  </label><input name="bgImage" type="text" placeholder="Insert a Background Picture URL" v-model="user.bgImage"/>
                   <label for="description"> Describe Yourself:  </label><input name="description" type="text" placeholder="Describe Yourself Here" v-model="user.description"/>
                   <label for="genre"> What Are Your Genres?  </label> <input name="genre" type="text" placeholder="Type your Genres here" v-model="user.genre"/>
                   <label for="links"> Insert A Video Link To Your Work:  </label> <input name="links" type="text" placeholder="Insert Link Here" v-model="user.links"/>
                   <label for="audio"> Insert An Audio Link To Your Work:  </label> <input name="audio" type="text" placeholder="Insert Link Here" v-model="user.audio"/>
+                  <label for="embed"> Embed a track from SoundCloud (embed tag iframe): </label> <input name="embed" type="text" placeholder="Insert Embed Tag Here" v-model="user.embedLink"/>
                   <label for="location"> Where are you from?  </label> <input name="location" type="text" placeholder="Enter Country and City Here" v-model="user.location"/>
                   <label for="dob"> What is Your Date of Birth? </label> <input name="dob" type="date" value = "1990-02-09" placeholder="Date Of Birth" v-model="user.dateOfBirth"/>
                   <label for="talents"> Choose Your Talents (You can choose many with the "shift" key):  </label>

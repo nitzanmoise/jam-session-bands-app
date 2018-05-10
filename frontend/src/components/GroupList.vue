@@ -4,7 +4,7 @@
     <h1>Jam Session Groups</h1>
     <div class="groups-container">
       <div  v-for="group in groups" :key="group._id" class="group">
-        <GroupPreview @openLogin = "openLogin" :group="group"></GroupPreview>
+        <GroupPreview @openLogin="openLogin" :group="group"></GroupPreview>
       </div>
       </div>
   </section>
@@ -34,29 +34,27 @@ h1 {
   color: #756a6a;
   padding: 30px;
   border-top: 1px solid white;
-  box-shadow: inset 0px -9px 30px #c9c9c9;
 }
 
 .group {
   display: flex;
   flex-flow: column wrap;
-  border-radius: 20px;
-  margin: 20px;
+  margin: 10px;
   text-align: center;
-  box-shadow: 2px 4px 54px 0px rgba(0,0,0,0.62);
-  background-color: #eeeeee;
+  background-color: white;
+  border: 1px solid rgba(223, 220, 220, 0.521)
 
 }
 
 .groups-container {
   width: 100%;
-  margin: 0 auto;
+  margin: 20px auto;
 
   display: grid;
    
  grid-template-columns: repeat(4, 1fr);
   grid-template-rows: auto;
-  grid-gap: 10px;
+  grid-gap: 30px;
   
 }
 

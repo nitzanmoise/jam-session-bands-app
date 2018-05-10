@@ -1,62 +1,61 @@
 <template>
-<div class="group-details-container">
-    <section class="group-details"> 
-        <div class="backround-img">
+    <div class="group-details-container">
+        <section class="group-details">
+            <div class="backround-img">
                 <div class="header-info">
-                     <h1>{{group.name}}</h1>
-                    <h3 >{{group.location}}</h3>
+                    <h1>{{group.name}}</h1>
+                    <h3>{{group.location}}</h3>
                     <div>
                         <h4 v-for="genre in genres" :key="genre._id">
-                            {{genre}}   
+                            {{genre}}
                         </h4>
                     </div>
                 </div>
                 <div class="img-container">
                     <img :src="group.image" class="group-image">
                 </div>
-                
-        </div>
-        <div class="main-container">
-          <div class="members-container">
-           <!-- <div>  -->
-            <h1 class="members-header">Members</h1>
-            <div class="card">
-            <div v-for="member in members" :key="member._id" class="member-details" >
-                <div class="member-img-container" @click="goToMemberDetails(member._id)" :style="{ backgroundImage: `url(${member.image})`}">
-                    <!-- <img :src="member.image" class="member-image"> -->
+            </div>
+            <div class="main-container">
+                <div class="members-container">
+                    <!-- <div>  -->
+                    <h1 class="members-header">Members</h1>
+                    <div class="card">
+                        <div v-for="member in members" :key="member._id" class="member-details">
+                            <div class="member-img-container" @click="goToMemberDetails(member._id)" :style="{ backgroundImage: `url(${member.image})`}">
+                                <!-- <img :src="member.image" class="member-image"> -->
+                           
+                            </div>
+                            <div class="member-name-container">
+                                <h1 class="member-name" @click="goToMemberDetails(member._id)">{{member.fullName}}</h1>
+                                <div class="talant-imgs">
+                                    <div v-for="talant in member.talants" :key="talant._id">
+                                        <img :src="'./img/instruments/'+talant+'.png'" :title="talant" alt="" width="15px;" height="15px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button v-if="currLoggedInUser" class="addMember" @click="routeToUsers(group._id)"> Add a Member</button>
                 </div>
-                <div class="member-name-container">
-                    <h1 class="member-name" @click="goToMemberDetails(member._id)">{{member.fullName}}</h1>
-                    <div  v-for="talant in member.talants" :key="talant._id">
-                        <img :src="'./img/instruments/'+talant+'.png'" :title="talant" alt="" width="25px;" height="25px;">                        
-                    </div>   
-                  </div>
+                <div class="about">
+                    <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/428166729&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+                    <h1>Who are we?</h1>
+                    <h3>{{group.about}}</h3>
+                    <el-button @click="sendJoinReq(group._id)" type="text" class="button">Join The Band</el-button>
+                    <!-- <iframe allowtransparency="true" scrolling="no" frameborder="no" :src="'https://w.soundcloud.com/icon/?url=http%3A%2F%2Fsoundcloud.com%2F'+group.name+'&color=orange_white&size=32'" style="width: 32px; height: 32px;">
+                    </iframe> -->
+                </div>
+                <div class="need">
+                    <h3>Looking for:</h3>
+                    <div class="need-img" v-for="need in needs" :key="need._id">
+                        <img :src="'./img/instruments/'+need+'.png'" alt="" width="25px;" height="25px;">
+                        <h3>Talent</h3>
+                    </div>
+
                 </div>
             </div>
-
-                 <button v-if="currLoggedInUser" class="addMember" @click="routeToUsers(group._id)"> Add a Member</button>
-            
-          </div>
-        <div class="about">
-                <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/428166729&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
-          <h1>Who are we?</h1>
-                <h3>{{group.about}}</h3>
-                <!-- <iframe allowtransparency="true" scrolling="no" frameborder="no" :src="'https://w.soundcloud.com/icon/?url=http%3A%2F%2Fsoundcloud.com%2F'+group.name+'&color=orange_white&size=32'" style="width: 32px; height: 32px;">
-                </iframe> -->
-              
-        </div>  
-        <div class="need">
-            <h3>Looking for:</h3> 
-              <div class="need-img" v-for="need in needs" :key="need._id">
-                  <img  :src="'./img/instruments/'+need+'.png'" alt=""  width="25px;" height="25px;">
-                  <h3>Talent</h3> 
-              </div>
-          <el-button @click="sendJoinReq(group._id)" type="text" class="button">Join The Band</el-button>
-      </div>    
-
-        </div>  
-    </section>
-</div>
+        </section>
+    </div>
 </template>
 
 <script>
@@ -189,15 +188,17 @@ export default {
       
 }
 .member-details{
+
+  display: flex;
+  flex-flow: column wrap;
+  text-align: center;
+  background-color: whitesmoke;
+  border: 1px solid rgba(223, 220, 220, 0.521);
+  height:100%;
   text-align: center;
   cursor: pointer;
-  border-radius: 20px;
-  box-shadow: 2px 4px 54px 0px rgba(0,0,0,0.62);
-  background-color: #eeeeee;
-  width: 170px;
-  height: 250px;
+
   margin-bottom: 20px;
-  padding:10px;
 }
 .members-header {
   font-family: Shrikhand-Regular;
@@ -215,8 +216,8 @@ export default {
   background-position: center center;
   width: 100px;
   height: 100px;
-  margin-left:30px;
-  margin-top: 0px;
+  margin-left: 70px;
+   margin-right: 70px;
   padding: 0;
   cursor: pointer;
   border-radius: 50%;
@@ -224,8 +225,15 @@ export default {
   background-size: cover;
   box-shadow: gray 1px inset;
 }
-.member-name-container img {
-  padding: 20px;
+
+.card{
+  height: 250px;
+  width: 250px;
+}
+
+.talant-imgs{
+ display: flex;
+  align-items: flex-end;
 }
 .about {
   margin-top: 4%;
@@ -237,9 +245,13 @@ export default {
 .member-name {
   font-family: Magettas Regular DEMO;
   cursor: pointer;
- margin-left: 10px;
   text-align: center;
   float: left;
+    font-size: 1.3em;
+  color: gray;
+  border-bottom: 1px solid rgba(223, 220, 220, 0.521);
+  width:100%;
+  padding-bottom: 10px;
 }
 .group-details-container {
   background-color: rgb(244, 245, 247);
@@ -284,6 +296,12 @@ export default {
 .main-container {
   display: flex;
 }
+.member-name-container{
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+}
+
 .need {
   /* display: flex; */
   flex-direction: row;
@@ -296,6 +314,7 @@ export default {
   margin-left: 20px;
   display: flex;
   justify-content: space-around;
+  flex-flow: row wrap;
 }
 .need-img img {
   margin-right: 15px;
