@@ -5,11 +5,18 @@ export default {
   state: {
     loggedinUser: null,
     users: [],
-    userFilter: ""
+    userFilter: "",
+    userGroups: null
   },
   mutations: {
     setUserFilter(state, { filter }) {
       state.userFilter = filter;
+    },
+    addGroupToUser(state, { askerId, groupId }) {
+      state.loggedinUser.groups.push({ id: groupId });
+    },
+    setUserGroups(state, { groups }) {
+      state.userGroups = groups;
     },
     setUser(state, { user }) {
       state.loggedinUser = user;
@@ -51,6 +58,9 @@ export default {
     loggedinUser(state) {
       return state.loggedinUser;
     },
+    userGroups(state) {
+      return state.userGroups;
+    },
     usersForDisplay(state) {
       return state.users;
     }
@@ -90,8 +100,13 @@ export default {
       });
     },
     getUserGroups(store, { user }) {
-      return UserService.getUserGroups(user).then(users => {
-        return users;
+      return UserService.getUserGroups(user).then(res => {
+        console.log("in store res. data", res.data);
+        var groups = res.data;
+
+        store.commit({ type: "setUserGroups", groups });
+
+        return groups;
       });
     },
     updateUser(store, { user }) {
@@ -105,7 +120,6 @@ export default {
       });
     },
     sendGroupJoinReq(store, { groupJoinReq }) {
-      console.log("inside store", groupJoinReq);
       UserService.sendGroupJoinReq(groupJoinReq);
     },
     getUserById(store, { userId }) {

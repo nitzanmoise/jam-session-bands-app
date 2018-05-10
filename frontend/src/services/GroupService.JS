@@ -51,6 +51,10 @@ function deleteGroup(groupId) {
   return axios.delete(_getGroupUrl(groupId));
 }
 
+function addPost(groupId, newPost) {
+  return axios.put(_getGroupUrl(groupId) + "/addPost", { newPost });
+}
+
 function updateReqs(joinReq, admins) {
   console.log("in service");
   return axios.put(_getGroupUrl(joinReq.groupId) + "/joinReq", {
@@ -80,5 +84,6 @@ export default {
   getGroupById,
   getGroupMembers,
   updateReqs,
-  addAskerToGroupMembers
+  addAskerToGroupMembers,
+  addPost
 };

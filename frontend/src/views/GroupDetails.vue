@@ -1,7 +1,7 @@
 <template>
-    <div class="group-details-container">
-        <section class="group-details">
-            <div class="backround-img">
+<div v-if="group" class="group-details-container">
+    <section class="group-details"> 
+        <div class="backround-img">
                 <div class="header-info">
                     <h1>{{group.name}}</h1>
                     <h3>{{group.location}}</h3>
@@ -54,8 +54,20 @@
 
                 </div>
             </div>
-        </section>
-    </div>
+           
+      <div class="wall">
+        <form action.prevent="submit">
+        <textarea v-model="newPost" name="" id="" cols="30" rows="10"></textarea>
+        <button @click="addPost(group._id)" type="submit">Post</button>
+        </form>
+       <div v-if="group && group.posts.length">
+        <div  v-for="(post, idx) in group.posts" :key="idx">
+          {{post.senderName}} says: {{post.content}}
+        </div>
+       </div> 
+      </div>
+    </section>
+</div>
 </template>
 
 <script>
@@ -64,14 +76,29 @@ import EventBusService, { SHOW_MSG } from "../services/EventBusService.js";
 export default {
   data() {
     return {
-      group: { name: "" },
-      members: {}
+      // group: {},
+      members: {},
+      newPost: ""
     };
   },
   methods: {
     goToMemberDetails(id) {
       console.log("this is member id", id);
       this.$router.push(`/UserDetails/${id}`);
+    },
+    addPost(groupId) {
+      var newPost = {
+        content: this.newPost,
+        senderId: this.loggedinUser._id,
+        senderName: this.loggedinUser.fullName,
+        senderImage: this.loggedinUser.image,
+        createdAt: Date.now()
+      };
+      console.log("group id", groupId, "new post", newPost);
+
+      this.$store
+        .dispatch({ type: "addPost", groupId, newPost })
+        .then(() => (this.newPost = ""));
     },
     sendJoinReq(groupId) {
       if (!this.loggedinUser) {
@@ -101,6 +128,9 @@ export default {
     }
   },
   computed: {
+    group() {
+      return this.$store.getters.currGroupForDisplay;
+    },
     genres() {
       return this.group.genre;
     },
@@ -124,7 +154,7 @@ export default {
     console.log("i am the crested of detials");
     var groupId = this.$route.params.id;
     this.$store.dispatch({ type: "getGroupById", groupId }).then(group => {
-      this.group = group;
+      // this.group = group;
       this.$store.dispatch({ type: "getGroupMembers", group }).then(members => {
         this.members = members.data;
         console.log("memebers", this.members);
@@ -185,7 +215,6 @@ export default {
   margin-left: 30px;
   display: flex;
   flex-direction: column;
-      
 }
 .member-details{
 
