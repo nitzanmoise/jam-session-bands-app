@@ -1,16 +1,20 @@
 <template>
    <div class="user-details-container">
     <section class="user-details"> 
-        <div class="backround-img">  
+        <div class="backround-img" :style="{ backgroundImage: `url(${user.coverImage})`}">  
             <div class="header-info">
                     <h1>{{user.fullName}}</h1>
                     <h3>{{user.location}}</h3>
                     <h4 v-for="genre in genres" :key="genre._id"> {{genre}} </h4>
            </div>
-              <div class="img-container">
-                   <img :src="user.image" class="user-image">
-                   <button class="user-edit-btn" @click="goToUserEdit(user._id)" v-if="loggedinUser">Edit Your Profile!</button>
+           <div style="    margin-right: 30%;
+    margin-top: 5%;
+    margin-bottom: 2%">
+              <div class="img-container"  :style="{ backgroundImage: `url(${user.image})`}">
+                   <!-- <img :src="user.image" class="user-image"> -->
               </div>
+                   <button class="user-edit-btn" @click="goToUserEdit(user._id)" v-if="loggedinUser">Edit Your Profile!</button>
+                   </div>
         </div>
   <div class="main-container">
     <div class="groups-container">
@@ -230,30 +234,29 @@ export default {
 </script>
 
 <style scoped>
-.req-container{
-padding: 15px;
+.req-container {
+  padding: 15px;
 }
-.about-reqs{
-    width: 100%;
-    margin-left: 80px;
-    height: 100%
+.about-reqs {
+  width: 100%;
+  margin-left: 80px;
+  height: 100%;
 }
-h4{
-  margin:0; 
+h4 {
+  margin: 0;
 }
-.reqs{
+.reqs {
   display: flex;
   flex-direction: row;
-  height:500px;
+  height: 500px;
   width: 75%;
   margin: 0;
- 
 }
-.req-buttons{
-  display:flex;
+.req-buttons {
+  display: flex;
   flex-direction: row wrap;
 }
-.groupJoinReqs{
+.groupJoinReqs {
   border: 1px solid rgba(223, 220, 220, 0.521);
   width: 275px;
   margin-bottom: 5px;
@@ -265,7 +268,7 @@ h4{
   font-family: Magettas Regular DEMO;
   width: 250px;
   margin-right: 30px;
-   margin-bottom: 5px;
+  margin-bottom: 5px;
 }
 
 .items {
@@ -288,10 +291,11 @@ h4{
 .backround-img {
   display: flex;
   justify-content: space-around;
- 
+  border: solid 5px black;
+
   background-size: cover;
-  background-position: bottom;
-  height: 20%;
+  background-position: center;
+  height: 30%;
 }
 .user-image {
   width: 35%;
@@ -300,11 +304,22 @@ h4{
   box-shadow: gray 1px inset;
 }
 .img-container {
-  width: 55%;
-  padding-top: 5%;
+  width: 100px;
+  height: 120px;
+  padding: 25%;
+  /* padding-top: 5%; */
   padding-bottom: 2%;
   display: flex;
   flex-flow: column wrap;
+  /* background-size: cover; */
+  /* background-position: center; */
+  background-repeat: no-repeat;
+  /* width: 35%; */
+  margin-right: 60%;
+
+  border: solid snow 2px;
+  background-size: cover;
+  box-shadow: gray 1px inset;
 }
 
 .groups-card {
@@ -332,8 +347,7 @@ h4{
   display: flex;
   flex-direction: column;
   width: 500px;
-   overflow-y: scroll;
-
+  overflow-y: scroll;
 }
 .groups-header {
   font-family: Shrikhand-Regular;
@@ -342,7 +356,7 @@ h4{
   width: 100%;
   text-align: center;
   padding: 10px;
-  margin:0;
+  margin: 0;
 }
 .group-name {
   font-family: Magettas Regular DEMO;
@@ -356,13 +370,12 @@ h4{
   padding-bottom: 10px;
   margin-bottom: 7px;
   margin-top: 0;
-  
 }
 .about {
- padding: 15px;
-  margin:0;
+  padding: 15px;
+  margin: 0;
   font-size: 28px;
-    font-family: Magettas Regular DEMO;
+  font-family: Magettas Regular DEMO;
 }
 .user-details-container {
   background-color: rgb(244, 245, 247);
@@ -408,8 +421,8 @@ h4{
   display: flex;
 }
 button {
-   line-height: 50%;
-  border:2px solid rgba(226, 226, 226, 0.548);
+  line-height: 50%;
+  border: 2px solid rgba(226, 226, 226, 0.548);
   padding: 10px;
   color: orange;
   font-family: Magettas Regular DEMO;

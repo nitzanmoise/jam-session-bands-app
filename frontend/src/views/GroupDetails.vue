@@ -1,6 +1,6 @@
 <template>
 <div v-if="group && members" class="group-details-container">
-        <div class="backround-img">
+        <div class="backround-img" :style="{ backgroundImage: `url(${group.coverImage})`}" style="    background-position: center;">
                 <div class="header-info">
                     <h1>{{group.name}}</h1>
                     <h3>{{group.location}}</h3>
@@ -220,7 +220,8 @@ textarea {
   background-image: url("../../public/img/band.jpg");
   background-size: cover;
   background-position: bottom;
-  width: 100%;
+  border: solid 5px black;
+  /* width: 100%; */
   height: 25%;
 }
 .group-image {
@@ -428,5 +429,10 @@ textarea {
 @font-face {
   font-family: Shrikhand-Regular;
   src: url("../../public/fonts/Shrikhand/Shrikhand-Regular.ttf");
+}
+@media (max-width: 740px) {
+  group-details-container {
+    flex-flow: row;
+  }
 }
 </style>
