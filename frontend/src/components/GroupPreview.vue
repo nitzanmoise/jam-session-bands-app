@@ -18,7 +18,7 @@
                 <img class="icon" :src="'./img/instruments/'+need+'.png'" alt="" width="20px;" height="20px;">                        
                                        
               </div>
-              <h3 v-if="needIsEmpty"> Group is Full! </h3> 
+              <h3 v-if="isGroupFull">  &nbsp; Group is Full! </h3> 
               </div> 
           </div>
           <button v-if="!isSentRequest" @click="sendJoinReq(group._id)" type="text" class="button">Join The Band</button>
@@ -51,10 +51,10 @@ export default {
       var groupId = this.group._id;
       return this.loggedinUser.sentReqsToJoinBands.find(
         req => req.groupId === groupId
-      );
+      );  
     },
-    needIsEmpty(){
-      if(this.group.need.length === 0) return true;
+    isGroupFull(){
+      return (this.group.need.length === 0)
     }
   },
   methods: {
@@ -63,7 +63,9 @@ export default {
     },
     sendJoinReq(groupId) {
       if (!this.loggedinUser) {
-        EventBusService.$emit(REQUIRE_LOGIN);
+        setTimeout(()=>{
+          EventBusService.$emit(REQUIRE_LOGIN);
+        },2000)
         EventBusService.$emit(SHOW_MSG, {
               txt: `To Use This Feature Please Log In!`,
               type: "error"
@@ -184,7 +186,7 @@ h3 {
 h4 {
   padding: 0px;
   justify-content: center;
-  color: rgb(2, 124, 32);
+  color:  rgb(153, 153, 153);
   font-family: Magettas Regular DEMO;
   font-size: 1em;
   margin-bottom: 10px;

@@ -15,7 +15,7 @@
   <div class="main-container">
     <div class="groups-container">
         <h1 class="groups-header">My Groups</h1>
-      <div class="groups-card">
+      
           <div class="items" v-for="group in groups" :key="group._id" >
               <div class="group-img-container"  @click="goToGroupDetails(group._id)">
                     <img :src="group.image" class="group-image">
@@ -24,27 +24,34 @@
                 <h1 class="group-name" @click="goToGroupDetails(group._id)">{{group.name}}</h1>
                 <button @click="goToGroupEdit(group._id)" :disabled="!checkIfAdmin(group)">Edit This Group</button>
           </div>
+      
       </div>
-      </div>
+
+    <div class="about-reqs">
             <div class="about">
+              <h3>About Myself</h3>
                 {{user.description}}
-            <iframe allowtransparency="true" scrolling="no" frameborder="no" src="https://w.soundcloud.com/icon/?url=http%3A%2F%2Fsoundcloud.com%2Fnitzan-moise&color=orange_white&size=32" style="width: 32px; height: 32px;">
-            </iframe>
             </div>
-      <div v-if="currLoggedInUser && joinReqs.length > 0">
-           <h1>Talents requets:</h1>
-           <div v-for="req in joinReqs" :key="req.createdAt">
-            <span @click="goToAsker(req.asker._id)">{{req.asker.fullName}}</span> Asked to join to {{req.group.name}}
+    <div class="reqs">
+      <div class="req-container" v-if="currLoggedInUser && joinReqs.length > 0">
+           <h1>Your Talents Requests:</h1>
+           <div class="join-reqs" v-for="req in joinReqs" :key="req.createdAt">
+            <span @click="goToAsker(req.asker._id)">{{req.asker.fullName}}&nbsp;</span> asked to join {{req.group.name}}
             <button @click="deleteReq(user._id, req.createdAt)">Cancel</button><button @click="addAskerToGroupMembers(req.asker._id, req.group._id); deleteReq(user._id, req.createdAt)" >Agree</button>
            </div>
       </div>
-      <div v-if="currLoggedInUser && groupReqs.length> 0">
-        <h1>Group requests</h1>
+      <div style="padding: 15px;" v-if="currLoggedInUser && groupReqs.length> 0">
+        <h1>Your Group Requests</h1>
          <div class="groupJoinReqs" v-for="groupReq in groupReqs" :key="groupReq.createdAt">
           <span @click="goToGroupDetails(groupReq.group._id)">{{groupReq.group.name}}</span> Wants you to join them!
-          <button  @click="deleteReq(user._id, groupReq.createdAt)">Cancel</button><button @click="addAskerToGroupMembers(user._id, groupReq.group._id); deleteReq(user._id, groupReq.createdAt) ">Agree</button>
+        <div class="req-buttons">
+          <button  @click="deleteReq(user._id, groupReq.createdAt)">Cancel</button>
+          <button @click="addAskerToGroupMembers(user._id, groupReq.group._id); deleteReq(user._id, groupReq.createdAt) ">Agree</button>
         </div>
-      </div>    
+        </div>
+      </div>  
+      </div> 
+      </div>
   </div>    
     </section>
 </div>
@@ -106,16 +113,18 @@ export default {
     },
     addAskerToGroupMembers(askerId, groupId) {
       console.log("this is asker is", askerId, "this is group id", groupId);
-      this.$store.dispatch({
-        type: "addAskerToGroupMembers",
-        askerId,
-        groupId
-      }).then (res => {
-        EventBusService.$emit(SHOW_MSG, {
+      this.$store
+        .dispatch({
+          type: "addAskerToGroupMembers",
+          askerId,
+          groupId
+        })
+        .then(res => {
+          EventBusService.$emit(SHOW_MSG, {
             txt: `Request Approved`,
             type: "success"
           });
-      })
+        });
     },
     checkIfAdmin(group) {
       if (!this.loggedinUser) return false;
@@ -126,7 +135,6 @@ export default {
   created() {
     var userId = this.$route.params.id;
     this.$store.dispatch({ type: "getUserById", userId }).then(user => {
-
       this.user = user;
 
       this.$store.dispatch({ type: "getUserGroups", user }).then(groups => {
@@ -222,9 +230,55 @@ export default {
 </script>
 
 <style scoped>
+.req-container{
+padding: 15px;
+}
+.about-reqs{
+    width: 100%;
+    margin-left: 80px;
+    height: 100%
+}
+h4{
+  margin:0; 
+}
+.reqs{
+  display: flex;
+  flex-direction: row;
+  height:500px;
+  width: 75%;
+  margin: 0;
+ 
+}
+.req-buttons{
+  display:flex;
+  flex-direction: row wrap;
+}
+.groupJoinReqs{
+  border: 1px solid rgba(223, 220, 220, 0.521);
+  width: 275px;
+  margin-bottom: 5px;
+}
+.join-reqs {
+  display: flex;
+  flex-flow: row wrap;
+  border: 1px solid rgba(223, 220, 220, 0.521);
+  font-family: Magettas Regular DEMO;
+  width: 250px;
+  margin-right: 30px;
+   margin-bottom: 5px;
+}
+
+.items {
+  width: 70%;
+  margin: 20px auto;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  border: 1px solid rgba(223, 220, 220, 0.521);
+  margin-bottom: 10px;
+}
 .user-details-container {
-  font-family: "Interstate", "Lucida Grande", "Lucida Sans Unicode",
-    "Lucida Sans", Garuda, Verdana, Tahoma, sans-serif;
+  font-family: Magettas Regular DEMO;
   display: flex;
   flex-flow: column;
   width: 100%;
@@ -234,7 +288,7 @@ export default {
 .backround-img {
   display: flex;
   justify-content: space-around;
-  background-image: url("../../public/img/band.jpg");
+ 
   background-size: cover;
   background-position: bottom;
   height: 20%;
@@ -256,13 +310,13 @@ export default {
 .groups-card {
   text-align: center;
   cursor: pointer;
-  border-radius: 20px;
-  /* border: solid 2px black; */
-  box-shadow: 2px 4px 54px 0px rgba(0, 0, 0, 0.62);
-  background-color: #eeeeee;
-  width: 170px;
-  height: 270px;
-  padding: 10px;
+  display: flex;
+  flex-flow: column wrap;
+  background-color: whitesmoke;
+  border: 1px solid rgba(223, 220, 220, 0.521);
+  height: 100%;
+  cursor: pointer;
+
   margin-bottom: 20px;
 }
 .group-image {
@@ -277,31 +331,38 @@ export default {
 .groups-container {
   display: flex;
   flex-direction: column;
+  width: 500px;
+   overflow-y: scroll;
+
 }
 .groups-header {
   font-family: Shrikhand-Regular;
   color: orange;
   font-size: 2em;
-  width: 35%;
+  width: 100%;
   text-align: center;
   padding: 10px;
-  height: 100px;
+  margin:0;
 }
 .group-name {
-  margin: 0;
-  padding: 0;
+  font-family: Magettas Regular DEMO;
+  cursor: pointer;
+  text-align: center;
+  float: left;
+  font-size: 1.3em;
+  color: gray;
+  border-bottom: 1px solid rgba(223, 220, 220, 0.521);
   width: 100%;
+  padding-bottom: 10px;
+  margin-bottom: 7px;
+  margin-top: 0;
+  
 }
 .about {
-  margin-top: 10%;
+ padding: 15px;
+  margin:0;
   font-size: 28px;
-}
-.group-name {
-  font-family: Condition3D-Italic;
-  cursor: pointer;
-  width: 100%;
-  text-align: center;
-  margin: 0 10px 10px 0;
+    font-family: Magettas Regular DEMO;
 }
 .user-details-container {
   background-color: rgb(244, 245, 247);
@@ -347,21 +408,25 @@ export default {
   display: flex;
 }
 button {
-  padding: 5px;
+   line-height: 50%;
+  border:2px solid rgba(226, 226, 226, 0.548);
+  padding: 10px;
   color: orange;
   font-family: Magettas Regular DEMO;
   height: 30px;
-  border-radius: 5px;
-  font-size: 1.2em;
-  line-height: 100%;
+  border-radius: 50px;
+  font-size: 1em;
   background-color: white;
+  cursor: pointer;
+  margin-bottom: 5px;
 }
 .user-edit-btn {
   width: 173px;
-  border-radius: 5px;
+  border-radius: 50px;
   margin-top: 10px;
+  margin-left: 25px;
   font-size: 1.2em;
-  line-height: 100%;
+  line-height: 50%;
   background-color: white;
 }
 
@@ -376,6 +441,10 @@ button {
 @font-face {
   font-family: Painting_With_Chocolate;
   src: url("../../public/fonts/Painting_With_Chocolate_regular/Painting_With_Chocolate.ttf");
+}
+@font-face {
+  font-family: Magettas Regular DEMO;
+  src: url("../../public/fonts/magettas-demo/Magettas Regular DEMO.otf");
 }
 @font-face {
   font-family: music-instuments;
