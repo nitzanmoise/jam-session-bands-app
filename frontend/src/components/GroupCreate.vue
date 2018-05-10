@@ -12,15 +12,16 @@
           </div>
           <div class="modal-body">
             <slot name="body">
+
              <form @submit.prevent.stop="saveGroup">
-               <div class="half1">
+              
                   <label for="name"> Name: </label> <input name="name" ref="name" type="text" placeholder="Enter New Group Name" v-model="group.name" />
                   <label for="about"> Description:  </label><input name= "about"  type="text" placeholder="Describe Your Group" v-model="group.about"/>
                   <label for="image"> Upload image:  </label><input name= "image" type="text" placeholder="insert an Image URL" v-model="group.image"/>
                   <label for="location"> Location:  </label><input name= "location" type="text" placeholder="Where Are You From?" v-model="group.location"/>
+              
 
-               </div>
-               <div class="half2">
+               
                   <label for="genre"> Genre:  </label><input name= "genre" type="text" placeholder="Genre of the Group" v-model="group.genre"/>
                   <label for="need"> Looking For:  </label>
                   <select v-model="group.need" multiple>
@@ -35,9 +36,10 @@
                       <option value="french-horn">french-horn</option>
                       <option value="piano">piano</option>
                   </select>
-
-               </div>
+               
+                <div class="submit-button">
                  <button class="submit" type="submit" :disabled="!this.group.name || !this.group.genre || !this.group.about">Save Group</button> 
+                </div>
             </form>
             </slot>
           </div>
@@ -109,6 +111,10 @@ export default {
 
 <style scoped>
 /* CSS for MODAL */
+.submit-button{
+  margin-left:10px;
+}
+
 .modal-mask {
   position: fixed;
   z-index: 9998;
@@ -160,7 +166,7 @@ h4 {
 
 label {
   line-height: 50px;
-  margin-right: 10px;
+ 
   margin-left: 10px;
 }
 
@@ -176,14 +182,10 @@ input {
   width: 200px;
 }
 
-.half1 {
+form{
   display: flex;
-  flex-flow: row wrap;
-}
-
-.half2 {
-  display: flex;
-  flex-flow: row wrap;
+    flex-flow: row wrap;
+    justify-content: space-between;
 }
 
 /*
