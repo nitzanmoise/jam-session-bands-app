@@ -288,7 +288,7 @@ h4{
 .backround-img {
   display: flex;
   justify-content: space-around;
-  background-image: url("../../public/img/band.jpg");
+ 
   background-size: cover;
   background-position: bottom;
   height: 20%;
