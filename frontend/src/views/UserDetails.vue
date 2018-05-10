@@ -17,7 +17,7 @@
         <h1 class="groups-header">My Groups</h1>
       <div class="groups-card">
           <div class="items" v-for="group in groups" :key="group._id" >
-              <div class="group-img-container"  @click="goToGroupEdit(group._id)">
+              <div class="group-img-container"  @click="goToGroupDetails(group._id)">
                     <img :src="group.image" class="group-image">
               </div>
                
@@ -32,13 +32,14 @@
             </iframe>
             </div>
       <div v-if="currLoggedInUser && joinReqs.length > 0">
-           <h1>Join requets:</h1>
+           <h1>Talents requets:</h1>
            <div v-for="req in joinReqs" :key="req.createdAt">
-            <span @click="goToAsker(req.asker._id)">{{req.asker.fullName}}</span> asked to join {{req.group.name}}
+            <span @click="goToAsker(req.asker._id)">{{req.asker.fullName}}</span> asked to join to {{req.group.name}}
             <button @click="deleteReq(user._id, req.createdAt)">Cancel</button><button @click="addAskerToGroupMembers(req.asker._id, req.group._id); deleteReq(user._id, req.createdAt)" >Agree</button>
            </div>
       </div>
-      <div v-if="currLoggedInUser && groupReqs.length > 0">
+      <div v-if="currLoggedInUser && groupReqs.length> 0">
+        <h1>Group requests</h1>
          <div class="groupJoinReqs" v-for="groupReq in groupReqs" :key="groupReq.createdAt">
           <span @click="goToGroupDetails(groupReq.group._id)">{{groupReq.group.name}}</span> wants you to join them!
           <button  @click="deleteReq(user._id, groupReq.createdAt)">Cancel</button><button @click="addAskerToGroupMembers(user._id, groupReq.group._id); deleteReq(user._id, groupReq.createdAt) ">Agree</button>
@@ -56,7 +57,7 @@ export default {
   data() {
     return {
       user: {},
-      groups: {},
+      // groups: {},
       joinReqs: [],
       groupReqs: []
     };
@@ -64,6 +65,9 @@ export default {
   computed: {
     genres() {
       return this.user.genre;
+    },
+    groups() {
+      return this.$store.getters.userGroups;
     },
     addMember() {},
     loggedinUser() {
@@ -122,7 +126,7 @@ export default {
       this.user = user;
 
       this.$store.dispatch({ type: "getUserGroups", user }).then(groups => {
-        this.groups = groups.data;
+        // this.groups = groups.data;
       });
     });
     if (this.loggedinUser === null) return;

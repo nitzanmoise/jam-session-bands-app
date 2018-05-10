@@ -3,11 +3,11 @@ var DBService = require("./DBService");
 // find({ skills: { $in:  ['guitar', 'chelo']} })
 
 // DBService.dbConnect().then(db => {
-//   db.collection("users").updateMany(
+//   db.collection("groups").updateMany(
 //     {},
 //     {
 //       $set: {
-//         sentReqsToTalents: []
+//         posts: []
 //       }
 //     },
 //     function() {
@@ -44,8 +44,20 @@ function addAskerToGroupMembers({ askerId, groupId }) {
       .then(res => {
         return db
           .collection("users")
-          .updateOne({ _id: userMongoId }, { $push: { groups: groupId } });
+          .updateOne(
+            { _id: userMongoId },
+            { $push: { groups: { id: groupId } } }
+          );
       });
+  });
+}
+
+function addPost(groupId, newPost) {
+  var mongoId = new mongo.ObjectID(groupId);
+  return DBService.dbConnect().then(db => {
+    return db
+      .collection("groups")
+      .updateOne({ _id: mongoId }, { $push: { posts: newPost } });
   });
 }
 
@@ -125,27 +137,26 @@ function updateGroup(updateFields, _id) {
 }
 
 function sendJoinReqs({ joinReq, admins }) {
-  var askerId = new mongo.ObjectID(joinReq.askerId)
+  var askerId = new mongo.ObjectID(joinReq.askerId);
   var adminsIds = admins.map(({ id }) => new mongo.ObjectID(id));
   // return new Promise((resolve, reject) => {
-   return  DBService.dbConnect().then(db => {
-      db
-        .collection("users")
-        .updateMany(
-          { _id: { $in: adminsIds } },
-          { $push: { joinReqs: joinReq } }
-        )
-        .then(res => {
-        return  db
+  return DBService.dbConnect().then(db => {
+    db
+      .collection("users")
+      .updateMany({ _id: { $in: adminsIds } }, { $push: { joinReqs: joinReq } })
+      .then(res => {
+        return db
           .collection("users")
-          .updateOne({_id: askerId},{$push: { sentReqsToJoinBands: joinReq }})
-        })
-          // (err, result) => {
-          //   if (err) reject(err);
-          //   else resolve(result.result);
-          // }
-        
-    });
+          .updateOne(
+            { _id: askerId },
+            { $push: { sentReqsToJoinBands: joinReq } }
+          );
+      });
+    // (err, result) => {
+    //   if (err) reject(err);
+    //   else resolve(result.result);
+    // }
+  });
   // });
 }
 
@@ -173,5 +184,6 @@ module.exports = {
   updateGroup,
   getBandMembersData,
   sendJoinReqs,
-  addAskerToGroupMembers
+  addAskerToGroupMembers,
+  addPost
 };

@@ -12,6 +12,20 @@ module.exports = app => {
       });
   });
 
+  app.put(`${GROUP_URL}/:id/addPost`, function(req, res) {
+    var groupId = req.params.id;
+    console.log("req body", req.body);
+
+    // var newPost = req.body.newPost;
+    GroupService.addPost(groupId, req.body.newPost)
+      .then(result => {
+        res.json(result);
+      })
+      .catch(err => {
+        res.status(500).send();
+      });
+  });
+
   app.get(GROUP_URL, (req, res) => {
     GroupService.query().then(groups => {
       // console.log('Groups: ', groups);
@@ -57,14 +71,14 @@ module.exports = app => {
       .catch(() => res.status(500).send("problem"));
   });
   app.put(`${GROUP_URL}/:id/joinReq`, function(req, res) {
-    console.log('before the datbase manolte')
+    console.log("before the datbase manolte");
     GroupService.sendJoinReqs(req.body)
       .then(result => {
         console.log("afte tje database maniplatine");
         res.json(result);
       })
       .catch(err => {
-        console.log('on the cathc')
+        console.log("on the cathc");
         res.status(500).send();
       });
   });

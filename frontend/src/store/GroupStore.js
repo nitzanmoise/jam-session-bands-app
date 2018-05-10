@@ -4,11 +4,20 @@ export default {
   state: {
     groups: [],
     currGroup: [],
+    selectedGroup: null,
     groupFilter: ""
   },
   mutations: {
     setGroupFilter(state, { filter }) {
       state.groupFilter = filter;
+    },
+
+    addPost(state, { groupId, newPost }) {
+      if (groupId !== state.selectedGroup._id) return;
+      state.selectedGroup.posts.push(newPost);
+    },
+    addAskerToGroupMembers(state, { askerId, groupId }) {
+      state.selectedGroup.members.push(askerId);
     },
 
     deleteGroup(state, { groupId }) {
@@ -28,8 +37,7 @@ export default {
     },
     setGroups(state, { groups }) {
       state.groups = groups;
-    },
-   
+    }
   },
   getters: {
     groupsForDisplay(state) {
@@ -42,7 +50,10 @@ export default {
       return search;
     },
     currGroupForDisplay(state) {
-      return state.currGroup;
+      if (!state.selectedGroup) return null;
+      let reversedPosts = state.selectedGroup.posts.slice().reverse();
+      let group = { ...state.selectedGroup, posts: reversedPosts };
+      return group;
     }
   },
   actions: {
@@ -55,6 +66,12 @@ export default {
       return GroupService.getById(groupId).then(group => {
         store.commit({ type: "setSelectedGroup", group });
         return group;
+      });
+    },
+    addPost(store, { groupId, newPost }) {
+      console.log("in store", groupId, newPost);
+      GroupService.addPost(groupId, newPost).then(res => {
+        store.commit({ type: "addPost", groupId, newPost });
       });
     },
     deleteGroup(store, { group }) {
@@ -79,12 +96,18 @@ export default {
       });
     },
     addAskerToGroupMembers(store, { askerId, groupId }) {
-      return GroupService.addAskerToGroupMembers(askerId, groupId).then(
-        res => {}
-      );
+      return GroupService.addAskerToGroupMembers(askerId, groupId).then(res => {
+        store.commit({ type: "addAskerToGroupMembers", askerId, groupId });
+        store.commit({
+          type: "addGroupToUser",
+          askerId,
+          groupId
+        });
+      });
     },
     getGroupById(store, { groupId }) {
       return GroupService.getGroupById(groupId).then(group => {
+        store.commit({ type: "setSelectedGroup", group });
         return group;
       });
     }
