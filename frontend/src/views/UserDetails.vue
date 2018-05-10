@@ -31,21 +31,39 @@
       
       </div>
 
+      
+
     <div class="about-reqs">
+     
             <div class="about">
               <h3>About Myself</h3>
                 {{user.description}}
             </div>
+      <div class="talents" v-if="currLoggedInUser && user.talants.length > 0">
+                    <h3 style="font-size: 2em" >My Talents</h3>
+                    <div class="talant-img">
+                    <div class="talent-emoji" v-for="(talant, idx) in user.talants" :key="idx">
+                      <div >
+                        <img :src="'./img/instruments/'+talant+'.png'" :title="talant" alt="" width="25px;" height="25px;">
+                      </div>
+                      <div class="talent-title-container "> 
+                        <h4>Player</h4>
+                      </div> 
+                    </div>
+                    </div>
+                   
+
+                </div>
     <div class="reqs">
       <div class="req-container" v-if="currLoggedInUser && joinReqs.length > 0">
-           <h1>Your Talents Requests:</h1>
+           <h1>My Talents Requests:</h1>
            <div class="join-reqs" v-for="req in joinReqs" :key="req.createdAt">
             <span @click="goToAsker(req.asker._id)">{{req.asker.fullName}}&nbsp;</span> asked to join {{req.group.name}}
             <button @click="deleteReq(user._id, req.createdAt)">Cancel</button><button @click="addAskerToGroupMembers(req.asker._id, req.group._id); deleteReq(user._id, req.createdAt)" >Agree</button>
            </div>
       </div>
       <div style="padding: 15px;" v-if="currLoggedInUser && groupReqs.length> 0">
-        <h1>Your Group Requests</h1>
+        <h1>My Group Requests</h1>
          <div class="groupJoinReqs" v-for="groupReq in groupReqs" :key="groupReq.createdAt">
           <span @click="goToGroupDetails(groupReq.group._id)">{{groupReq.group.name}}</span> Wants you to join them!
         <div class="req-buttons">
@@ -234,6 +252,33 @@ export default {
 </script>
 
 <style scoped>
+.talent-emoji {
+  margin-left: 15px;
+}
+
+.talent-title {
+  margin-right: 20px;
+  margin-left: 20px;
+}
+.talent-tilte-container {
+  align-items: flex-end;
+}
+.talents {
+  /* margin-left: 100%; */
+  width: 100%;
+  padding: 15px;
+}
+.talant-img {
+  /* margin-left: 20px; */
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+}
+.talent-img img {
+  margin-right: 15px;
+  padding-top: 10px;
+}
+
 .req-container {
   padding: 15px;
 }
@@ -242,9 +287,7 @@ export default {
   margin-left: 80px;
   height: 100%;
 }
-h4 {
-  margin: 0;
-}
+
 .reqs {
   display: flex;
   flex-direction: row;
