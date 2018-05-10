@@ -5,11 +5,15 @@ export default {
     groups: [],
     currGroup: [],
     selectedGroup: null,
-    groupFilter: ""
+    groupFilter: "",
+    groupMembers: null
   },
   mutations: {
     setGroupFilter(state, { filter }) {
       state.groupFilter = filter;
+    },
+    setGroupMembers(state, { members }) {
+      state.groupMembers = members;
     },
 
     addPost(state, { groupId, newPost }) {
@@ -42,6 +46,9 @@ export default {
   getters: {
     groupsForDisplay(state) {
       return state.groups;
+    },
+    groupMembersToDisplay(state) {
+      return state.groupMembers;
     },
     search(state) {
       var search = group => {
@@ -91,7 +98,13 @@ export default {
       });
     },
     getGroupMembers(store, { group }) {
-      return GroupService.getGroupMembers(group).then(members => {
+      return GroupService.getGroupMembers(group).then(res => {
+        let members = res.data;
+        store.commit({
+          type: "setGroupMembers",
+          members
+        });
+
         return members;
       });
     },

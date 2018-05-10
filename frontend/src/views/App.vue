@@ -102,6 +102,7 @@ export default {
 #app {
   display: flex;
   flex-flow: column wrap;
+  justify-content: space-between;
 }
 * {
   font-family: Magettas Regular DEMO;

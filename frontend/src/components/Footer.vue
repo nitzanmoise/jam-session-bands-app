@@ -13,7 +13,7 @@
      </div>
   <section class="footer-bottom">
         <div class="footer-bottom-wrapper">   
-            <i class="fa fa-copyright" role="copyright"></i> 2018 <strong>Tomer and Nitzan</strong> <span class="footer-bottom-rights"> - All Rights Reserved - </span>
+            <i class="fa fa-copyright" role="copyright"></i> 2018 <strong>Tomer preis and Nitzan moise</strong> <span class="footer-bottom-rights"> - All Rights Reserved - </span>
         </div>
   </section>
 </footer>
@@ -22,43 +22,45 @@
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
 <style scoped>
-
 img {
-	max-width: 30%;
-	float: left;
-	margin: 1.66%;
+  max-width: 30%;
+  float: left;
+  margin: 1.66%;
 }
 
 hr {
-	margin-left: 1.66%;
-	border: 0;
-    height: 3px;
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+  margin-left: 1.66%;
+  border: 0;
+  height: 3px;
+  background-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.75),
+    rgba(0, 0, 0, 0.75),
+    rgba(0, 0, 0, 0)
+  );
 }
 
 .myFooter {
-	display: flex;
+  display: flex;
   flex-flow: row wrap;
 }
 
 footer {
-	 background-color: rgb(121, 115, 115);
-	font-family: 'Raleway', sans-serif;
-	color: rgb(214, 214, 214);
-	max-width: 100%;
-	margin-top: auto;
+  background-color: rgb(121, 115, 115);
+  font-family: "Raleway", sans-serif;
+  color: rgb(214, 214, 214);
+  max-width: 100%;
+  /* margin-top: auto; */
 }
 .footer-icons {
-	text-align: center;
-	font-size: 20px;
-	letter-spacing: 5px;
-	width: 100%;
+  text-align: center;
+  font-size: 20px;
+  letter-spacing: 5px;
+  width: 100%;
   align-items: center;
   justify-content: space-around;
   position: relative;
@@ -66,9 +68,9 @@ footer {
 }
 
 .footer-bottom {
-	text-align: center;
-	color: white;
-	width: 100%;
+  text-align: center;
+  color: white;
+  width: 100%;
   align-items: center;
   justify-content: space-around;
   position: relative;
@@ -76,13 +78,15 @@ footer {
   margin-bottom: 10px;
 }
 a {
-	text-decoration: none;
+  color: orange;
+  text-decoration: none;
 }
-a:visited, a:focus{
-	color: white;
+a:visited,
+a:focus {
+  color: white;
 }
 
 a:hover {
-	color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.6);
 }
 </style>
