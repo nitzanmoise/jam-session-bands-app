@@ -6,3 +6,7 @@
 body {
   margin: 0;
 }
+
+input{
+  z-index: 999;
+}

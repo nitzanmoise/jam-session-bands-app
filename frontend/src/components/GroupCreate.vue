@@ -112,7 +112,7 @@ export default {
 <style scoped>
 /* CSS for MODAL */
 .submit-button{
-  margin-left:10px;
+  margin-left:30px;
 }
 
 .modal-mask {
@@ -186,6 +186,10 @@ form{
   display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
+    justify-items: flex-start;
+    align-content: flex-start;
+    align-items: flex-start;
+
 }
 
 /*

@@ -90,7 +90,7 @@ export default {
   },
   methods: {
     goToMemberDetails(id) {
-      console.log("this is member id", id);
+     
       this.$router.push(`/UserDetails/${id}`);
     },
     addPost(groupId) {
@@ -101,7 +101,7 @@ export default {
         senderImage: this.loggedinUser.image,
         createdAt: Date.now()
       };
-      console.log("group id", groupId, "new post", newPost);
+      
 
       this.$store
         .dispatch({ type: "addPost", groupId, newPost })
@@ -109,21 +109,29 @@ export default {
     },
     sendJoinReq(groupId) {
       if (!this.loggedinUser) {
-        console.log("you not logged in");
+         var userMsg = {
+        txt: "You are not logged in! please log in to send join requests!",
+        type: "error"
+      };
+      EventBusService.$emit(SHOW_MSG, userMsg);
       } else {
-        console.log("yes you log in", this.group.members, this.loggedinUser);
+       
         var askerId = this.loggedinUser._id;
         var askerName = this.loggedinUser.fullName;
         var createdAt = Date.now();
         var joinReq = { askerId, askerName, groupId, createdAt };
-        console.log("thi is join req", joinReq);
-
         var admins = this.group.members.filter(({ isAdmin }) => isAdmin);
-        this.$store.dispatch({ type: "updateReqs", joinReq, admins });
+        this.$store.dispatch({ type: "updateReqs", joinReq, admins }).then(()=>{
+           var userMsg = {
+        txt: "Join Request Sent!",
+        type: "success"
+      };
+      EventBusService.$emit(SHOW_MSG, userMsg);
+
+        });
       }
     },
     routeToUsers(id) {
-      console.log("group id", id);
 
       this.$router.push(`/usersPage/${id}`);
       var userMsg = {
@@ -161,7 +169,7 @@ export default {
     }
   },
   created() {
-    console.log("i am the crested of detials");
+  
     var groupId = this.$route.params.id;
     this.$store.dispatch({ type: "getGroupById", groupId }).then(group => {
       // this.group = group;
