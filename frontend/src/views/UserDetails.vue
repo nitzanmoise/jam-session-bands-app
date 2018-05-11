@@ -40,7 +40,7 @@
                 {{user.description}}
             </div>
       <div class="talents" v-if="currLoggedInUser && user.talants.length > 0">
-                    <h3 style="font-size: 2em" >My Talents</h3>
+                    <h3 style="font-size: 2em" >My Talents:</h3>
                     <div class="talant-img">
                     <div class="talent-emoji" v-for="(talant, idx) in user.talants" :key="idx">
                       <div >
@@ -52,18 +52,19 @@
                     </div>
                     </div>
                    
+          <!-- <button @click="sendJoinReq" >Add me to your band</button> -->
 
                 </div>
     <div class="reqs">
       <div class="req-container" v-if="currLoggedInUser && joinReqs.length > 0">
-           <h1>My Talents Requests:</h1>
+           <h1>Requests From Jam Seesion Talents:</h1>
            <div class="join-reqs" v-for="req in joinReqs" :key="req.createdAt">
             <span @click="goToAsker(req.asker._id)">{{req.asker.fullName}}&nbsp;</span> asked to join {{req.group.name}}
             <button @click="deleteReq(user._id, req.createdAt)">Cancel</button><button @click="addAskerToGroupMembers(req.asker._id, req.group._id); deleteReq(user._id, req.createdAt)" >Agree</button>
            </div>
       </div>
       <div style="padding: 15px;" v-if="currLoggedInUser && groupReqs.length> 0">
-        <h1>My Group Requests</h1>
+        <h1>Requests From Jam Session Groups:</h1>
          <div class="groupJoinReqs" v-for="groupReq in groupReqs" :key="groupReq.createdAt">
           <span @click="goToGroupDetails(groupReq.group._id)">{{groupReq.group.name}}</span> Wants you to join them!
         <div class="req-buttons">
@@ -109,6 +110,11 @@ export default {
   },
 
   methods: {
+    sendJoinReq() {
+      EventBusService.$on(GROUP_ID, () => {
+        console.log("THIS I EVENT BUS", groupID);
+      });
+    },
     deleteReq(userId, timeStamp, user) {
       // console.log("deletereq", userId, timeStamp);
       this.$store

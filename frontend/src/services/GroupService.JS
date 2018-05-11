@@ -1,4 +1,8 @@
-const GROUP_URL = "http://localhost:3000/data/group";
+let GROUP_URL = "http://localhost:3000/data/group";
+
+if (process.env.NODE_ENV !== "development") {
+  GROUP_URL = "/data/group";
+}
 import axios from "axios";
 
 function emptyGroup() {

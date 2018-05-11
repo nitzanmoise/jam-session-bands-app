@@ -27,37 +27,32 @@
 </template>
 
 <script>
- 
-
-var _ = require('lodash');
+var _ = require("lodash");
 export default {
-  props:['groups'],
-   data() {
-        return {
-            search: ''
-        }
-   },
-methods:{
-        emitFilter(){
-            this.$emit('filtered',this.search);
-        },
-        openGroupDetails(groupId){
-        this.$router.push(`/GroupDetails/${groupId}`)
-        }
-        // searchBy:_.debounce(function (e) {
-        //         this.emitFilter();
-        // }, 500),
+  props: ["groups"],
+  data() {
+    return {
+      search: ""
+    };
+  },
+  methods: {
+    emitFilter() {
+      this.$emit("filtered", this.search);
+    },
+    openGroupDetails(groupId) {
+      this.$router.push(`/GroupDetails/${groupId}`);
     }
-        
-    }
-
+    // searchBy:_.debounce(function (e) {
+    //         this.emitFilter();
+    // }, 500),
+  }
+};
 </script>
 
 <style lang="css" scoped>
-
 @font-face {
-  font-family:debris ;
-  src: url('../../public/fonts/Debris/batman.ttf');
+  font-family: debris;
+  src: url("../../public/fonts/Debris/batman.ttf");
 }
 @font-face {
   font-family: Magettas Regular DEMO;
@@ -68,42 +63,41 @@ methods:{
   src: url("../../public/fonts/Shrikhand/Shrikhand-Regular.ttf");
 }
 
-*{
+* {
   box-sizing: border-box;
 }
-ul li{
+ul li {
   background: white;
   list-style-type: none;
- padding: 12px;
+  padding: 12px;
   border: 1px solid gray;
-font-size:18px;
-display:block;
+  font-size: 18px;
+  display: block;
   margin-top: -1px;
-  width:300px;
+  width: 300px;
   text-decoration: none;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   cursor: pointer;
- 
 }
-ul{
-  margin:0;
-  padding:0;
+ul {
+  margin: 0;
+  padding: 0;
 }
-.searchBar{
-  display:flex;
+.searchBar {
+  display: flex;
   flex-flow: column wrap;
   justify-items: center;
   align-items: center;
 }
 
-input{
-padding:10px;
-width: 300px;
-font-family: Verdana, Geneva, Tahoma, sans-serif;
-margin-top: 30px;
-border-radius: 50px;
+input {
+  padding: 10px;
+  width: 300px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin-top: 30px;
+  border-radius: 50px;
 }
-.container-fluid.main{
+.container-fluid.main {
   position: relative; /* To make the navbar positions relative to this container */
   padding: 0;
 }
@@ -112,21 +106,19 @@ border-radius: 50px;
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
-  height:500px;
- 
+  height: 500px;
 }
 
-
-@media (max-width:991px) {
+@media (max-width: 991px) {
   .carousel .background {
     background-size: cover; /* To make the background image looks good */
   }
 }
 
 .carousel .background.a {
-  background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../assets/img/headerbg.jpg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../assets/img/headerbg.jpg");
 }
-
 
 .covertext {
   position: absolute; /* To make the div to be place anywhere. It is out of the document flow */
@@ -136,7 +128,7 @@ border-radius: 50px;
 }
 
 .title {
-  font-family:  Shrikhand-Regular;
+  font-family: Shrikhand-Regular;
   font-weight: 600;
   font-size: 60px;
   color: orange;
@@ -145,7 +137,7 @@ border-radius: 50px;
 }
 
 .subtitle {
-  font-family:  Magettas Regular DEMO;
+  font-family: Magettas Regular DEMO;
   font-size: 26px;
   color: white;
   text-align: center;
@@ -155,6 +147,4 @@ border-radius: 50px;
   text-align: center;
   margin-top: 10px;
 }
-
-
 </style>

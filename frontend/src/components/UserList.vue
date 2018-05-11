@@ -25,30 +25,32 @@ export default {
 
 <style scpoped>
 h1 {
-  font-family: Shrikhand-Regular;
-  font-weight: 600;
-  font-size: 60px;
-  color: orange;
   text-align: center;
-  margin-top: 100px;
+  font-size: 1.7em;
+  margin: 0px;
+
+  color: #756a6a;
+  padding: 30px;
 }
 
 .user {
   display: flex;
   flex-flow: column wrap;
-
-  margin-bottom: 50px;
+  margin: 10px;
+  text-align: center;
+  background-color: white;
+  border: 1px solid rgba(223, 220, 220, 0.521);
 }
 
 .users-container {
   width: 100%;
-  margin: 0 auto;
+  margin: 20px auto;
 
   display: grid;
 
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: auto;
-  grid-gap: 10px;
+  grid-gap: 30px;
 }
 
 @media (max-width: 950px) {

@@ -19,6 +19,7 @@
                     <!-- <div>  -->
                     <h1 class="members-header">Members</h1>
                     <div class="card">
+                    <button class="button" style="width: 250px;" v-if="currLoggedInUser"  @click="routeToUsers(group._id)"> Add a Member</button>
                         <div v-for="member in members" :key="member._id" class="member-details">
                             <div class="member-img-container" @click="goToMemberDetails(member._id)" :style="{ backgroundImage: `url(${member.image})`}">
                                 <!-- <img :src="member.image" class="member-image"> -->
@@ -34,7 +35,6 @@
                             </div>
                         </div>
                     </div>
-                    <button v-if="currLoggedInUser" class="addMember" @click="routeToUsers(group._id)"> Add a Member</button>
                 </div>
             <div class="main-container">
                 <div class="about flex">
@@ -54,7 +54,7 @@
                         <h4>Player</h4>
                       </div> 
                     </div>
-                    <el-button @click="sendJoinReq(group._id)" type="text" class="button">Join The Band</el-button>
+                    <button @click="sendJoinReq(group._id)" type="text" class="button">Join The Band</button>
 
                 </div>
                 </div>

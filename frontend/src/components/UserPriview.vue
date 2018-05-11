@@ -2,25 +2,34 @@
 
   <div class="card">
     <div  @click="openUserDetails(user._id)">
-        <h2>{{user.fullName}}</h2>
+        
     <div class="user-image">
      <img :src="user.image" class="image">
     </div>
+    <h2>{{user.fullName}}</h2>
   </div>
+
+  
+    <div class="card-bottom">
           <div class="talents-container">
               <h3>Talents</h3>
               <div v-for="talant in user.talants" :key="talant._id">  
                 <img class="icon" :src="'./img/instruments/'+talant+'.png'" alt="" width="25px;" height="25px;">                        
             </div>
           </div>  
-         <el-button type="text" @click="sendJoinReq" class="button">Ask To Join Your Band!</el-button>
-          <el-button @click.stop="openUserDetails(user._id)" type="text" class="button">View User Details</el-button>
+         <button type="text" @click="sendJoinReq" class="button">Ask To Join Your Band!</button>
+          </div>
   </div>
  
 </template>
 
 
   <script>
+import EventBusService, {
+  SHOW_MSG,
+  REQUIRE_LOGIN,
+  GROUP_ID
+} from "../services/EventBusService.js";
 export default {
   props: ["user"],
   computed: {
@@ -30,6 +39,8 @@ export default {
   },
   methods: {
     openUserDetails(userId) {
+      var groupId = this.$route.params.id;
+      EventBusService.$emit(groupId);
       this.$router.push(`/UserDetails/${userId}`);
     },
     sendJoinReq() {
@@ -52,14 +63,22 @@ export default {
   src: url("../../public/fonts/magettas-demo/Magettas Regular DEMO.otf");
 }
 .card {
-  margin: 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   text-align: center;
   cursor: pointer;
-  border-radius: 20px;
-  /* border: solid 2px black; */
-  box-shadow: 2px 4px 54px 0px rgba(0, 0, 0, 0.62);
-  background-color: #eeeeee;
+  border: 1px solid rgba(226, 226, 226, 0.548);
+  background-color: white;
 }
+.card-bottom {
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-end;
+}
+
 h2 {
   /* font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
   font-size: 1.4em;
@@ -68,35 +87,42 @@ h2 {
 }
 
 .button {
-  padding: 0px;
-  justify-content: center;
+  line-height: 50%;
+  border: 2px solid rgba(226, 226, 226, 0.548);
+  padding: 10px;
   color: orange;
   font-family: Magettas Regular DEMO;
+  height: 30px;
+  border-radius: 50px;
   font-size: 1.2em;
-  margin-bottom: 10px;
+  background-color: white;
+  margin-bottom: 15px;
+  cursor: pointer;
 }
 
 .image {
   display: block;
   width: 100%;
   height: 100%;
-}
-.user-image {
-  margin-left: 20px;
-  margin-right: 20px;
+  cursor: pointer;
 }
 
 .talents-container {
   display: flex;
-  justify-content: space-around;
+  flex-direction: row;
   width: 100%;
+  margin: 0 auto;
+
+  align-items: flex-end;
 }
 
 h3 {
-  font-weight: normal;
-  margin-top: 15px;
+  font-size: 1em;
+  color: gray;
 }
 .icon {
-  margin-top: 12px;
+  margin-bottom: 12px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 </style>

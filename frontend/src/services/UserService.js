@@ -1,5 +1,10 @@
-const USER_URL = "http://localhost:3000/data/user";
 import axios from "axios";
+
+let USER_URL = `http://localhost:3000/data/user`;
+
+if (process.env.NODE_ENV !== "development") {
+  USER_URL = "/data/user";
+}
 
 function login(user) {
   return axios
@@ -44,24 +49,24 @@ function emptyUser() {
   return { name: "", details: "" };
 }
 
-  function getUsers(filter) {
-    return axios
-      .get(USER_URL)
-      .then(res => {
-        if (!filter) {
-          return res.data;
-        } else if (filter === "") {
-          return res.data;
-        } else {
-          return res.data.filter(user => {
-            return user.talants.some(talant => {
-              return talant.toLowerCase().includes(filter.toLowerCase());
-            });
+function getUsers(filter) {
+  return axios
+    .get(USER_URL)
+    .then(res => {
+      if (!filter) {
+        return res.data;
+      } else if (filter === "") {
+        return res.data;
+      } else {
+        return res.data.filter(user => {
+          return user.talants.some(talant => {
+            return talant.toLowerCase().includes(filter.toLowerCase());
           });
-        }
-      })
-      .catch(e => console.log("No Groups", e));
-  }
+        });
+      }
+    })
+    .catch(e => console.log("No Groups", e));
+}
 
 function updateUser(user) {
   return axios
