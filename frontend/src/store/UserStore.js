@@ -43,9 +43,7 @@ export default {
       state.loggedinUser.joinReqs = state.loggedinUser.joinReqs.filter(
         req => req.createdAt !== timeStamp
       );
-      state.loggedinUser.groupJoinReq = state.loggedinUser.groupJoinReq.filter(
-        req => req.createdAt !== timeStamp
-      );
+
       console.log("moshe ch", state.loggedinUser.joinReqs.length);
 
       sessionStorage.user = JSON.stringify(state.loggedinUser);

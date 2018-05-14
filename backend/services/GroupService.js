@@ -160,6 +160,27 @@ function sendJoinReqs({ joinReq, admins }) {
   // });
 }
 
+function removeMember(groupId, memberId) {
+  // console.log({ userId, timeStamp });
+  var mongoId = new mongo.ObjectID(groupId);
+  return new Promise((resolve, reject) => {
+    DBService.dbConnect().then(db => {
+      db.collection("groups").updateOne(
+        { _id: mongoId },
+        {
+          $pull: {
+            members: { id: memberId }
+          }
+        },
+        (err, result) => {
+          if (err) reject(err);
+          else resolve(result.result);
+        }
+      );
+    });
+  });
+}
+
 function getBandMembersData(memberIds) {
   var mongoIds = memberIds.map(id => new mongo.ObjectID(id));
   return new Promise((resolve, reject) => {
@@ -185,5 +206,6 @@ module.exports = {
   getBandMembersData,
   sendJoinReqs,
   addAskerToGroupMembers,
-  addPost
+  addPost,
+  removeMember
 };
