@@ -90,4 +90,15 @@ module.exports = app => {
       .then(group => res.json(group))
       .catch(err => res.status(500).send("Could not update group"));
   });
+
+  app.put(`${GROUP_URL}/:id/removeMember`, function(req, res) {
+    const groupId = req.params.id;
+    const memberId = req.body.memberId;
+    console.log("member id", memberId);
+    console.log("group id", groupId);
+
+    GroupService.removeMember(groupId, memberId)
+      .then(group => res.json(group))
+      .catch(err => res.status(500).send("Could not update group"));
+  });
 };

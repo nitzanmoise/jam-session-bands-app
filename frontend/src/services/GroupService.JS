@@ -51,6 +51,10 @@ function addGroup(group) {
   });
 }
 
+function removeMmber(groupId, memberId) {
+  return axios.put(_getGroupUrl(groupId) + "/removeMember", { memberId });
+}
+
 function deleteGroup(groupId) {
   return axios.delete(_getGroupUrl(groupId));
 }
@@ -89,5 +93,6 @@ export default {
   getGroupMembers,
   updateReqs,
   addAskerToGroupMembers,
-  addPost
+  addPost,
+  removeMmber
 };

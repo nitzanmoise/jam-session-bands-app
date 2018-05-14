@@ -11,8 +11,12 @@
                     </div>
                 </div>
                 <div class="img-container">
+                <div >
                     <img :src="group.image" class="group-image">
                 </div>
+                    <button class="button" style="width: 36%;" v-if="currLoggedInUser"  @click="deleteGroup(group._id)">Delete Group</button>
+                </div>
+                
             </div>
   <section class="group-details"> 
                 <div class="members-container">
@@ -25,13 +29,17 @@
                                 <!-- <img :src="member.image" class="member-image"> -->
                            
                             </div>
+                            <h1 class="member-name" @click="goToMemberDetails(member._id)">{{member.fullName}}</h1>
                             <div class="member-name-container">
-                                <h1 class="member-name" @click="goToMemberDetails(member._id)">{{member.fullName}}</h1>
                                 <div class="talant-imgs">
                                     <div v-for="talant in member.talants" :key="talant._id">
                                         <img :src="'./img/instruments/'+talant+'.png'" :title="talant" alt="" width="25px;" height="25px;">
                                     </div>
+                                    
                                 </div>
+                            </div>
+                            <div>
+                                <button class="button" stysle="width: 150px;" v-if="currLoggedInUser"  @click="removeMember(member._id)">Remove Member</button>
                             </div>
                         </div>
                     </div>
@@ -83,12 +91,21 @@ import EventBusService, { SHOW_MSG } from "../services/EventBusService.js";
 export default {
   data() {
     return {
-      // group: {},
-      // members: {},
       newPost: ""
     };
   },
   methods: {
+    removeMember(memberId) {
+      this.$store.dispatch({
+        type: "removeMember",
+        groupId: this.group._id,
+        memberId
+      });
+    },
+    deleteGroup(groupId) {
+      console.log("THIS IS GROUP ID", groupId);
+      this.$store.dispatch({ type: "deleteGroup", groupId });
+    },
     goToMemberDetails(id) {
       this.$router.push(`/UserDetails/${id}`);
     },
@@ -176,6 +193,12 @@ export default {
         // console.log("memebers", this.members);
       });
     });
+  },
+  watch: {
+    loggedinUser: {
+      handler() {},
+      deep: true
+    }
   }
 };
 </script>
@@ -261,11 +284,11 @@ textarea {
 }
 .member-details {
   display: flex;
-  flex-flow: column wrap;
+  flex-flow: column nowrap;
   text-align: center;
   background-color: whitesmoke;
   border: 1px solid rgba(223, 220, 220, 0.521);
-  height: 90%;
+  height: 100%;
   text-align: center;
   cursor: pointer;
   padding-top: 20px;

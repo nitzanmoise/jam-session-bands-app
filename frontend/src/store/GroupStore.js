@@ -9,6 +9,11 @@ export default {
     groupMembers: null
   },
   mutations: {
+    removeMember(state, { memberId }) {
+      state.selectedGroup.members = state.selectedGroup.members.filter(
+        member => member.id !== memberId
+      );
+    },
     setGroupFilter(state, { filter }) {
       state.groupFilter = filter;
     },
@@ -68,6 +73,11 @@ export default {
     }
   },
   actions: {
+    removeMember(store, { groupId, memberId }) {
+      return GroupService.removeMmber(groupId, memberId).then(res => {
+        store.commit({ type: "removeMember", memberId });
+      });
+    },
     loadGroups(store) {
       return GroupService.getGroups(store.state.groupFilter).then(groups => {
         store.commit({ type: "setGroups", groups });
@@ -85,7 +95,9 @@ export default {
         store.commit({ type: "addPost", groupId, newPost });
       });
     },
-    deleteGroup(store, { group }) {
+    deleteGroup(store, { groupId }) {
+      console.log("in stoure", groupId);
+
       return GroupService.deleteGroup(groupId).then(() => {
         store.commit({ type: "deleteGroup", groupId });
       });

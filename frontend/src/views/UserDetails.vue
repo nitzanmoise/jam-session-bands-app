@@ -5,7 +5,9 @@
             <div class="header-info">
                     <h1>{{user.fullName}}</h1>
                     <h3>{{user.location}}</h3>
-                    <h4> {{genres}} </h4>
+                    <h4 v-for="genre in genres" :key="genre._id">
+                            {{genre}}
+                        </h4>
            </div>
            <div style="    margin-right: 30%;
     margin-top: 5%;
