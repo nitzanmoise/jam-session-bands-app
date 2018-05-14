@@ -58,10 +58,13 @@ export default {
     },
     currGroupForDisplay(state) {
       if (!state.selectedGroup) return null;
-      let reversedPosts = state.selectedGroup.posts.slice().reverse();
-      let group = { ...state.selectedGroup, posts: reversedPosts };
-      // var group = state.selectedGroup;
-      return group;
+      if (!state.selectedGroup.posts.length) {
+        return state.selectedGroup;
+      } else {
+        let reversedPosts = state.selectedGroup.posts.slice().reverse();
+        let group = { ...state.selectedGroup, posts: reversedPosts };
+        return group;
+      }
     }
   },
   actions: {

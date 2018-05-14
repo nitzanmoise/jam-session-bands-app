@@ -26,7 +26,7 @@
               </div>
                
                 <h1 class="group-name" @click="goToGroupDetails(group._id)">{{group.name}}</h1>
-                <button @click="goToGroupEdit(group._id)" :disabled="!checkIfAdmin(group)">Edit This Group</button>
+                <button @click="goToGroupEdit(group._id)" v-if="checkIfAdmin(group)">Edit This Group</button>
           </div>
                     <button id='show-modal' v-if="loggedinUser" @click="openGroupCreate">Create Group</button>
                     <group-create :memberId="userId" v-if="createGroup"></group-create>

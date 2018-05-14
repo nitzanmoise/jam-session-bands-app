@@ -7,9 +7,23 @@
                   <label for="image"> Insert an Image URL:  </label><input name= "image" type="text" placeholder="insert an Image URL" v-model="group.image"/>
                   <label for="bgImage"> Your Groups' Background Image:  </label><input name="bgImage" type="text" placeholder="Insert a Background Picture URL" v-model="group.bgImage"/>
                   <label for="location"> Location:  </label><input name="location" type="text" placeholder="Where Are You From?" v-model="group.location"/>
-                  <label for="genre"> Genre:  </label><input name= "genre" type="text" placeholder="Genre of the Group" v-model="group.genre"/>
+                       <label for="genre"> Genre:  </label>
+                 <select name= "genre" placeholder="Genre of the Group" v-model="group.genre" multiple>
+                      <option value="rock">Rock</option>
+                      <option value="pop">Pop</option>
+                      <option value="Jazz">Jazz</option>
+                      <option value="classic">Classic</option>
+                      <option value="metal">Metal</option>
+                      <option value="funk">Funk</option>
+                      <option value="punk">Punk</option>
+                      <option value="fusion">Fusion</option>
+                      <option value="indie">Indie</option>
+                      <option value="alt">Alternative</option>
+                      <option value="electronic">Electronic</option>
+                  </select>
+                  <br>
                   <label for="need"> Looking For:  </label>
-                  <select multiple>
+                  <select multiple v-model="group.need">
                       <option value="guitar">guitar</option>
                       <option value="drums">drums</option>
                       <option value="keyboard">keyboard</option>
@@ -34,14 +48,22 @@ import EventBusService, { SHOW_MSG } from "../services/EventBusService.js";
 export default {
   data() {
     return {
-      group: {}
+      group: {    
+        name: "",
+        about: "",
+        image: "",
+        location: "",
+        genre: [],
+        need: [],
+        members: [],
+        posts: []}
     };
   },
 
   created() {
     var groupId = this.$route.params.id;
-    this.$store.dispatch({ type: "getGroupById", groupId }).then(group => {
-      this.group = group;
+    this.$store.dispatch({ type: "getGroupById", groupId }).then(groupToUpdate => {
+      this.group = {...groupToUpdate};
     });
   },
 

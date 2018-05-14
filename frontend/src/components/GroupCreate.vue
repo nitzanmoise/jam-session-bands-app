@@ -22,7 +22,21 @@
               
 
                
-                  <label for="genre"> Genre:  </label><input name= "genre" type="text" placeholder="Genre of the Group" v-model="group.genre"/>
+                  <label for="genre"> Genre:  </label>
+                 <select name= "genre" type="text" placeholder="Genre of the Group" v-model="group.genre" multiple>
+                      <option value="rock">Rock</option>
+                      <option value="pop">Pop</option>
+                      <option value="Jazz">Jazz</option>
+                      <option value="classic">Classic</option>
+                      <option value="metal">Metal</option>
+                      <option value="funk">Funk</option>
+                      <option value="punk">Punk</option>
+                      <option value="fusion">Fusion</option>
+                      <option value="indie">Indie</option>
+                      <option value="alt">Alternative</option>
+                      <option value="electronic">Electronic</option>
+                  </select>
+                  
                   <label for="need"> Looking For:  </label>
                   <select v-model="group.need" multiple>
                       <option value="guitar">guitar</option>
@@ -36,6 +50,7 @@
                       <option value="french-horn">french-horn</option>
                       <option value="piano">piano</option>
                   </select>
+                
                
                 <div class="submit-button">
                  <button class="submit" type="submit" :disabled="!this.group.name || !this.group.genre || !this.group.about">Save Group</button> 
