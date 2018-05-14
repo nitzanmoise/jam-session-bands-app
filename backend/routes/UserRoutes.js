@@ -21,6 +21,14 @@ module.exports = app => {
       });
   });
 
+  app.delete(`${USER_URL}/:id`, (req, res) => {
+    const userId = req.params.id;
+    UserService.deleteUser(userId)
+      .then(() => res.send("deleted"))
+      .catch(() => res.status(500).send("problem"));
+  });
+
+
   app.get(`${USER_URL}/:id`, (req, res) => {
     const userId = req.params.id;
     // console.log({ userId });

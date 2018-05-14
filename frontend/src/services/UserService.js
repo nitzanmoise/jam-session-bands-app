@@ -81,6 +81,7 @@ function updateUser(user) {
     });
 }
 function deleteUser(userId) {
+  console.log('inside service delete user', userId)
   return axios.delete(_getUserUrl(userId));
 }
 

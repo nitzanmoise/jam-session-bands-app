@@ -436,9 +436,61 @@ textarea {
   font-family: Shrikhand-Regular;
   src: url("../../public/fonts/Shrikhand/Shrikhand-Regular.ttf");
 }
-@media (max-width: 740px) {
-  group-details-container {
-    flex-flow: row;
+@media (max-width: 840px) {
+  .group-details-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+  }
+ 
+.group-details{
+  flex-flow: row wrap;
+  justify-content: center;
+  justify-items: center;
+  align-content: center;
+  align-items: center;
+}
+.about{
+  flex-flow: row wrap;
+  justify-content: center;
+  justify-items: center;
+  align-content: center;
+  align-items: center;
+}
+.about-container{
+  width: 100%;
+   text-align: center;
+}
+.need{
+   width: 100%;
+   text-align: center;
+}
+.need-img{
+  text-align: center;
+  align-content: center;
+
+  justify-content: center;
+ 
+}
+  .group-image{
+  width:70%;
+  background-size: contain;
+  }
+  .members-header{
+    margin: 0;
+    padding-top: 20px;
+    width: 100%;
+
+  }
+  .members-container{
+   margin-left: 0px;
+  overflow:auto;
+   justify-content: center;
+  justify-items: center;
+  align-content: center;
+  align-items: center;
+text-align: center;
+  width: 100%;
   }
 }
 </style>

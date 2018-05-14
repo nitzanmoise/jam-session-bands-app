@@ -13,7 +13,8 @@
               <div class="img-container"  :style="{ backgroundImage: `url(${user.image})`}">
                    <!-- <img :src="user.image" class="user-image"> -->
               </div>
-                   <button class="user-edit-btn" @click="goToUserEdit(user._id)" v-if="loggedinUser">Edit Your Profile!</button>
+                   <button class="user-edit-btn" @click="goToUserEdit(user._id)" v-if="loggedinUser">Edit Your Profile!</button> <br>
+                   <button class="remove-user" @click="deleteUser(user._id)" v-if="loggedinUser">Delete Account</button>
                    </div>
         </div>
   <div class="main-container">
@@ -121,9 +122,18 @@ export default {
     openGroupCreate() {
       this.createGroup = true;
     },
+   deleteUser(userId){
+     this.$store.dispatch({ type: "deleteUser", userId }).then(user => {
+       this.$router.push(`/`);
+      this.$store.dispatch("logout").then(() => {});
+       EventBusService.$emit(SHOW_MSG, {
+            txt: `Your Accout Was Deleted`,
+            type: "success"
+      });
+    })
+   },
     sendJoinReq() {
       EventBusService.$on(GROUP_ID, () => {
-        console.log("THIS I EVENT BUS", groupID);
       });
     },
     deleteReq(userId, timeStamp, user) {
@@ -498,6 +508,15 @@ button {
 }
 .user-edit-btn {
   width: 173px;
+  border-radius: 50px;
+  margin-top: 10px;
+  margin-left: 25px;
+  font-size: 1.2em;
+  line-height: 50%;
+  background-color: white;
+}
+.remove-user{
+    width: 173px;
   border-radius: 50px;
   margin-top: 10px;
   margin-left: 25px;
