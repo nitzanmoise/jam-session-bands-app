@@ -67,7 +67,8 @@ export default {
         location: "",
         genre: "",
         need: [],
-        members: []
+        members: [],
+        posts: []
       }
     };
   },
@@ -111,8 +112,8 @@ export default {
 
 <style scoped>
 /* CSS for MODAL */
-.submit-button{
-  margin-left:30px;
+.submit-button {
+  margin-left: 30px;
 }
 
 .modal-mask {
@@ -166,7 +167,7 @@ h4 {
 
 label {
   line-height: 50px;
- 
+
   margin-left: 10px;
 }
 
@@ -182,14 +183,13 @@ input {
   width: 200px;
 }
 
-form{
+form {
   display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-    justify-items: flex-start;
-    align-content: flex-start;
-    align-items: flex-start;
-
+  flex-flow: row wrap;
+  justify-content: space-between;
+  justify-items: flex-start;
+  align-content: flex-start;
+  align-items: flex-start;
 }
 
 /*
