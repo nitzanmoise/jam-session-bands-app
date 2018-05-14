@@ -28,6 +28,8 @@
                 <h1 class="group-name" @click="goToGroupDetails(group._id)">{{group.name}}</h1>
                 <button @click="goToGroupEdit(group._id)" :disabled="!checkIfAdmin(group)">Edit This Group</button>
           </div>
+                    <button id='show-modal' v-if="loggedinUser" @click="openGroupCreate">Create Group</button>
+                    <group-create :memberId="userId" v-if="createGroup"></group-create>
       
       </div>
 
@@ -82,14 +84,17 @@
 
 <script>
 import EventBusService, { SHOW_MSG } from "../services/EventBusService.js";
-
+import logIn from "../components/Login.vue";
+import groupCreate from "../components/GroupCreate.vue";
 export default {
   data() {
     return {
       user: {},
       // groups: {},
       joinReqs: [],
-      groupReqs: []
+      groupReqs: [],
+      createGroup: false,
+      loginModal: false
     };
   },
   computed: {
@@ -106,10 +111,16 @@ export default {
     currLoggedInUser() {
       if (this.loggedinUser === null) return;
       if (this.loggedinUser._id === this.user._id) return true;
+    },
+    userId() {
+      return this.$route.params.id;
     }
   },
 
   methods: {
+    openGroupCreate() {
+      this.createGroup = true;
+    },
     sendJoinReq() {
       EventBusService.$on(GROUP_ID, () => {
         console.log("THIS I EVENT BUS", groupID);
@@ -253,6 +264,9 @@ export default {
       },
       deep: true
     }
+  },
+  components: {
+    groupCreate
   }
 };
 </script>

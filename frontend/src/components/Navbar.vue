@@ -11,22 +11,19 @@
   height='100%'>
  
        <el-menu-item index='1'><router-link tag='a' class='home' to='/'>Home</router-link></el-menu-item>
-      <el-menu-item index='2'> 
-       <button tag='a' id='show-modal' @click="$emit('groupCreate', true)">Create Group</button>
-        </el-menu-item>
+   
 
-
-      <el-menu-item index='3' v-if='!$store.getters.loggedinUser' >
+      <el-menu-item index='2' v-if='!$store.getters.loggedinUser' >
         <button tag='a' id='show-modal' @click="$emit('joinModal', true)">Join</button>
       </el-menu-item>
-      <el-menu-item index='4' v-if='!$store.getters.loggedinUser'>
+      <el-menu-item index='3' v-if='!$store.getters.loggedinUser'>
         <button tag='a' id='show-modal' @click="$emit('loginModal', true)">Log In</button>
       </el-menu-item>
-      <el-menu-item index='5' v-if='$store.getters.loggedinUser'>
+      <el-menu-item index='4' v-if='$store.getters.loggedinUser'>
         <button tag='a' id='show-modal' @click='logout'>Log Out</button>
       </el-menu-item>
       
-      <el-menu-item index='6' v-if='$store.getters.loggedinUser'>
+      <el-menu-item index='5' v-if='$store.getters.loggedinUser'>
         
         <button tag='a' id='show-modal' @click='routeToMyProfile($store.getters.loggedinUser._id)' >My Profile</button>
           <a href="" class="badge1" title="Join requesrs" :data-badge="counter"></a>
@@ -41,7 +38,7 @@
 import EventBusService, { SHOW_MSG } from "../services/EventBusService.js";
 
 export default {
-  props: ["loginModal", "joinModal", "groupCreate"],
+  props: ["loginModal", "joinModal"],
   data() {
     return {
       activeIndex: "1",

@@ -90,7 +90,6 @@ export default {
   },
   methods: {
     goToMemberDetails(id) {
-     
       this.$router.push(`/UserDetails/${id}`);
     },
     addPost(groupId) {
@@ -101,7 +100,6 @@ export default {
         senderImage: this.loggedinUser.image,
         createdAt: Date.now()
       };
-      
 
       this.$store
         .dispatch({ type: "addPost", groupId, newPost })
@@ -109,30 +107,29 @@ export default {
     },
     sendJoinReq(groupId) {
       if (!this.loggedinUser) {
-         var userMsg = {
-        txt: "You are not logged in! please log in to send join requests!",
-        type: "error"
-      };
-      EventBusService.$emit(SHOW_MSG, userMsg);
+        var userMsg = {
+          txt: "You are not logged in! please log in to send join requests!",
+          type: "error"
+        };
+        EventBusService.$emit(SHOW_MSG, userMsg);
       } else {
-       
         var askerId = this.loggedinUser._id;
         var askerName = this.loggedinUser.fullName;
         var createdAt = Date.now();
         var joinReq = { askerId, askerName, groupId, createdAt };
         var admins = this.group.members.filter(({ isAdmin }) => isAdmin);
-        this.$store.dispatch({ type: "updateReqs", joinReq, admins }).then(()=>{
-           var userMsg = {
-        txt: "Join Request Sent!",
-        type: "success"
-      };
-      EventBusService.$emit(SHOW_MSG, userMsg);
-
-        });
+        this.$store
+          .dispatch({ type: "updateReqs", joinReq, admins })
+          .then(() => {
+            var userMsg = {
+              txt: "Join Request Sent!",
+              type: "success"
+            };
+            EventBusService.$emit(SHOW_MSG, userMsg);
+          });
       }
     },
     routeToUsers(id) {
-
       this.$router.push(`/usersPage/${id}`);
       var userMsg = {
         txt: "Check Out Our Users! Add Them To Your Band!",
@@ -169,7 +166,8 @@ export default {
     }
   },
   created() {
-  
+    console.log("thius is curr #group", this.group);
+
     var groupId = this.$route.params.id;
     this.$store.dispatch({ type: "getGroupById", groupId }).then(group => {
       // this.group = group;

@@ -1,12 +1,11 @@
 <template>
 <div id="app">
   <header>
-        <nav-Bar :loginModal="loginModal"  @loginModal="loginModal = true" :joinModal="joinModal"  @joinModal="joinModal = true" :group-create="groupCreate" @groupCreate="openGroupCreate" ></nav-Bar>
+        <nav-Bar :loginModal="loginModal"  @loginModal="loginModal = true" :joinModal="joinModal"  @joinModal="joinModal = true" ></nav-Bar>
   </header>
        <router-view @openLogin="rani"></router-view>
        <log-in v-if="loginModal" @close="loginModal = false" @joinModal="joinModal = true, loginModal = false" ></log-in>
        <join-register v-if="joinModal" @close="joinModal = false" @openLogin="joinModal = false, loginModal = true" @loginModal="openLogin"></join-register>
-       <group-create v-if="loggedinUser && groupCreate" @close="groupCreate = false"></group-create>
         <user-msg></user-msg>
     <footer>
        <app-footer></app-footer>
@@ -19,7 +18,6 @@ import NavBar from "../components/Navbar.vue";
 import AppFooter from "../components/Footer.vue";
 import logIn from "../components/Login.vue";
 import joinRegister from "../components/join.vue";
-import groupCreate from "../components/GroupCreate.vue";
 import eventBus, {
   SHOW_MSG,
   REQUIRE_LOGIN
@@ -45,18 +43,17 @@ export default {
   data() {
     return {
       loginModal: false,
-      joinModal: false,
-      groupCreate: false
+      joinModal: false
     };
   },
 
   methods: {
-    openGroupCreate(){
-      if (!this.loggedinUser){
-        this.loginModal =true 
-        return
+    openGroupCreate() {
+      if (!this.loggedinUser) {
+        this.loginModal = true;
+        return;
       }
-      this.groupCreate = true
+      this.groupCreate = true;
     },
     filterGroups(filter) {
       this.$store.commit({
@@ -81,7 +78,7 @@ export default {
     },
     isLoggedIn() {
       if (!this.loggedinUser) {
-          this.loginModal = true;
+        this.loginModal = true;
       }
     }
   },
@@ -91,8 +88,7 @@ export default {
     AppFooter,
     logIn,
     joinRegister,
-    userMsg,
-    groupCreate
+    userMsg
   }
 };
 </script>

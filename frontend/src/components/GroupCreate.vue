@@ -47,7 +47,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div>  
   </transition>
 </section>
 
@@ -56,8 +56,9 @@
 <script>
 import GroupService from "../services/GroupService";
 import EventBusService, { SHOW_MSG } from "../services/EventBusService.js";
-
 export default {
+  props: ["memberId"],
+
   data() {
     return {
       group: {
@@ -65,15 +66,16 @@ export default {
         about: "",
         image: "",
         location: "",
-        genre: "",
+        genre: [],
         need: [],
-        members: [],
+        members: [{ id: this.memberId, isAdmin: true, position: "guitar" }],
         posts: []
       }
     };
   },
   created() {
     console.log("CreateGroup component created");
+    console.log("member id", this.memberId);
   },
   methods: {
     saveGroup() {
@@ -106,7 +108,17 @@ export default {
     }
   },
 
-  computed: {}
+  computed: {
+    loggedinUser() {
+      return this.$store.getters.loggedinUser;
+    },
+    getMembers() {
+      // var loggedinUserId = this.$store.getters.loggedinUser._id;
+      // console.log("loggedinUserId", loggedinUserId);
+
+      return { isAdmin: true, position: "guitar" };
+    }
+  }
 };
 </script>
 

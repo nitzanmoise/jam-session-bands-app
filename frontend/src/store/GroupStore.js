@@ -57,9 +57,10 @@ export default {
       return search;
     },
     currGroupForDisplay(state) {
-      // if (!state.selectedGroup) return null;
-      // let reversedPosts = state.selectedGroup.posts.slice().reverse();
-      // let group = { ...state.selectedGroup, posts: reversedPosts };
+      if (!state.selectedGroup) return null;
+      let reversedPosts = state.selectedGroup.posts.slice().reverse();
+      let group = { ...state.selectedGroup, posts: reversedPosts };
+      // var group = state.selectedGroup;
       return group;
     }
   },
