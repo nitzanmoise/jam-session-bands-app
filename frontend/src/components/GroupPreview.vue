@@ -48,6 +48,7 @@ export default {
       if (!this.loggedinUser) {
       return false 
       } 
+      if(!this.loggedinUser.sentReqsToJoinBands) return false
       var groupId = this.group._id;
       return this.loggedinUser.sentReqsToJoinBands.find(
         req => req.groupId === groupId
