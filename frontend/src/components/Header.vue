@@ -1,27 +1,14 @@
 <template>
 <section class="header">
-<div class="container-fluid main">
-  <div id="myCarousel" class="carousel carousel-fade slide">
-    <div class="carousel-inner" role="listbox">
-      
-      <div class="item active background a"> </div>
-     
-    </div>
-  </div>
-  <div class="covertext">
-    <div class="col-lg-10" style="float:none; margin:0 auto;">
       <h1 class="title">Jam Session!</h1> 
       <h3 class="subtitle">What is your music talent?</h3>
-    </div>
     <div class="searchBar">
-        <input type="text" v-model="search" @input='emitFilter' placeholder="Search Jam Session Groups" />
+      <input name="searchBar" type="text" v-model="search" @input='emitFilter' placeholder="Search talents groups are seeking" />
       <ul v-if="search">
-        <li v-if="search" v-for="group in groups" :key="group._id" @click="openGroupDetails(group._id)">{{group.name}} needs: {{ group.need.join(', ')}}</li>
+      <li v-if="search" v-for="group in groups" :key="group._id" @click="openGroupDetails(group._id)">{{group.name}} needs: {{ group.need.join(', ')}}</li>
       </ul>
     </div>
-  </div>
   
-</div>
 </section>
 
 </template>
@@ -78,10 +65,12 @@ ul li {
   text-decoration: none;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   cursor: pointer;
+ 
 }
 ul {
   margin: 0;
   padding: 0;
+   z-index: 998;
 }
 .searchBar {
   display: flex;
@@ -94,37 +83,18 @@ input {
   padding: 10px;
   width: 300px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  margin-top: 30px;
+  margin-top: 50px;
   border-radius: 50px;
 }
-.container-fluid.main {
-  position: relative; /* To make the navbar positions relative to this container */
-  padding: 0;
-}
 
-.carousel .background {
-  background-position: center center;
+.header {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../assets/img/headerbg.jpg");
+     background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
   height: 500px;
-}
 
-@media (max-width: 991px) {
-  .carousel .background {
-    background-size: cover; /* To make the background image looks good */
-  }
-}
-
-.carousel .background.a {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("../assets/img/headerbg.jpg");
-}
-
-.covertext {
-  position: absolute; /* To make the div to be place anywhere. It is out of the document flow */
-  top: 0px; /* The distance between the div with the top of document */
-  left: 0px; /* Make the div full width */
-  right: 0px; /* Make the div full width */
 }
 
 .title {
@@ -133,18 +103,16 @@ input {
   font-size: 60px;
   color: orange;
   text-align: center;
-  margin-top: 100px;
+  margin: 0;
+  padding-top: 100px;
 }
 
 .subtitle {
   font-family: Magettas Regular DEMO;
-  font-size: 26px;
+  font-size: 36px;
   color: white;
   text-align: center;
+  padding-top: 25px;
 }
 
-.explore {
-  text-align: center;
-  margin-top: 10px;
-}
 </style>

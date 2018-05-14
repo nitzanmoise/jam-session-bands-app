@@ -45,13 +45,16 @@ export default {
     },
     sendJoinReq() {
       var groupId = this.$route.params.id;
-      console.log("group idddd", groupId);
       var userId = this.user._id;
-      console.log("user idddd", userId);
       var createdAt = Date.now();
       var groupJoinReq = { groupId, userId, createdAt };
-      console.log("thi is join req", groupJoinReq);
-      this.$store.dispatch({ type: "sendGroupJoinReq", groupJoinReq });
+      this.$store.dispatch({ type: "sendGroupJoinReq", groupJoinReq }).then(()=>{
+      var userMsg = {
+        txt: "Join Request Sent!",
+        type: "success"
+      };
+      EventBusService.$emit(SHOW_MSG, userMsg);
+      });
     }
   }
 };
