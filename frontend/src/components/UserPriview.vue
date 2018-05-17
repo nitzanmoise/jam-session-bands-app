@@ -115,7 +115,7 @@ h2 {
   flex-direction: row;
   width: 100%;
   margin: 0 auto;
-
+justify-content: center;
   align-items: flex-end;
 }
 

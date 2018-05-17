@@ -66,6 +66,9 @@ export default {
 * {
   box-sizing: border-box;
 }
+
+
+
 ul li {
   background: white;
   list-style-type: none;
@@ -95,6 +98,7 @@ input {
   width: 300px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   margin-top: 30px;
+   border-radius: 50px;
 }
 .container-fluid.main {
   position: relative; /* To make the navbar positions relative to this container */
@@ -111,6 +115,9 @@ input {
 @media (max-width: 991px) {
   .carousel .background {
     background-size: cover; /* To make the background image looks good */
+  }
+  .item.active.background.a{
+    height: 550px;
   }
 }
 

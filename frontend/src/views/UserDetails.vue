@@ -531,6 +531,76 @@ button {
   color: orange;
   box-shadow: 0px 1px 64px -5px rgba(0, 0, 0, 0.36);
 }
+
+@media (max-width: 840px) {
+  .user-details-container{
+    width:100%;
+  display: flex;
+  flex-flow: column wrap;
+  padding: 0;
+  margin: 0;
+  }
+.about-reqs{
+    padding: 0;
+  margin: 0;
+}
+.main-container {
+  flex-flow: column wrap;
+  width: 100%;
+}
+.background-img{
+flex-flow: row wrap;
+  width: 100%;
+}
+.about{
+  justify-content: center;
+  justify-items: center;
+  align-content: center;
+  align-items: center;
+ width: 100%;
+  display: flex;
+  flex-flow: column wrap;
+  padding: 0;
+  margin: 0;
+}
+.talents{
+    justify-content: center;
+  justify-items: center;
+  align-content: center;
+  align-items: center;
+   width:100%;
+    display: flex;
+  flex-flow: column wrap;
+  padding: 0;
+  margin: 0;
+}
+.groups-container{
+   width:100%;
+    display: flex;
+  flex-flow: column wrap;
+  padding: 0;
+  margin: 0;
+}
+.items{
+    width:100%;
+  padding: 0;
+  margin: 0;
+}
+
+.reqs{
+    justify-content: center;
+  justify-items: center;
+  align-content: center;
+  align-items: center;
+   width:100%;
+    display: flex;
+  flex-flow: row wrap;
+  padding: 0;
+  margin: 0;
+}
+
+}
+
 @font-face {
   font-family: Condition3D-Italic;
   src: url("../../public/fonts/Condition3D-Italic.ttf");
