@@ -7,7 +7,7 @@
           <div class="modal-header">
             <slot name="header">
               <button class="modal-default-button" @click="$emit('close')">&#10006;</button>
-            <h2>Create New Group!</h2> 
+            <h2>Create A New Group!</h2> 
             </slot>
           </div>
           <div class="modal-body">
@@ -15,14 +15,14 @@
 
              <form @submit.prevent.stop="saveGroup">
               
-                  <label for="name"> Name: </label> <input name="name" ref="name" type="text" placeholder="Enter New Group Name" v-model="group.name" />
-                  <label for="about"> Description:  </label><input name= "about"  type="text" placeholder="Describe Your Group" v-model="group.about"/>
-                  <label for="image"> Upload image:  </label><input name= "image" type="text" placeholder="insert an Image URL" v-model="group.image"/>
-                  <label for="location"> Location:  </label><input name= "location" type="text" placeholder="Where Are You From?" v-model="group.location"/>
+                  <label for="name"> Name: <input name="name" ref="name" type="text" placeholder="Enter New Group Name" v-model="group.name" /> </label>
+                  <label for="about"> Description:  <input name= "about"  type="text" placeholder="Describe Your Group" v-model="group.about"/> </label>
+                  <label for="image"> Upload image: <input name= "image" type="text" placeholder="insert an Image URL" v-model="group.image"/> </label>
+                  <label for="location"> Location:  <input name= "location" type="text" placeholder="Where Are You From?" v-model="group.location"/> </label>
               
 
                
-                  <label for="genre"> Genre:  </label>
+                  <label for="genre"> Genre:  
                  <select name= "genre" type="text" placeholder="Genre of the Group" v-model="group.genre" multiple>
                       <option value="rock">Rock</option>
                       <option value="pop">Pop</option>
@@ -36,8 +36,9 @@
                       <option value="alt">Alternative</option>
                       <option value="electronic">Electronic</option>
                   </select>
+                   </label>
                   
-                  <label for="need"> Looking For:  </label>
+                  <label for="need"> Looking For: 
                   <select v-model="group.need" multiple>
                       <option value="guitar">guitar</option>
                       <option value="drums">drums</option>
@@ -50,6 +51,7 @@
                       <option value="french-horn">french-horn</option>
                       <option value="piano">piano</option>
                   </select>
+                   </label>
                 
                
                 <div class="submit-button">
@@ -89,8 +91,7 @@ export default {
     };
   },
   created() {
-    console.log("CreateGroup component created");
-    console.log("member id", this.memberId);
+   
   },
   methods: {
     saveGroup() {
@@ -128,8 +129,6 @@ export default {
       return this.$store.getters.loggedinUser;
     },
     getMembers() {
-      // var loggedinUserId = this.$store.getters.loggedinUser._id;
-      // console.log("loggedinUserId", loggedinUserId);
 
       return { isAdmin: true, position: "guitar" };
     }
@@ -193,9 +192,10 @@ h4 {
 }
 
 label {
-  line-height: 50px;
-
-  margin-left: 10px;
+ display: flex;
+ flex-flow: row wrap;
+ justify-content: flex-start;
+ justify-items: flex-start;
 }
 
 input {
@@ -211,12 +211,10 @@ input {
 }
 
 form {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
-  justify-items: flex-start;
-  align-content: flex-start;
-  align-items: flex-start;
+ display: grid;
+ grid-template-columns: auto auto auto;
+  grid-gap: 10px;
+ 
 }
 
 /*

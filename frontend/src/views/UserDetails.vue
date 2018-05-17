@@ -15,8 +15,8 @@
               <div class="img-container"  :style="{ backgroundImage: `url(${user.image})`}">
                    <!-- <img :src="user.image" class="user-image"> -->
               </div>
-                   <button class="user-edit-btn" @click="goToUserEdit(user._id)" v-if="loggedinUser">Edit Your Profile!</button> <br>
-                   <button class="remove-user" @click="deleteUser(user._id)" v-if="loggedinUser">Delete Account</button>
+                   <button class="user-edit-btn" @click="goToUserEdit(user._id)" v-if="currLoggedInUser">Edit Your Profile!</button> <br>
+                   <button class="remove-user" @click="deleteUser(user._id)" v-if="currLoggedInUser">Delete Account</button>
                    </div>
         </div>
   <div class="main-container">
@@ -31,8 +31,8 @@
                 <h1 class="group-name" @click="goToGroupDetails(group._id)">{{group.name}}</h1>
                 <button @click="goToGroupEdit(group._id)" v-if="checkIfAdmin(group)">Edit This Group</button>
           </div>
-                    <button id='show-modal' v-if="loggedinUser" @click="openGroupCreate">Create Group</button>
-                    <group-create :memberId="userId" v-if="createGroup"></group-create>
+                    <button id='show-modal' v-if="currLoggedInUser" @click="openGroupCreate">Create Group</button>
+                    <group-create @close="createGroup = false" :memberId="userId" v-if="createGroup && currLoggedInUser"></group-create>
       
       </div>
 
