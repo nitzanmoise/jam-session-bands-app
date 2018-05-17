@@ -73,8 +73,8 @@
          <div class="groupJoinReqs" v-for="groupReq in groupReqs" :key="groupReq.createdAt">
           <span @click="goToGroupDetails(groupReq.group._id)">{{groupReq.group.name}}</span> Wants you to join them!
         <div class="req-buttons">
-          <button  @click="deleteReq(user._id, groupReq.createdAt)">Cancel</button>
-          <button @click="addAskerToGroupMembers(user._id, groupReq.group._id); deleteReq(user._id, groupReq.createdAt) ">Agree</button>
+          <button  @click="deleteReq(usuer._id, groupReq.createdAt)">Cancel</button>
+          <button @click="addAskerToGropMembers(user._id, groupReq.group._id); deleteReq(user._id, groupReq.createdAt) ">Agree</button>
         </div>
         </div>
       </div>  
@@ -124,19 +124,18 @@ export default {
     openGroupCreate() {
       this.createGroup = true;
     },
-   deleteUser(userId){
-     this.$store.dispatch({ type: "deleteUser", userId }).then(user => {
-       this.$router.push(`/`);
-      this.$store.dispatch("logout").then(() => {});
-       EventBusService.$emit(SHOW_MSG, {
-            txt: `Your Accout Was Deleted`,
-            type: "success"
+    deleteUser(userId) {
+      this.$store.dispatch({ type: "deleteUser", userId }).then(user => {
+        this.$router.push(`/`);
+        this.$store.dispatch("logout").then(() => {});
+        EventBusService.$emit(SHOW_MSG, {
+          txt: `Your Accout Was Deleted`,
+          type: "success"
+        });
       });
-    })
-   },
+    },
     sendJoinReq() {
-      EventBusService.$on(GROUP_ID, () => {
-      });
+      EventBusService.$on(GROUP_ID, () => {});
     },
     deleteReq(userId, timeStamp, user) {
       // console.log("deletereq", userId, timeStamp);
@@ -517,8 +516,8 @@ button {
   line-height: 50%;
   background-color: white;
 }
-.remove-user{
-    width: 173px;
+.remove-user {
+  width: 173px;
   border-radius: 50px;
   margin-top: 10px;
   margin-left: 25px;
@@ -533,72 +532,71 @@ button {
 }
 
 @media (max-width: 840px) {
-  .user-details-container{
-    width:100%;
-  display: flex;
-  flex-flow: column wrap;
-  padding: 0;
-  margin: 0;
-  }
-.about-reqs{
+  .user-details-container {
+    width: 100%;
+    display: flex;
+    flex-flow: column wrap;
     padding: 0;
-  margin: 0;
-}
-.main-container {
-  flex-flow: column wrap;
-  width: 100%;
-}
-.background-img{
-flex-flow: row wrap;
-  width: 100%;
-}
-.about{
-  justify-content: center;
-  justify-items: center;
-  align-content: center;
-  align-items: center;
- width: 100%;
-  display: flex;
-  flex-flow: column wrap;
-  padding: 0;
-  margin: 0;
-}
-.talents{
+    margin: 0;
+  }
+  .about-reqs {
+    padding: 0;
+    margin: 0;
+  }
+  .main-container {
+    flex-flow: column wrap;
+    width: 100%;
+  }
+  .background-img {
+    flex-flow: row wrap;
+    width: 100%;
+  }
+  .about {
     justify-content: center;
-  justify-items: center;
-  align-content: center;
-  align-items: center;
-   width:100%;
+    justify-items: center;
+    align-content: center;
+    align-items: center;
+    width: 100%;
     display: flex;
-  flex-flow: column wrap;
-  padding: 0;
-  margin: 0;
-}
-.groups-container{
-   width:100%;
-    display: flex;
-  flex-flow: column wrap;
-  padding: 0;
-  margin: 0;
-}
-.items{
-    width:100%;
-  padding: 0;
-  margin: 0;
-}
-
-.reqs{
+    flex-flow: column wrap;
+    padding: 0;
+    margin: 0;
+  }
+  .talents {
     justify-content: center;
-  justify-items: center;
-  align-content: center;
-  align-items: center;
-   width:100%;
+    justify-items: center;
+    align-content: center;
+    align-items: center;
+    width: 100%;
     display: flex;
-  flex-flow: row wrap;
-  padding: 0;
-  margin: 0;
-}
+    flex-flow: column wrap;
+    padding: 0;
+    margin: 0;
+  }
+  .groups-container {
+    width: 100%;
+    display: flex;
+    flex-flow: column wrap;
+    padding: 0;
+    margin: 0;
+  }
+  .items {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
 
+  .reqs {
+    justify-content: center;
+    justify-items: center;
+    align-content: center;
+    align-items: center;
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    padding: 0;
+    margin: 0;
+  }
 }
 
 @font-face {
