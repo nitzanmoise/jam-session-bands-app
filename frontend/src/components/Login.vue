@@ -6,13 +6,14 @@
         <div class="modal-container">
           <div class="modal-header">
             <slot name="header">
+              <button class="close" @click="$emit('close')">&#10006;</button>
             <h2>Log In!</h2> 
             </slot>
           </div>
           <div class="modal-body">
             <slot name="body">
              <form @submit.prevent="checkLogin">
-                  <label for="email"> E-mail: </label> <input name="email" ref="txtEmail" type="text" placeholder="Enter Your E-mail" v-model="user.email" />
+                  <label for="email"> Email: </label> <input name="email" ref="txtEmail" type="text" placeholder="Enter Your E-mail" v-model="user.email" />
                   <label for="password"> Password:  </label><input name= "password" type="password" placeholder="Enter Your Password" v-model="user.password"/>
                  <button class="submit" type="submit" :disabled="!this.user.email || !this.user.password">Log-In</button>
                        <h4>-Or-</h4> 
@@ -25,7 +26,6 @@
               <hr>
               <h4>No Account? Join Us!</h4>
               <button class="join" @click="$emit('joinModal', true)"> Join!</button>
-              <button class="modal-default-button" @click="$emit('close')">&#10006;</button>
             </slot>
           </div>
         </div>
@@ -129,6 +129,12 @@ export default {
    font-family: "Open Sans", Helvetica;
 }
 
+.modal-header{
+display: flex;
+flex-direction: row-reverse;
+justify-content: flex-end;
+}
+
 h2{
    font-family: "Open Sans", Helvetica;
 }
@@ -141,6 +147,10 @@ h4{
 
 .modal-default-button {
   float: right;
+}
+
+.guestLogIn{
+width: 100%
 }
 
 input{
@@ -157,6 +167,12 @@ input{
 form{
   display: flex;
   flex-flow: column wrap;
+}
+.close{
+  background-color: red;
+  margin-left: 160px;
+  width: 50px;
+  height: 50px;
 }
 /*
  * The following styles are auto-applied to elements with

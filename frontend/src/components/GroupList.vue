@@ -32,7 +32,10 @@ h1 {
   margin: 0px;
   background-color: whitesmoke;
   color: #756a6a;
-  padding: 30px;
+    height: 100px;
+    width: 100%;
+    padding: 0;
+    line-height: 100px;
   border-top: 1px solid white;
 }
 
@@ -64,12 +67,23 @@ h1 {
   grid-template-rows: auto;
   grid-gap: 10px;
 }
+h1{
+    height: 100px;
+    width: 100%;
+    padding: 0;
+    line-height: 100px;
+}
 }
 @media (max-width:712px) {
     .groups-container {
  grid-template-columns: repeat(2, 1fr);
   grid-template-rows: auto;
   grid-gap: 10px;
+}
+h1{
+  height:100%;
+  width:100%;
+  padding: 0;
 }
 }
 
@@ -78,6 +92,13 @@ h1 {
  grid-template-columns: repeat(1, 1fr);
   grid-template-rows: auto;
   grid-gap: 10px;
+}
+h1{
+  height:100%;
+  width:100%;
+  margin-top: 50px;
+  padding: 0;
+  margin-bottom: 50px;
 }
 }
 

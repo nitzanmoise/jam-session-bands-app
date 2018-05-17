@@ -4,11 +4,10 @@
       <h3 class="subtitle">What is your music talent?</h3>
     <div class="searchBar">
       <input name="searchBar" type="text" v-model="search" @input='emitFilter' placeholder="Search talents groups are seeking" />
-      <ul v-if="search">
+      <ul class="search-results" v-if="search">
       <li v-if="search" v-for="group in groups" :key="group._id" @click="openGroupDetails(group._id)">{{group.name}} needs: {{ group.need.join(', ')}}</li>
       </ul>
     </div>
-  
 </section>
 
 </template>
@@ -81,6 +80,7 @@ ul {
 
 input {
   padding: 10px;
+  margin-bottom: 70px;
   width: 300px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   margin-top: 50px;
@@ -93,7 +93,7 @@ input {
      background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
-  height: 500px;
+  height: 100%;
 
 }
 
@@ -104,7 +104,7 @@ input {
   color: orange;
   text-align: center;
   margin: 0;
-  padding-top: 100px;
+  padding-top: 60px;
 }
 
 .subtitle {
@@ -112,7 +112,31 @@ input {
   font-size: 36px;
   color: white;
   text-align: center;
-  padding-top: 25px;
+  }
+@media (max-width: 840px) {
+  .searchBar{
+  height: 100%;
+  width: 100%;
+  }
+  .header{
+    height: 500px;
+  }
+  .search-results{
+    justify-content: center;
+    justify-items: center;
+    align-content: center;
+    align-items: center;
+    align-self: center;
+    justify-self: center;
+  }
 }
-
+@media (max-width: 500px) {
+  .searchBar{
+  height: 100%;
+  width: 100%;
+  }
+  .header{
+    height: 625px;
+  }
+}
 </style>
