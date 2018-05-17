@@ -80,7 +80,6 @@ ul {
 
 input {
   padding: 10px;
-  margin-bottom: 70px;
   width: 300px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   margin-top: 50px;
@@ -93,7 +92,7 @@ input {
      background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
-  height: 100%;
+  height: 500px;
 
 }
 

@@ -141,12 +141,7 @@ export default {
       // console.log("deletereq", userId, timeStamp);
       this.$store
         .dispatch({ type: "deleteReq", userId, timeStamp })
-        .then(res => {
-          EventBusService.$emit(SHOW_MSG, {
-            txt: `Request Removed`,
-            type: "success"
-          });
-        });
+        .then(res => {});
     },
     goToGroupDetails(id) {
       console.log("this is group id", id);
@@ -315,7 +310,7 @@ export default {
 }
 .about-reqs {
   width: 100%;
-  margin-left: 80px;
+  margin-left: 50px;
   height: 100%;
 }
 
@@ -531,13 +526,12 @@ button {
   box-shadow: 0px 1px 64px -5px rgba(0, 0, 0, 0.36);
 }
 
-@media (max-width: 840px) {
+@media (max-width: 720px) {
   .user-details-container {
-    width: 100%;
     display: flex;
-    flex-flow: column wrap;
-    padding: 0;
-    margin: 0;
+    flex-flow: row wrap;
+    justify-content: center;
+    width: 100%;
   }
   .about-reqs {
     padding: 0;

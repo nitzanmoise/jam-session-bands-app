@@ -96,9 +96,7 @@ h1{
 h1{
   height:100%;
   width:100%;
-  margin-top: 50px;
   padding: 0;
-  margin-bottom: 50px;
 }
 }
 
