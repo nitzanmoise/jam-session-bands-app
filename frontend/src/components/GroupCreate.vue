@@ -17,9 +17,16 @@
               
                   <label for="name"> Name: <input name="name" ref="name" type="text" placeholder="Enter New Group Name" v-model="group.name" /> </label>
                   <label for="about"> Description:  <input name= "about"  type="text" placeholder="Describe Your Group" v-model="group.about"/> </label>
-                  <label for="image"> Upload image: <input name= "image" type="text" placeholder="insert an Image URL" v-model="group.image"/> </label>
+                  <label for="image"> Upload cover image: <input name= "image" type="text" placeholder="insert an Image URL" v-model="group.coverImage"/> </label>
+                  <label for="image"> Upload profile image: <input name= "image" type="text" placeholder="insert an Image URL" v-model="group.image"/> </label>
+                   <!-- <div class="file-upload-form">
+                    Upload an image file:
+                   <input type="file" @change="previewImage" accept="image/*">
+                   </div> -->
                   <label for="location"> Location:  <input name= "location" type="text" placeholder="Where Are You From?" v-model="group.location"/> </label>
-              
+                    <!-- <div class="image-preview" v-if="imageData.length > 0">
+                        <img class="preview" :src="imageData">
+                    </div> -->
 
                
                   <label for="genre"> Genre:  
@@ -78,31 +85,57 @@ export default {
 
   data() {
     return {
+      // imageData: "",
       group: {
         name: "",
         about: "",
         image: "",
+        coverImage: "",
         location: "",
         genre: [],
         need: [],
-        members: [{ id: this.memberId, isAdmin: true, position: "guitar" }],
+        members: [],
         posts: []
       }
     };
   },
-  created() {
-   
-  },
+  created() {},
   methods: {
+    // previewImage: function(event) {
+    //   // Reference to the DOM input element
+    //   var input = event.target;
+    //   // Ensure that you have a file before attempting to read it
+    //   if (input.files && input.files[0]) {
+    //     // create a new FileReader to read this image and convert to base64 format
+    //     var reader = new FileReader();
+    //     // Define a callback function to run, when FileReader finishes its job
+    //     reader.onload = e => {
+    //       // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
+    //       // Read image as base64 and set to imageData
+    //       this.group.image = e.target.result;
+    //       // this.currLocation.url = e.target.result;
+    //     };
+    //     // Start the reader job - read file as a data url (base64 format)
+    //     reader.readAsDataURL(input.files[0]);
+    //   }
+    // },
+
     saveGroup() {
       GroupService.addGroup(this.group)
         .then(addedGroup => {
+          // console.log("this is added group", addedGroup);
+
           EventBusService.$emit(SHOW_MSG, {
             txt: "Group saved!",
             type: "success"
           });
           this.$emit("close");
           this.$router.push(`/GroupDetails/${addedGroup._id}`);
+          this.$store.dispatch({
+            type: "addAskerToGroupMembers",
+            askerId: this.memberId,
+            groupId: addedGroup._id
+          });
         })
         .catch(err => {
           this.$emit("close");
@@ -129,7 +162,6 @@ export default {
       return this.$store.getters.loggedinUser;
     },
     getMembers() {
-
       return { isAdmin: true, position: "guitar" };
     }
   }
@@ -192,10 +224,10 @@ h4 {
 }
 
 label {
- display: flex;
- flex-flow: row wrap;
- justify-content: flex-start;
- justify-items: flex-start;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  justify-items: flex-start;
 }
 
 input {
@@ -211,10 +243,9 @@ input {
 }
 
 form {
- display: grid;
- grid-template-columns: auto auto auto;
+  display: grid;
+  grid-template-columns: auto auto auto;
   grid-gap: 10px;
- 
 }
 
 /*

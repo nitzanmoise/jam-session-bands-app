@@ -36,7 +36,7 @@ function addAskerToGroupMembers({ askerId, groupId }) {
   var groupMongoId = new mongo.ObjectID(groupId);
   var userMongoId = new mongo.ObjectID(askerId);
 
-  var newMember = { id: askerId, isAdmin: false, position: "Guitar" };
+  var newMember = { id: askerId, isAdmin: true, position: "Guitar" };
   return DBService.dbConnect().then(db => {
     return db
       .collection("groups")
