@@ -14,7 +14,7 @@
                 <div >
                     <img :src="group.image" class="group-image">
                 </div>
-                    <button class="button" style="width: 36%;" v-if="currLoggedInUser"  @click="deleteGroup(group._id)">Delete Group</button>
+                    <button class="del-btn" v-if="currLoggedInUser"  @click="deleteGroup(group._id)">Delete Group</button>
                 </div>
                 
             </div>
@@ -100,7 +100,13 @@ export default {
         type: "removeMember",
         groupId: this.group._id,
         memberId
-      });
+      }).then(()=>{
+         var userMsg = {
+          txt: "Member Removed From This Group!",
+          type: "success"
+        };
+        EventBusService.$emit(SHOW_MSG, userMsg);
+      })
     },
     deleteGroup(groupId) {
       console.log("THIS IS GROUP ID", groupId);
@@ -238,6 +244,20 @@ textarea {
   /* margin-left: 1%; */
   /* background-color: white; */
 }
+.del-btn{
+width: 36%;
+  line-height: 50%;
+  border: 2px solid rgba(226, 226, 226, 0.548);
+  padding: 10px;
+  color: orange;
+  font-family: Magettas Regular DEMO;
+  height: 30px;
+  border-radius: 50px;
+  font-size: 1.2em;
+  background-color: white;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
 .group-details {
   display: flex;
   /* flex-direction: column; */
@@ -280,7 +300,7 @@ textarea {
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
-  width: 30%;
+  width: 500px;
 }
 .member-details {
   display: flex;
@@ -347,7 +367,8 @@ textarea {
   font-size: 1.3em;
   color: gray;
   border-bottom: 1px solid rgba(223, 220, 220, 0.521);
-  width: 100%;
+  width: 80%;
+
   padding-bottom: 10px;
 }
 .group-details-container {
@@ -404,17 +425,19 @@ textarea {
   display: flex;
   flex-flow: column wrap;
   align-items: center;
+  margin-top: 10px;
 }
 
 .need {
   /* margin-left: 100%; */
-  width: 100%;
+      width: 55%;
 }
 .need-img {
   /* margin-left: 20px; */
   display: flex;
-  /* justify-content: space-around; */
-  /* flex-flow: row wrap; */
+  text-align: center;
+  align-content: center;
+ 
 }
 .need-img img {
   margin-right: 15px;
@@ -459,12 +482,20 @@ textarea {
   font-family: Shrikhand-Regular;
   src: url("../../public/fonts/Shrikhand/Shrikhand-Regular.ttf");
 }
-@media (max-width: 840px) {
+@media (max-width: 720px) {
   .group-details-container {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
+    width:100%;
   }
+  .backround-img{
+    width:100%;
+  }
+  .del-btn{
+width: 70%;
+}
+
  
 .group-details{
   flex-flow: row wrap;
