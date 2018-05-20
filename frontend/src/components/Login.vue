@@ -45,7 +45,7 @@ export default {
  data() {
         return {
             user: {email: '', password: ''},
-            guest: {email: 'guest@guest.com', password: 'guest'}
+            guest: {email: 'guest@gmail.com', password: 'guest'}
         }
     },
     created() {

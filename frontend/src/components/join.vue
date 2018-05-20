@@ -7,6 +7,7 @@
 
           <div class="modal-header">
             <slot name="header">
+              <button class="close" @click="$emit('close')">&#10006;</button>
             <h2>Register!</h2> 
             </slot>
           </div>
@@ -20,13 +21,6 @@
             <input type="email" placeholder="Enter E-mail" v-model="user.email" />
             Password:
             <input type="text" placeholder="Enter Password" v-model="user.password" />
-            <!-- <input type="date" placeholder="Enter Date of Birth" v-model="user.dateOfBirth" />
-            <input type="text" placeholder="Enter The Genre You Prefer" v-model="user.genre" />
-            <input type="image" placeholder="Upload Image" v-model="user.image" />
-            <input type="link" placeholder="Enter a video Link to Your Work" v-model="user.links" />
-            <input type="link" placeholder="Enter an Audio Link to Your Work" v-model="user.audio" />
-            <input type="Text" placeholder="Enter Where You Are From" v-model="user.links" />
-            <input type="text" placeholder="Enter Your Talent (What Do You Play?)" v-model="user.image" /> -->
             <button type="submit">Register</button>
         </form>
             </slot>
@@ -37,7 +31,6 @@
               <hr>
               <h4>Already have an Account? Log In!</h4>
               <button class="login" @click="$emit('openLogin', true)"> Log-in</button>
-              <button class="modal-default-button" @click="$emit('close')">&#10006;</button>
             </slot>
           </div>
         </div>
@@ -132,6 +125,13 @@ export default {
    font-family: "Open Sans", Helvetica;
 }
 
+.modal-header{
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+
+}
+
 h2{
    font-family: "Open Sans", Helvetica;
 }
@@ -156,6 +156,10 @@ input{
 form{
   display: flex;
   flex-flow: column wrap;
+}
+.close{
+  background-color: red;
+  align-self: flex-start;
 }
 /*
  * The following styles are auto-applied to elements with

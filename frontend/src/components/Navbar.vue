@@ -1,42 +1,43 @@
 <template>
 <section class='navbar'>
+ 
 <el-menu
   :default-active='activeIndex2'
   class='el-menu'
   mode='horizontal'
   @select='handleSelect'
-  background-color='grey'
+  background-color='rgba(128, 128, 128, 0.37)'
   text-color='white'
   active-text-color='orange'
   height='100%'>
- 
-       <el-menu-item index='1'><router-link tag='a' class='home' to='/'>Home</router-link></el-menu-item>
-   
-
-      <el-menu-item index='2' v-if='!$store.getters.loggedinUser' >
-        <button tag='a' id='show-modal' @click="$emit('joinModal', true)">Join</button>
-      </el-menu-item>
+       <el-menu-item index='1'><router-link tag='a' class='home' to='/'>Home&nbsp;<icon name="home" scale="1.5"></icon></router-link></el-menu-item>
       <el-menu-item index='3' v-if='!$store.getters.loggedinUser'>
-        <button tag='a' id='show-modal' @click="$emit('loginModal', true)">Log In</button>
+        <button tag='a' id='show-modal' @click="$emit('loginModal', true)">Log In&nbsp;<icon name="sign-in-alt" scale="1.3"></icon></button>
       </el-menu-item>
+      <el-menu-item index='2' v-if='!$store.getters.loggedinUser' >
+        <button tag='a' id='show-modal' @click="$emit('joinModal', true)">Join&nbsp;<icon name="user-plus" scale="1.3"></icon></button>
+      </el-menu-item>
+
       <el-menu-item index='4' v-if='$store.getters.loggedinUser'>
-        <button tag='a' id='show-modal' @click='logout'>Log Out</button>
+        <button tag='a' id='show-modal' @click='logout'>Log Out&nbsp;<icon name="sign-out-alt" scale="1.3"></icon></button>
       </el-menu-item>
       
       <el-menu-item index='5' v-if='$store.getters.loggedinUser'>
         
-        <button tag='a' id='show-modal' @click='routeToMyProfile($store.getters.loggedinUser._id)' >My Profile</button>
+        <button tag='a' id='show-modal' @click='routeToMyProfile($store.getters.loggedinUser._id)' >My Profile&nbsp;<icon name="user" scale="1.3"></icon></button>
           <a href="" class="badge1" title="Join requesrs" :data-badge="counter"></a>
       </el-menu-item>
-      
   
 </el-menu>
+
 </section>
 </template>
 
 <script>
 import EventBusService, { SHOW_MSG } from "../services/EventBusService.js";
-
+import Icon from 'vue-awesome/components/Icon'
+import 'vue-awesome/icons'
+ 
 export default {
   props: ["loginModal", "joinModal"],
   data() {
@@ -74,7 +75,9 @@ export default {
       this.$store.dispatch("logout").then(() => {});
     }
   },
-  components: {}
+  components: {
+    Icon
+  }
 };
 </script>
 
@@ -91,13 +94,23 @@ export default {
   font-family: Shrikhand-Regular;
   src: url("../../public/fonts/Shrikhand/Shrikhand-Regular.ttf");
 }
-
+.el-menu-item * {
+    vertical-align: -2px;
+}
+.el-menu--horizontal{
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+  align-content: flex-end;
+  border-bottom: none;
+}
 .navbar {
   overflow: hidden;
   position: fixed; /* Set the navbar to fixed position */
   top: 0; /* Position the navbar at the top of the page */
   width: 100%; /* Full width */
   z-index: 2;
+ 
 }
 button {
   background: none !important;
@@ -115,13 +128,17 @@ button {
   height: 80px;
 }
 li.el-menu-item {
-  background-color: rgba(185, 171, 171, 1);
-  border: solid 1px black;
+
+  border-left: solid 1px black;
 }
 
 li.el-menu-item:first-child {
-  border-left: none;
+  border-left: solid 1px black;
 }
+li.el-menu-item:last-child {
+  border-right: solid 1px black;
+}
+
 a {
   font-family: "Interstate", "Lucida Grande", "Lucida Sans Unicode";
   text-decoration: none;

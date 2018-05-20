@@ -90,14 +90,11 @@ export default {
       });
     },
     addPost(store, { groupId, newPost }) {
-      console.log("in store", groupId, newPost);
       GroupService.addPost(groupId, newPost).then(res => {
         store.commit({ type: "addPost", groupId, newPost });
       });
     },
     deleteGroup(store, { groupId }) {
-      console.log("in stoure", groupId);
-
       return GroupService.deleteGroup(groupId).then(() => {
         store.commit({ type: "deleteGroup", groupId });
       });

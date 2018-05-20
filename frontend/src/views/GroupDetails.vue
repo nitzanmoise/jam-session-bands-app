@@ -112,7 +112,14 @@ export default {
     },
     deleteGroup(groupId) {
       console.log("THIS IS GROUP ID", groupId);
-      this.$store.dispatch({ type: "deleteGroup", groupId });
+      this.$store.dispatch({ type: "deleteGroup", groupId }).then(()=>{
+ var userMsg = {
+          txt: "Group Was Deleted!",
+          type: "Success"
+        };
+        EventBusService.$emit(SHOW_MSG, userMsg);
+  this.$router.push('/')
+      })
     },
     goToMemberDetails(id) {
       this.$router.push(`/UserDetails/${id}`);
@@ -284,8 +291,7 @@ textarea {
 .img-container {
   width: 55%;
   /* margin-right: 20%; */
-
-  padding-top: 5%;
+    padding-top: 8%;
   padding-bottom: 2%;
 }
 .member-image {
@@ -416,7 +422,7 @@ textarea {
   display: flex;
   flex-flow: column;
   align-items: flex-start;
-  margin-top: 5%;
+  margin-top: 8%;
 }
 .main-container {
   display: flex;

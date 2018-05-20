@@ -9,6 +9,7 @@ import "./css/main.css";
 import $ from "jquery";
 import VueSweetalert2 from "vue-sweetalert2";
 import Swal from "sweetalert2";
+import 'vue-awesome/icons'
 
 Vue.use(VueSweetalert2);
 Vue.use(Element);

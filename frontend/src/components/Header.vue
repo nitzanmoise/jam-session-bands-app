@@ -64,12 +64,23 @@ ul li {
   text-decoration: none;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   cursor: pointer;
- 
+   background-color: rgba(255, 166, 0, 0.541);
+   border-radius: 25px;
+   margin-top: 1px;
+}
+
+ul li:first-child{
+  margin-top: 0;
 }
 ul {
   margin: 0;
   padding: 0;
    z-index: 998;
+   border: 1px solid grey;
+   border-radius: 25px;
+    background-color: rgba(207, 206, 206, 0.774);
+ 
+  
 }
 .searchBar {
   display: flex;
@@ -93,6 +104,7 @@ input {
   background-size: cover;
   background-repeat: no-repeat;
   height: 500px;
+  padding-top: 60px;
 
 }
 
