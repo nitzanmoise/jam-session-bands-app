@@ -31,7 +31,7 @@
                 <h1 class="group-name" @click="goToGroupDetails(group._id)">{{group.name}}</h1>
                 <button @click="goToGroupEdit(group._id)" v-if="checkIfAdmin(group)">Edit This Group</button>
           </div>
-                    <button id='show-modal' v-if="currLoggedInUser" @click="openGroupCreate">Create Group</button>
+                    <button class='create-btn' v-if="currLoggedInUser" @click="openGroupCreate">Create Group</button>
                     <group-create @close="createGroup = false" :memberId="userId" v-if="createGroup && currLoggedInUser"></group-create>
       
       </div>
@@ -141,7 +141,12 @@ export default {
       // console.log("deletereq", userId, timeStamp);
       this.$store
         .dispatch({ type: "deleteReq", userId, timeStamp })
-        .then(res => {});
+        .then(res => {
+          EventBusService.$emit(SHOW_MSG, {
+            txt: `Request Processed`,
+            type: "success"
+          });
+        });
     },
     goToGroupDetails(id) {
       console.log("this is group id", id);
@@ -165,10 +170,7 @@ export default {
           groupId
         })
         .then(res => {
-          EventBusService.$emit(SHOW_MSG, {
-            txt: `Request Approved`,
-            type: "success"
-          });
+          
         });
     },
     checkIfAdmin(group) {
@@ -525,7 +527,16 @@ button {
   color: orange;
   box-shadow: 0px 1px 64px -5px rgba(0, 0, 0, 0.36);
 }
-
+.create-btn{
+ width: 80%;
+ height: 40px;
+  border-radius: 50px;
+  font-size: 1.7em;
+  line-height: 50%;
+  background-color: white;
+justify-self: center;
+align-self: center;
+}
 @media (max-width: 720px) {
   .user-details-container {
     display: flex;

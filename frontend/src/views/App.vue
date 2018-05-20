@@ -109,6 +109,9 @@ export default {
 .groupList {
   border: 1px solid grey;
 }
+.nav-bar{
+  z-index: 999;
+}
 </style>
 
 

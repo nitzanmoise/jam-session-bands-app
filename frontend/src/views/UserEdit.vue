@@ -1,5 +1,6 @@
 <template>
 <section class="user-edit-container">
+  <h1>Edit Your Profile!</h1>
    <form @submit.prevent="saveUser">
               
                   <label for="name"> Full - Name: </label> <input name="name" ref="name" type="text" placeholder="Change Your User Name Here" v-model="user.fullName" />
@@ -40,10 +41,27 @@ import EventBusService, { SHOW_MSG } from "../services/EventBusService.js";
 export default {
   data() {
     return {
-      user: {}
-    };
-  },
-
+      user: { 
+        email: "",
+    password: "",
+    fullName: "",
+    image: "http://www.medicine20congress.com/ocs/public/profiles/5856.jpg",
+    description: "",
+    genre: [],
+    links: "",
+    location: "",
+    talants: [],
+    groups: [],
+    dateOfBirth: "",
+    audio: "",
+    joinReqs: [],
+    groupJoinReq: [],
+    coverImage: "",
+    sentReqsToJoinBands: [],
+    sentReqsToTalents: []
+    }
+  }
+},
   created() {
     var userId = this.$route.params.id;
     this.$store.dispatch({ type: "getUserById", userId }).then(user => {
@@ -73,15 +91,25 @@ export default {
 </script>
 
 <style scoped>
+h1{
+  text-align: center;
+  margin-top: 30px;
+}
 form {
-  margin: 100px;
+  margin-top: 50px;
+  margin-bottom: 100px;
+  margin-left: 300px;
+  margin-right: 300px;
   display: flex;
   flex-flow: column wrap;
+  border: 1px solid rgb(209, 206, 206);
+   padding: 15px;
 }
 input {
   padding-left: 10px;
   margin: 20px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+ 
 }
 
 select {

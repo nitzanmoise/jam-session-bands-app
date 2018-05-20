@@ -1,5 +1,6 @@
 <template>
 <section class="group-edit-container">
+  <h1>Edit Your Group!</h1>
    <form @submit.prevent="saveGroup">
               
                   <label for="name"> Name: </label> <input name="name" ref="name" type="text" placeholder="Enter New Group Name" v-model="group.name" />
@@ -56,6 +57,7 @@ export default {
         genre: [],
         need: [],
         members: [],
+        embedLink:"",
         posts: []}
     };
   },
@@ -90,10 +92,19 @@ export default {
 </script>
 
 <style scoped>
+h1{
+  text-align: center;
+  margin-top: 30px;
+}
 form {
-  margin: 100px;
+  margin-top: 50px;
+  margin-bottom: 100px;
+  margin-left: 300px;
+  margin-right: 300px;
   display: flex;
   flex-flow: column wrap;
+  border: 1px solid rgb(209, 206, 206);
+   padding: 15px;
 }
 input {
   padding-left: 10px;
