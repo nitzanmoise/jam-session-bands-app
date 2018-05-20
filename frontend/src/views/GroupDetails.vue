@@ -96,17 +96,19 @@ export default {
   },
   methods: {
     removeMember(memberId) {
-      this.$store.dispatch({
-        type: "removeMember",
-        groupId: this.group._id,
-        memberId
-      }).then(()=>{
-         var userMsg = {
-          txt: "Member Removed From This Group!",
-          type: "success"
-        };
-        EventBusService.$emit(SHOW_MSG, userMsg);
-      })
+      this.$store
+        .dispatch({
+          type: "removeMember",
+          groupId: this.group._id,
+          memberId
+        })
+        .then(() => {
+          var userMsg = {
+            txt: "Member Removed From This Group!",
+            type: "success"
+          };
+          EventBusService.$emit(SHOW_MSG, userMsg);
+        });
     },
     deleteGroup(groupId) {
       console.log("THIS IS GROUP ID", groupId);
@@ -199,13 +201,13 @@ export default {
         // console.log("memebers", this.members);
       });
     });
-  },
-  watch: {
-    loggedinUser: {
-      handler() {},
-      deep: true
-    }
   }
+  // watch: {
+  //   loggedinUser: {
+  //     handler() {},
+  //     deep: true
+  //   }
+  // }
 };
 </script>
 
@@ -244,8 +246,8 @@ textarea {
   /* margin-left: 1%; */
   /* background-color: white; */
 }
-.del-btn{
-width: 36%;
+.del-btn {
+  width: 36%;
   line-height: 50%;
   border: 2px solid rgba(226, 226, 226, 0.548);
   padding: 10px;
@@ -430,14 +432,13 @@ width: 36%;
 
 .need {
   /* margin-left: 100%; */
-      width: 55%;
+  width: 55%;
 }
 .need-img {
   /* margin-left: 20px; */
   display: flex;
   text-align: center;
   align-content: center;
- 
 }
 .need-img img {
   margin-right: 15px;
@@ -487,64 +488,61 @@ width: 36%;
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
-    width:100%;
+    width: 100%;
   }
-  .backround-img{
-    width:100%;
+  .backround-img {
+    width: 100%;
   }
-  .del-btn{
-width: 70%;
-}
+  .del-btn {
+    width: 70%;
+  }
 
- 
-.group-details{
-  flex-flow: row wrap;
-  justify-content: center;
-  justify-items: center;
-  align-content: center;
-  align-items: center;
-}
-.about{
-  flex-flow: row wrap;
-  justify-content: center;
-  justify-items: center;
-  align-content: center;
-  align-items: center;
-}
-.about-container{
-  width: 100%;
-   text-align: center;
-}
-.need{
-   width: 100%;
-   text-align: center;
-}
-.need-img{
-  text-align: center;
-  align-content: center;
-
-  justify-content: center;
- 
-}
-  .group-image{
-  width:70%;
-  background-size: contain;
+  .group-details {
+    flex-flow: row wrap;
+    justify-content: center;
+    justify-items: center;
+    align-content: center;
+    align-items: center;
   }
-  .members-header{
+  .about {
+    flex-flow: row wrap;
+    justify-content: center;
+    justify-items: center;
+    align-content: center;
+    align-items: center;
+  }
+  .about-container {
+    width: 100%;
+    text-align: center;
+  }
+  .need {
+    width: 100%;
+    text-align: center;
+  }
+  .need-img {
+    text-align: center;
+    align-content: center;
+
+    justify-content: center;
+  }
+  .group-image {
+    width: 70%;
+    background-size: contain;
+  }
+  .members-header {
     margin: 0;
     padding-top: 20px;
     width: 100%;
-
   }
-  .members-container{
-   margin-left: 0px;
-  overflow:auto;
-   justify-content: center;
-  justify-items: center;
-  align-content: center;
-  align-items: center;
-text-align: center;
-  width: 100%;
+  .members-container {
+    margin-left: 0px;
+    overflow: auto;
+    justify-content: center;
+    justify-items: center;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
   }
 }
 </style>
