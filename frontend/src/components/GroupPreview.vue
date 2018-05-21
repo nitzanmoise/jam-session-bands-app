@@ -4,7 +4,7 @@
  <div class="card">
     <div class="card-container">
         <div class="band-image">
-            <img :src="group.image" class="image" >
+            <img :src="group.image" class="image" style="width: 372.75px; height:372.75px;" >
         </div>
 
       <div class="bandInfo" @click.stop="openGroupDetails(group._id)">
@@ -189,7 +189,7 @@ h2 {
 
 .seeking-container{
 background:rgba(255, 255, 255, 0.719);
-  border-top: 1px solid rgba(226, 226, 226, 0.548);
+
 }
 
 .need{

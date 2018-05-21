@@ -45,7 +45,7 @@ h1 {
   margin: 10px;
   text-align: center;
   background-color: white;
-  border: 1px solid rgba(223, 220, 220, 0.521)
+ 
 
 }
 
