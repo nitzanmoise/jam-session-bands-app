@@ -9,8 +9,8 @@
 
       <div class="bandInfo" @click.stop="openGroupDetails(group._id)">
 
-        <h2>{{group.name}}</h2>
         <div class="bottom-card">
+        <h2>{{group.name}}</h2>
             <div class="seeking-container">
                 <div class="need">
                     <div class="seeking-title">
@@ -24,7 +24,7 @@
                         <h3 v-if="isGroupFull"> &nbsp; Group is Full! </h3>
                     </div>
                 </div>
-                <button v-if="!isSentRequest" @click.stop="sendJoinReq(group._id)" type="text" class="button">Join The Band</button>
+                <button v-if="!isSentRequest" @click="sendJoinReq(group._id)" type="text" class="button">Join The Band</button>
                 <h4 v-else>Request Sent</h4>
             </div>
         </div>
@@ -146,10 +146,11 @@ h2 {
   margin: 0;
   width:100%;
   height: 41px;
+ margin-bottom: 30%;
 }
 
 .bottom-card{
-  height: 90%;
+  height: 100%;
   display: flex;
   flex-flow: column nowrap;
   justify-content: flex-end;
