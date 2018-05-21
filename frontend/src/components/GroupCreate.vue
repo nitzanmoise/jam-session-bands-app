@@ -86,15 +86,16 @@ export default {
   data() {
     return {
       // imageData: "",
+
       group: {
         name: "",
         about: "",
         image: "",
-        coverImage: "",
         location: "",
         genre: [],
         need: [],
         members: [],
+        embedLink: "",
         posts: []
       }
     };

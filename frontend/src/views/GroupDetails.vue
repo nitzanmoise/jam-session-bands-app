@@ -32,8 +32,8 @@
                             <h1 class="member-name" @click="goToMemberDetails(member._id)">{{member.fullName}}</h1>
                             <div class="member-name-container">
                                 <div class="talant-imgs">
-                                    <div v-for="talant in member.talants" :key="talant._id">
-                                        <img :src="'./img/instruments/'+talant+'.png'" :title="talant" alt="" width="25px;" height="25px;">
+                                    <div class="talant-icon" v-for="talant in member.talants" :key="talant._id">
+                                        <img :src="'./img/instruments/'+talant+'.png'" :title="talant" alt="" width="25px;" height="20px;">
                                     </div>
                                     
                                 </div>
@@ -55,9 +55,9 @@
                 <div class="need">
                     <h1 style="font-size: 2em" >Looking for:</h1>
                     <div class="need-img" v-for="need in needs" :key="need._id">
-                      <div>
+                      
                         <img :src="'./img/instruments/'+need+'.png'" :title="need" alt="" width="25px;" height="25px;">
-                      </div>
+                  
                       <div class="need-title-container "> 
                         <h4>Player</h4>
                       </div> 
@@ -217,6 +217,9 @@ export default {
 </script>
 
 <style scoped>
+*{
+  box-sizing: border-box;
+}
 .about-container {
   width: 60%;
   align-content: flex-end;
@@ -227,6 +230,9 @@ export default {
 }
 .need-tilte-container {
   align-items: flex-end;
+}
+.talant-icon{
+  height:25px;
 }
 .wall {
   border: 1px solid rgba(223, 220, 220, 0.521);
@@ -443,11 +449,12 @@ width: 36%;
   display: flex;
   text-align: center;
   align-content: center;
+      align-items: center;
  
 }
 .need-img img {
   margin-right: 15px;
-  padding-top: 10px;
+ 
 }
 .button {
   line-height: 50%;
