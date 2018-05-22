@@ -17,8 +17,8 @@
               
                   <label for="name"> Name: <input name="name" ref="name" type="text" placeholder="Enter New Group Name" v-model="group.name" /> </label>
                   <label for="about"> Description:  <input name= "about"  type="text" placeholder="Describe Your Group" v-model="group.about"/> </label>
-                  <label for="image"> Upload cover image: <input name= "image" type="text" placeholder="insert an Image URL" v-model="group.coverImage"/> </label>
-                  <label for="image"> Upload profile image: <input name= "image" type="text" placeholder="insert an Image URL" v-model="group.image"/> </label>
+                  <label for="image"> Copy cover image URL: <input name= "image" type="text" placeholder="insert an Image URL" v-model="group.coverImage"/> </label>
+                  <label for="image"> Copy profile image URL: <input name= "image" type="text" placeholder="insert an Image URL" v-model="group.image"/> </label>
                    <!-- <div class="file-upload-form">
                     Upload an image file:
                    <input type="file" @change="previewImage" accept="image/*">
@@ -80,6 +80,7 @@
 <script>
 import GroupService from "../services/GroupService";
 import EventBusService, { SHOW_MSG } from "../services/EventBusService.js";
+import UserService from '../services/UserService';
 export default {
   props: ["memberId"],
 
@@ -90,11 +91,12 @@ export default {
       group: {
         name: "",
         about: "",
-        image: "",
+        image: "https://www.proaudioland.com/wp/wp-content/uploads/2017/01/generic-band-e1483736893335.jpg",
         location: "",
         genre: [],
         need: [],
         members: [],
+        coverImage:"http://mybatv.com/wp-content/uploads/2013/08/BATV-ShowHeader_music-generic-mic.jpg",
         embedLink: "",
         posts: []
       }
@@ -124,14 +126,17 @@ export default {
     saveGroup() {
       GroupService.addGroup(this.group)
         .then(addedGroup => {
+          var userId = this.$store.getters.loggedinUser
           // console.log("this is added group", addedGroup);
-
-          EventBusService.$emit(SHOW_MSG, {
+            // GroupService.addAskerToGroupMembers(userId, addedGroup._id)
+          EventBusService.$emit(SHOW_MSG, { 
             txt: "Group saved!",
             type: "success"
           });
+          setTimeout(()=>{
+            this.$router.push(`/GroupDetails/${addedGroup._id}`);
+            },1000)
           this.$emit("close");
-          this.$router.push(`/GroupDetails/${addedGroup._id}`);
           this.$store.dispatch({
             type: "addAskerToGroupMembers",
             askerId: this.memberId,
@@ -173,6 +178,9 @@ export default {
 /* CSS for MODAL */
 .submit-button {
   margin-left: 30px;
+  align-self:flex-end;
+  justify-self: flex-end;
+ 
 }
 
 .modal-mask {
@@ -241,12 +249,14 @@ input {
   margin-left: 0px;
   font-family: "Open Sans", Helvetica;
   width: 200px;
+  border-radius: 25px;
 }
 
 form {
   display: grid;
   grid-template-columns: auto auto auto;
   grid-gap: 10px;
+   align-items: end;
 }
 
 /*

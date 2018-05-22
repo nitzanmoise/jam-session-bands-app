@@ -113,7 +113,7 @@ export default {
       this.$store.dispatch({ type: "deleteGroup", groupId }).then(()=>{
  var userMsg = {
           txt: "Group Was Deleted!",
-          type: "Success"
+          type: "success"
         };
         EventBusService.$emit(SHOW_MSG, userMsg);
   this.$router.push('/')
@@ -270,6 +270,7 @@ width: 36%;
   background-color: white;
   margin-bottom: 15px;
   cursor: pointer;
+  margin-top: 15px;
 }
 .group-details {
   display: flex;

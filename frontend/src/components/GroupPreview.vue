@@ -24,7 +24,7 @@
                         <h3 v-if="isGroupFull"> &nbsp; Group is Full! </h3>
                     </div>
                 </div>
-                <button v-if="!isSentRequest" @click="sendJoinReq(group._id)" type="text" class="button">Join The Band</button>
+                <button v-if="!isSentRequest" @click.stop="sendJoinReq(group._id)" type="text" class="button">Join The Band</button>
                 <h4 v-else>Request Sent</h4>
             </div>
         </div>
