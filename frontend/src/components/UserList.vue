@@ -40,6 +40,8 @@ h1 {
   text-align: center;
   background-color: white;
   border: 1px solid rgba(223, 220, 220, 0.521);
+  
+
 }
 
 .users-container {

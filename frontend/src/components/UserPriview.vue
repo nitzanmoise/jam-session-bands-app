@@ -13,7 +13,7 @@
                     <h3>Talents</h3>
                   <div class="icons">
                     <div v-for="talant in user.talants" :key="talant._id">
-                        <img class="icon" :src="'./img/instruments/'+talant+'.png'" alt="" width="25px;" height="25px;">
+                        <img class="icon" :src="'./img/instruments/'+talant+'.png'" alt="" width="25px;" height="25px;" :title="talant">
                     </div>
                     </div>
                 <button type="text" @click.stop="sendJoinReq" class="button">Ask To Join Your Band!</button>
@@ -76,6 +76,7 @@ export default {
   border: 1px solid rgba(226, 226, 226, 0.548);
   background-color: white;
   position: relative;
+  box-shadow: 6px 7px 24px -11px rgba(0,0,0,0.75);
 }
 .userInfo{
   bottom:0;
