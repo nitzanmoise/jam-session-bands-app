@@ -18,7 +18,7 @@
                     </div>
                     <div class="emoji">
                         <div v-for="need in group.need" :key="need._id">
-                            <img class="icon" :src="'./img/instruments/'+need+'.png'" alt="" width="20px;" height="20px;">
+                            <img class="icon" :src="'./img/instruments/'+need+'.png'" alt="" width="20px;" height="20px;" :title="need">
 
                         </div>
                         <h3 v-if="isGroupFull"> &nbsp; Group is Full! </h3>
@@ -215,6 +215,10 @@ h3 {
   margin-bottom:12px;
   margin-left: 5px;
   margin-right: 5px;
+}
+.icon:hover{
+   transform: scale(1.25);
+  transition: all .5s;
 }
 h4 {
   padding: 0px;

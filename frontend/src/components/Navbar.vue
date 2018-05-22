@@ -1,6 +1,5 @@
 <template>
 <section class='navbar'>
- 
 <el-menu
   :default-active='activeIndex2'
   class='el-menu'
@@ -10,7 +9,10 @@
   text-color='white'
   active-text-color='orange'
   height='100%'>
-       <el-menu-item index='1'><router-link tag='a' class='home' to='/'>Home&nbsp;<icon name="home" scale="1.5"></icon></router-link></el-menu-item>
+  
+ <h1 class="title">Jam Session!</h1>  
+       <el-menu-item index='1'><router-link tag='a' class='home' to='/'>Home&nbsp;<icon name="home" scale="1.5"></icon></router-link>
+       </el-menu-item>
       <el-menu-item index='3' v-if='!$store.getters.loggedinUser'>
         <button tag='a' id='show-modal' @click="$emit('loginModal', true)">Log In&nbsp;<icon name="sign-in-alt" scale="1.3"></icon></button>
       </el-menu-item>
@@ -23,7 +25,6 @@
       </el-menu-item>
       
       <el-menu-item index='5' v-if='$store.getters.loggedinUser'>
-        
         <button tag='a' id='show-modal' @click='routeToMyProfile($store.getters.loggedinUser._id)' >My Profile&nbsp;<icon name="user" scale="1.3"></icon></button>
           <a href="" class="badge1" title="Join requesrs" :data-badge="counter"></a>
       </el-menu-item>
@@ -94,6 +95,21 @@ export default {
   font-family: Shrikhand-Regular;
   src: url("../../public/fonts/Shrikhand/Shrikhand-Regular.ttf");
 }
+
+.title {
+  font-family: Shrikhand-Regular;
+  font-weight: 200px;
+  font-size: 30px;
+  color: orange;
+  margin: 0;
+  line-height: 75px;
+  margin-right: 990px;
+  display:flex;
+  align-self: flex-start;
+  justify-self: flex-start;
+  
+}
+
 .el-menu-item * {
     vertical-align: -2px;
 }
@@ -182,6 +198,15 @@ li.el-menu-item:hover {
   line-height: 18px;
   border-radius: 50%;
   box-shadow: 0 0 1px #333;
+}
+
+@media (max-width: 720px) {
+  .title {
+ 
+  margin-right: auto;
+ 
+  
+}
 }
 </style>
 
