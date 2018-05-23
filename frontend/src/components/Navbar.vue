@@ -13,19 +13,19 @@
  <h1 class="title">Jam Session!</h1>  
        <el-menu-item index='1'><router-link tag='a' class='home' to='/'>Home&nbsp;<icon name="home" scale="1.5"></icon></router-link>
        </el-menu-item>
-      <el-menu-item index='3' v-if='!$store.getters.loggedinUser'>
-        <button tag='a' id='show-modal' @click="$emit('loginModal', true)">Log In&nbsp;<icon name="sign-in-alt" scale="1.3"></icon></button>
+      <el-menu-item index='3' v-if='!$store.getters.loggedinUser' @click="$emit('loginModal', true)">
+        <button tag='a' id='show-modal' >Log In&nbsp;<icon name="sign-in-alt" scale="1.3"></icon></button>
       </el-menu-item>
-      <el-menu-item index='2' v-if='!$store.getters.loggedinUser' >
-        <button tag='a' id='show-modal' @click="$emit('joinModal', true)">Join&nbsp;<icon name="user-plus" scale="1.3"></icon></button>
+      <el-menu-item index='2' v-if='!$store.getters.loggedinUser' @click="$emit('joinModal', true)">
+        <button tag='a' id='show-modal' >Join&nbsp;<icon name="user-plus" scale="1.3"></icon></button>
       </el-menu-item>
 
-      <el-menu-item index='4' v-if='$store.getters.loggedinUser'>
-        <button tag='a' id='show-modal' @click='logout'>Log Out&nbsp;<icon name="sign-out-alt" scale="1.3"></icon></button>
+      <el-menu-item index='4' v-if='$store.getters.loggedinUser' @click='logout'>
+        <button tag='a' id='show-modal' >Log Out&nbsp;<icon name="sign-out-alt" scale="1.3"></icon></button>
       </el-menu-item>
       
-      <el-menu-item index='5' v-if='$store.getters.loggedinUser'>
-        <button tag='a' id='show-modal' @click='routeToMyProfile($store.getters.loggedinUser._id)' >My Profile&nbsp;<icon name="user" scale="1.3"></icon></button>
+      <el-menu-item index='5' v-if='$store.getters.loggedinUser'  @click='routeToMyProfile($store.getters.loggedinUser._id)'>
+        <button tag='a' id='show-modal' >My Profile&nbsp;<icon name="user" scale="1.3"></icon></button>
           <a href="" class="badge1" title="Join requesrs" :data-badge="counter"></a>
       </el-menu-item>
   
@@ -98,15 +98,19 @@ export default {
 
 .title {
   font-family: Shrikhand-Regular;
-  font-weight: 200px;
-  font-size: 30px;
-  color: orange;
-  margin: 0;
-  line-height: 75px;
-  margin-right: 990px;
-  display:flex;
-  align-self: flex-start;
-  justify-self: flex-start;
+    font-weight: 200px;
+    font-size: 30px;
+    color: orange;
+    /* margin: 0; */
+    line-height: 24px;
+    margin-right: auto;
+    margin-left: 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-item-align: start;
+    align-self: flex-start;
+    justify-self: flex-start;
   
 }
 
@@ -120,6 +124,7 @@ export default {
   align-content: flex-end;
   border-bottom: none;
 }
+
 .navbar {
   overflow: hidden;
   position: fixed; /* Set the navbar to fixed position */
@@ -201,12 +206,19 @@ li.el-menu-item:hover {
 }
 
 @media (max-width: 720px) {
+  .el-menu-item{
+    width:100%;
+  }
   .title {
- 
-  margin-right: auto;
- 
-  
+ display:none;
 }
+button{
+  width:100%;
+}
+h1{
+  display:none;
+}
+
 }
 </style>
 

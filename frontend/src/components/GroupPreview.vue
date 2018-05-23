@@ -4,7 +4,7 @@
  <div class="card">
     <div class="card-container">
         <div class="band-image">
-            <img :src="group.image" class="image" style="width: 372.75px; height:372.75px;" >
+            <img :src="group.image" class="image" style="width: 100%; height:373px;" >
         </div>
 
       <div class="bandInfo" @click.stop="openGroupDetails(group._id)">

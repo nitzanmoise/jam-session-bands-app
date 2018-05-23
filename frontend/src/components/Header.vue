@@ -1,5 +1,6 @@
 <template>
 <section class="header">
+  <div class="content">
       <h1 class="title">Jam Session!</h1> 
       <h3 class="subtitle">What is your music talent?</h3>
     <div class="searchBar">
@@ -7,6 +8,7 @@
       <ul class="search-results" v-if="search">
       <li v-if="search" v-for="group in groups" :key="group._id" @click="openGroupDetails(group._id)">{{group.name}} needs: {{ group.need.join(', ')}}</li>
       </ul>
+      </div>
     </div>
 </section>
 
@@ -103,15 +105,22 @@ input {
      background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
-  height: 500px;
+  height: 700px;
   padding-top: 60px;
 
+}
+
+.content{
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+      margin-top: 91px;
 }
 
 .title {
   font-family: Shrikhand-Regular;
   font-weight: 600;
-  font-size: 60px;
+font-size: 100px;
   color: orange;
   text-align: center;
   margin: 0;
@@ -129,16 +138,19 @@ input {
   height: 100%;
   width: 100%;
   }
+  .title{
+    font-size: 70px;
+  }
   .header{
-    height: 500px;
+    height: 750px;
   }
   .search-results{
-    justify-content: center;
+    /* justify-content: center;
     justify-items: center;
     align-content: center;
     align-items: center;
     align-self: center;
-    justify-self: center;
+    justify-self: center; */
   }
 }
 @media (max-width: 500px) {
@@ -147,7 +159,7 @@ input {
   width: 100%;
   }
   .header{
-    height: 625px;
+    height: 800px;
   }
 }
 </style>
