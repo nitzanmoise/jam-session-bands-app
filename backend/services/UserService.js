@@ -98,7 +98,7 @@ function addPost(userId, newPost) {
   var mongoId = new mongo.ObjectID(userId);
   return DBService.dbConnect().then(db => {
     return db
-      .collection("userss")
+      .collection("users")
       .updateOne({ _id: mongoId }, { $push: { posts: newPost } });
   });
 }

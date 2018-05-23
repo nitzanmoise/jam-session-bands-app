@@ -11,8 +11,8 @@ export default {
   },
   mutations: {
     addUserPost(state, { userId, newPost }) {
-      if (userId !== state.selectedGroup._id) return;
-      state.selectedGroup.posts.push(newPost);
+      if (userId !== state.selectedUser._id) return;
+      state.selectedUser.posts.push(newPost);
     },
     setUserFilter(state, { filter }) {
       state.userFilter = filter;
@@ -29,9 +29,9 @@ export default {
     deleteUser(state, { userId }) {
       state.users = state.users.filter(user => user.id !== userId);
     },
-    // setSelectedUser(state, { user }) {
-    //   state.selectedUser = user;
-    // },
+    setSelectedUser(state, { user }) {
+      state.selectedUser = user;
+    },
     addUser(state, { user }) {
       state.users = [user, ...state.users];
     },
@@ -108,7 +108,7 @@ export default {
     },
     addUserPost(store, { userId, newPost }) {
       UserService.addPost(userId, newPost).then(res => {
-        store.commit({ type: "addPost", userId, newPost });
+        store.commit({ type: "addUserPost", userId, newPost });
       });
     },
     register(store, { user }) {
@@ -142,7 +142,7 @@ export default {
     },
     getUserById(store, { userId }) {
       return UserService.getUserById(userId).then(user => {
-        // store.commit({ type: "setSelectedUser", user });
+        store.commit({ type: "setSelectedUser", user });
 
         return user;
       });

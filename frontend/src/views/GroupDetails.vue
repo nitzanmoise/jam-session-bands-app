@@ -47,19 +47,19 @@
             <div class="main-container">
                 <div class="about flex">
                   <div class="about-container">
-                    <h1 style="font-size: 2em; text-decoration: underline;color: orange;">Who are we?</h1>
-                    <h3>{{group.about}}</h3>
+                    <h1 style="font-size: 1.5em; text-decoration: underline;color: orange;">Who are we?</h1>
+                    {{group.about}}
                   </div>  
                     <!-- <iframe allowtransparency="true" scrolling="no" frameborder="no" :src="'https://w.soundcloud.com/icon/?url=http%3A%2F%2Fsoundcloud.com%2F'+group.name+'&color=orange_white&size=32'" style="width: 32px; height: 32px;">
                     </iframe> -->
                 <div class="need">
-                    <h1 style="font-size: 2em; text-decoration: underline; color: orange; " >Looking for:</h1>
+                    <h1 style="font-size: 1.5em; text-decoration: underline; color: orange; " >Looking for:</h1>
                     <div class="need-img" v-for="need in needs" :key="need._id">
                       
                         <img :src="'./img/instruments/'+need+'.png'" :title="need" alt="" width="25px;" height="25px;">
                   
                       <div class="need-title-container "> 
-                        <h4>Player</h4>
+                        <p>Player</p>
                       </div> 
                     </div>
                     <button @click="sendJoinReq(group._id)" type="text" class="button">Join The Band</button>
@@ -67,17 +67,20 @@
                 </div>
                 </div>
       <div class="wall">
-          <h1>Group wall</h1>
+          <h1 style="font-size: 1.5em; text-decoration: underline;color: orange;">Group wall</h1>
           <form action.prevent="submit" class="flex">
-          <textarea v-model="newPost" name="" id="" cols="30" rows="10"></textarea>
+          <textarea v-model="newPost" name="" id="" cols="30" rows="10" @submit="addPost(group._id)"></textarea>
           <button class="submit" @click="addPost(group._id)" type="submit">Add post</button>
           </form>
-          <h3>Group posts</h3>
-        <div v-if="group && group.posts.length">
+       
+          <h3></h3>
+       <div v-if="group && group.posts.length" class="posts-container">
+        <div >
           <div  v-for="(post, idx) in group.posts" :key="idx">
           <span style="text-decoration: underline;">  {{post.senderName}} says:  </span><br> <br><div style="" class="content">{{post.content}}</div><br><br>
           </div>
         </div> 
+       </div>
       </div>
    </div>
            
@@ -222,6 +225,12 @@ export default {
 <style scoped>
 * {
   box-sizing: border-box;
+}
+.posts-container {
+  background-color: rgba(247, 202, 105, 0.226);
+  border-radius: 25px;
+  padding: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.39);
 }
 .about-container {
   width: 60%;
@@ -405,7 +414,9 @@ textarea {
 .content {
   background-color: white;
   color: black;
-  padding: 5px;
+  padding: 10px;
+  padding-left: 15px;
+  border-radius: 25px;
 }
 .header-info h3 {
   margin-top: 0px;
