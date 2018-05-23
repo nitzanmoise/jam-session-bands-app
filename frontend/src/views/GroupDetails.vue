@@ -11,11 +11,11 @@
                     </div>
                 </div>
                 <div class="img-container">
-                <div >
+               
                     <img :src="group.image" class="group-image">
                 </div>
                     <button class="del-btn" v-if="currLoggedInUser"  @click="deleteGroup(group._id)">Delete Group</button>
-                </div>
+               
                 
             </div>
   <section class="group-details"> 
@@ -518,9 +518,26 @@ textarea {
     width: 100%;
   }
   .backround-img {
-    width: 100%;
-    height: 300px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+    /* justify-content: space-around; */
+    border: solid 5px black;
+    background-size: cover;
+    background-position: center;
+     height: 630px;
+    flex-flow: column-reverse nowrap;
+    width:100%;
+    align-items: center;
   }
+  .img-container{
+        width: 314px;
+    height: 322px;
+    display: flex;
+    justify-content: center;
+}
+  
 
   .group-details {
     flex-flow: row wrap;
@@ -561,7 +578,8 @@ textarea {
     width: 100%;
   }
   .header-info {
-    margin-top: 105px;
+    margin:0;
+  
   }
   .members-container {
     margin-left: 0px;
