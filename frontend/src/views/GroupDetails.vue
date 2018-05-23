@@ -380,7 +380,7 @@ width: 36%;
   font-size: 1.3em;
   color: gray;
   border-bottom: 1px solid rgba(223, 220, 220, 0.521);
-  width: 80%;
+    width: 100%;
 
   padding-bottom: 10px;
 }
@@ -502,9 +502,11 @@ width: 36%;
     flex-flow: row wrap;
     justify-content: center;
     width:100%;
+   
   }
   .backround-img{
     width:100%;
+     height: 300px;
   }
   .del-btn{
 width: 70%;
@@ -543,12 +545,17 @@ width: 70%;
   .group-image{
   width:70%;
   background-size: contain;
+  margin-top: 70px;
+  
   }
   .members-header{
     margin: 0;
     padding-top: 20px;
     width: 100%;
 
+  }
+  .header-info{
+    margin-top: 105px;
   }
   .members-container{
    margin-left: 0px;

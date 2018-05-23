@@ -3,7 +3,7 @@
 <div class="card">
     <div @click.stop="openUserDetails(user._id)">
         <div class="user-image">
-            <img :src="user.image" class="image" style="height:397.72px; width:395.72px;">
+            <img :src="user.image" class="image" style="height:330px; width:100%;">
         </div>
         <div class="userInfo">
             <div class="card-bottom">

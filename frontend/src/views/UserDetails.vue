@@ -9,9 +9,7 @@
                             {{genre}}
                         </h4>
            </div>
-           <div style="    margin-right: 30%;
-    margin-top: 5%;
-    margin-bottom: 2%">
+           <div class="userPic" >
               <div class="img-container"  :style="{ backgroundImage: `url(${user.image})`}">
                    <!-- <img :src="user.image" class="user-image"> -->
               </div>
@@ -351,6 +349,14 @@ export default {
   border: 1px solid rgba(223, 220, 220, 0.521);
   margin-bottom: 10px;
 }
+.userPic{
+   margin-right: 30%;
+    margin-top: 8%;
+    margin-bottom: 2%;
+}
+.user-details{
+  width:100%;
+}
 .user-details-container {
   font-family: Magettas Regular DEMO;
   display: flex;
@@ -366,7 +372,7 @@ export default {
 
   background-size: cover;
   background-position: center;
-  height: 30%;
+     height: 390px;
 }
 .user-image {
   width: 35%;
@@ -486,7 +492,7 @@ export default {
   display: flex;
   flex-flow: column;
   align-items: flex-start;
-  margin-top: 5%;
+    margin-top: 8%;
 }
 .main-container {
   display: flex;
@@ -538,12 +544,43 @@ justify-self: center;
 align-self: center;
 }
 @media (max-width: 720px) {
+  .userPic{
+   margin-right: 30%;
+    margin-bottom: 2%;
+    margin-top: 14%;
+    margin-left:29%;
+}
+  .header-info{
+    display:flex;
+    flex-flow:column wrap;
+    align-items: center;
+        margin: 0;
+        padding:0;
+  }
   .user-details-container {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
     width: 100%;
   }
+  .remove-user {
+    width: 173px;
+    border-radius: 50px;
+    margin-top: 10px;
+    margin-left: 17px;
+    font-size: 1.2em;
+    line-height: 50%;
+    background-color: white;
+}
+  .user-edit-btn{
+    width: 173px;
+    border-radius: 50px;
+    margin-top: 10px;
+    margin-left: 17px;
+    font-size: 1.2em;
+    line-height: 50%;
+    background-color: white;
+}
   .about-reqs {
     padding: 0;
     margin: 0;
@@ -552,10 +589,18 @@ align-self: center;
     flex-flow: column wrap;
     width: 100%;
   }
-  .background-img {
-    flex-flow: row wrap;
-    width: 100%;
-  }
+  .backround-img {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+    /* justify-content: space-around; */
+    border: solid 5px black;
+    background-size: cover;
+    background-position: center;
+     height: 630px;
+    flex-flow: column-reverse nowrap;
+}
   .about {
     justify-content: center;
     justify-items: center;

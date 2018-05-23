@@ -138,16 +138,19 @@ font-size: 100px;
   height: 100%;
   width: 100%;
   }
+  .title{
+    font-size: 70px;
+  }
   .header{
-    height: 500px;
+    height: 750px;
   }
   .search-results{
-    justify-content: center;
+    /* justify-content: center;
     justify-items: center;
     align-content: center;
     align-items: center;
     align-self: center;
-    justify-self: center;
+    justify-self: center; */
   }
 }
 @media (max-width: 500px) {
@@ -156,7 +159,7 @@ font-size: 100px;
   width: 100%;
   }
   .header{
-    height: 625px;
+    height: 800px;
   }
 }
 </style>
