@@ -39,18 +39,18 @@
     <div class="about-reqs">
         <div class="about-talents flex">
             <div class="about">
-              <h3>About Myself</h3>
+              <h1 style="font-size: 1.5em; text-decoration: underline; color: orange; ">About Myself</h1>
                 {{user.description}}
             </div>
             <div class="talents">
-                    <h3>My Talents:</h3>
+                    <h1 style="font-size: 1.5em; text-decoration: underline; color: orange; ">My Talents:</h1>
                     <div class="talant-img">
                     <div class="talent-emoji" v-for="(talant, idx) in user.talants" :key="idx">
                       <div >
                         <img :src="'./img/instruments/'+talant+'.png'" :title="talant" alt="" width="25px;" height="25px;">
                       </div>
                       <div class="talent-title-container "> 
-                        <h4>Player</h4>
+                        <p>Player</p>
                       </div> 
                     </div>
                     </div>
@@ -58,8 +58,8 @@
           <!-- <button @click="sendJoinReq" >Add me to your band</button> -->
 
             </div>
-        </div>    
-      <div class="reqs">
+        </div> 
+      <div class="reqs"  v-if="currLoggedInUser && joinReqs.length> 0 && groupReqs.length> 0">
         <div  class="req-container" v-if="currLoggedInUser && joinReqs.length> 0" >
             <h3>Requests From Jam Seesion Talents:</h3>
             <div class="join-reqs" v-for="req in joinReqs" :key="req.createdAt">
@@ -78,6 +78,21 @@
           </div>
         </div>  
       </div> 
+      <div class="wall">
+          <h1 style="font-size: 1.5em; text-decoration: underline;color: orange;">Wall</h1>
+          <form action.prevent="submit" class="flex">
+          <textarea v-model="newPost" name="" id="" cols="30" rows="10"  @submit="addPost(group._id)"></textarea>
+          <div class="submit" @click="addPost(user._id)" type="submit">Add post</div>
+          </form>
+          <h3></h3>
+          <div class="posts-container" v-if="user.posts.length > 0">
+        <div >
+          <div  v-for="(post, idx) in user.posts" :key="idx">
+          <span style="text-decoration: underline;">  {{post.senderName}} says:  </span><br> <br><div style="" class="content">{{post.content}}</div><br><br>
+          </div>
+        </div> 
+      </div>
+      </div>     
     </div>
 
   </div>    
@@ -92,7 +107,11 @@ import groupCreate from "../components/GroupCreate.vue";
 export default {
   data() {
     return {
-      user: {},
+      newPost: "",
+
+      // user: {
+      //   posts: []
+      // },
       // groups: {},
       joinReqs: [],
       groupReqs: [],
@@ -104,9 +123,9 @@ export default {
     genres() {
       return this.user.genre;
     },
-    // user() {
-    //   return this.$store.getters.currUserForDisplay;
-    // },
+    user() {
+      return this.$store.getters.currUserForDisplay;
+    },
     groups() {
       return this.$store.getters.userGroups;
     },
@@ -126,6 +145,21 @@ export default {
   methods: {
     openGroupCreate() {
       this.createGroup = true;
+    },
+    addPost(userId) {
+      console.log("this is user idddddddddd, ", userId);
+
+      var newPost = {
+        content: this.newPost,
+        senderId: this.loggedinUser._id,
+        senderName: this.loggedinUser.fullName,
+        senderImage: this.loggedinUser.image,
+        createdAt: Date.now()
+      };
+
+      this.$store
+        .dispatch({ type: "addUserPost", userId, newPost })
+        .then(() => (this.newPost = ""));
     },
     deleteUser(userId) {
       this.$store.dispatch({ type: "deleteUser", userId }).then(user => {
@@ -183,7 +217,7 @@ export default {
   created() {
     var userId = this.$route.params.id;
     this.$store.dispatch({ type: "getUserById", userId }).then(user => {
-      this.user = user;
+      // this.user = user;
       console.log("this is user", this.user);
       console.log("this is loggedin", this.loggedinUser);
 
@@ -283,6 +317,42 @@ export default {
 </script>
 
 <style scoped>
+.wall {
+  border: 1px solid rgba(223, 220, 220, 0.521);
+  padding: 5%;
+  /* width: 180%; */
+}
+.posts-container {
+  background-color: rgba(247, 202, 105, 0.226);
+  border-radius: 25px;
+  padding: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.39);
+}
+.submit {
+  line-height: 25px;
+  text-align: center;
+  border: 2px solid rgba(226, 226, 226, 0.548);
+  height: 100%;
+  /* padding: 10px; */
+  color: orange;
+  font-family: Magettas Regular DEMO;
+  height: 50px;
+  /* border-radius: 50px; */
+  font-size: 1.2em;
+  background-color: white;
+  /* margin-bottom: 15px; */
+  cursor: pointer;
+}
+textarea {
+  height: 20px;
+  width: 100%;
+  float: left;
+  padding: 15px;
+  font-size: 1.5em;
+}
+.wall h1 {
+  color: orange;
+}
 .talent-emoji {
   margin-left: 15px;
 }
@@ -355,13 +425,13 @@ export default {
   border: 1px solid rgba(223, 220, 220, 0.521);
   margin-bottom: 10px;
 }
-.userPic{
-   margin-right: 30%;
-    margin-top: 8%;
-    margin-bottom: 2%;
+.userPic {
+  margin-right: 30%;
+  margin-top: 8%;
+  margin-bottom: 2%;
 }
-.user-details{
-  width:100%;
+.user-details {
+  width: 100%;
 }
 .user-details-container {
   font-family: Magettas Regular DEMO;
@@ -378,7 +448,7 @@ export default {
 
   background-size: cover;
   background-position: center;
-     height: 390px;
+  height: 390px;
 }
 .user-image {
   width: 35%;
@@ -499,7 +569,7 @@ export default {
   display: flex;
   flex-flow: column;
   align-items: flex-start;
-    margin-top: 8%;
+  margin-top: 8%;
 }
 .main-container {
   display: flex;
@@ -551,18 +621,18 @@ button {
   align-self: center;
 }
 @media (max-width: 720px) {
-  .userPic{
-   margin-right: 30%;
+  .userPic {
+    margin-right: 30%;
     margin-bottom: 2%;
     margin-top: 14%;
-    margin-left:29%;
-}
-  .header-info{
-    display:flex;
-    flex-flow:column wrap;
+    margin-left: 29%;
+  }
+  .header-info {
+    display: flex;
+    flex-flow: column wrap;
     align-items: center;
-        margin: 0;
-        padding:0;
+    margin: 0;
+    padding: 0;
   }
   .user-details-container {
     display: flex;
@@ -578,8 +648,8 @@ button {
     font-size: 1.2em;
     line-height: 50%;
     background-color: white;
-}
-  .user-edit-btn{
+  }
+  .user-edit-btn {
     width: 173px;
     border-radius: 50px;
     margin-top: 10px;
@@ -587,7 +657,7 @@ button {
     font-size: 1.2em;
     line-height: 50%;
     background-color: white;
-}
+  }
   .about-reqs {
     padding: 0;
     margin: 0;
@@ -605,9 +675,9 @@ button {
     border: solid 5px black;
     background-size: cover;
     background-position: center;
-     height: 630px;
+    height: 630px;
     flex-flow: column-reverse nowrap;
-}
+  }
   .about {
     justify-content: center;
     justify-items: center;
