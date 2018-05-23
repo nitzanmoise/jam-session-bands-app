@@ -10,7 +10,7 @@
   active-text-color='orange'
   height='100%'>
   
- <h1 class="title">Jam Session!</h1>  
+ <h1 class="title" @click="goHome">Jam Session!</h1>  
        <el-menu-item index='1'><router-link tag='a' class='home' to='/'>Home&nbsp;<icon name="home" scale="1.5"></icon></router-link>
        </el-menu-item>
       <el-menu-item index='3' v-if='!$store.getters.loggedinUser' @click="$emit('loginModal', true)">
@@ -60,6 +60,9 @@ export default {
     }
   },
   methods: {
+    goHome(){
+ this.$router.push("/");
+    },
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
     },
@@ -104,14 +107,14 @@ export default {
     /* margin: 0; */
     line-height: 24px;
     margin-right: auto;
-    margin-left: 20px;
+    margin-left: 40px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-item-align: start;
     align-self: flex-start;
     justify-self: flex-start;
-  
+    cursor: pointer;
 }
 
 .el-menu-item * {
