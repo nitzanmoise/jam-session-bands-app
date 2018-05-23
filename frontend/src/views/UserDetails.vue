@@ -1,7 +1,7 @@
-<template>
+<template v-if="user">
    <div class="user-details-container">
     <section class="user-details"> 
-        <div class="backround-img" :style="{ backgroundImage: `url(${user.coverImage})`}">  
+        <div v-if="user" class="backround-img" :style="{ backgroundImage: `url(${user.coverImage})`}">  
             <div class="header-info">
                     <h1>{{user.fullName}}</h1>
                     <h3>{{user.location}}</h3>
@@ -39,13 +39,13 @@
       
 
     <div class="about-reqs">
-     
+        <div class="about-talents flex">
             <div class="about">
               <h3>About Myself</h3>
                 {{user.description}}
             </div>
-      <div class="talents" v-if="currLoggedInUser && user.talants.length > 0">
-                    <h3 style="font-size: 2em" >My Talents:</h3>
+            <div class="talents">
+                    <h3>My Talents:</h3>
                     <div class="talant-img">
                     <div class="talent-emoji" v-for="(talant, idx) in user.talants" :key="idx">
                       <div >
@@ -59,27 +59,29 @@
                    
           <!-- <button @click="sendJoinReq" >Add me to your band</button> -->
 
-                </div>
-    <div class="reqs">
-      <div class="req-container" v-if="currLoggedInUser && joinReqs.length > 0">
-           <h1>Requests From Jam Seesion Talents:</h1>
-           <div class="join-reqs" v-for="req in joinReqs" :key="req.createdAt">
-            <span @click="goToAsker(req.asker._id)">{{req.asker.fullName}}&nbsp;</span> asked to join {{req.group.name}}
-            <button @click="deleteReq(user._id, req.createdAt)">Cancel</button><button @click="addAskerToGroupMembers(req.asker._id, req.group._id); deleteReq(user._id, req.createdAt)" >Agree</button>
-           </div>
-      </div>
-      <div style="padding: 15px;" v-if="currLoggedInUser && groupReqs.length> 0">
-        <h1>Requests From Jam Session Groups:</h1>
-         <div class="groupJoinReqs" v-for="groupReq in groupReqs" :key="groupReq.createdAt">
-          <span @click="goToGroupDetails(groupReq.group._id)">{{groupReq.group.name}}</span> Wants you to join them!
-        <div class="req-buttons">
-          <button  @click="deleteReq(usuer._id, groupReq.createdAt)">Cancel</button>
-          <button @click="addAskerToGropMembers(user._id, groupReq.group._id); deleteReq(user._id, groupReq.createdAt) ">Agree</button>
+            </div>
+        </div>    
+      <div class="reqs">
+        <div  class="req-container" v-if="currLoggedInUser && joinReqs.length> 0" >
+            <h3>Requests From Jam Seesion Talents:</h3>
+            <div class="join-reqs" v-for="req in joinReqs" :key="req.createdAt">
+              <span @click="goToAsker(req.asker._id)">{{req.asker.fullName}}&nbsp;</span> asked to join {{req.group.name}}
+              <button @click="deleteReq(user._id, req.createdAt)">Cancel</button><button @click="addAskerToGroupMembers(req.asker._id, req.group._id); deleteReq(user._id, req.createdAt)" >Agree</button>
+            </div>
         </div>
-        </div>
-      </div>  
+        <div style="" v-if="currLoggedInUser && groupReqs.length> 0">
+          <h3>Requests From Jam Session Groups:</h3>
+          <div class="groupJoinReqs" v-for="groupReq in groupReqs" :key="groupReq.createdAt">
+            <span @click="goToGroupDetails(groupReq.group._id)">{{groupReq.group.name}}</span> Wants you to join them!
+          <div class="req-buttons">
+            <button  @click="deleteReq(usuer._id, groupReq.createdAt)">Cancel</button>
+            <button @click="addAskerToGropMembers(user._id, groupReq.group._id); deleteReq(user._id, groupReq.createdAt) ">Agree</button>
+          </div>
+          </div>
+        </div>  
       </div> 
-      </div>
+    </div>
+
   </div>    
     </section>
 </div>
@@ -104,6 +106,9 @@ export default {
     genres() {
       return this.user.genre;
     },
+    // user() {
+    //   return this.$store.getters.currUserForDisplay;
+    // },
     groups() {
       return this.$store.getters.userGroups;
     },
@@ -169,9 +174,7 @@ export default {
           askerId,
           groupId
         })
-        .then(res => {
-          
-        });
+        .then(res => {});
     },
     checkIfAdmin(group) {
       if (!this.loggedinUser) return false;
@@ -183,6 +186,8 @@ export default {
     var userId = this.$route.params.id;
     this.$store.dispatch({ type: "getUserById", userId }).then(user => {
       this.user = user;
+      console.log("this is user", this.user);
+      console.log("this is loggedin", this.loggedinUser);
 
       this.$store.dispatch({ type: "getUserGroups", user }).then(groups => {
         // this.groups = groups.data;
@@ -292,9 +297,10 @@ export default {
   align-items: flex-end;
 }
 .talents {
-  /* margin-left: 100%; */
-  width: 100%;
-  padding: 15px;
+  width: 60%;
+  padding: 1% 5%;
+
+  border: 2px solid rgba(226, 226, 226, 0.548);
 }
 .talant-img {
   /* margin-left: 20px; */
@@ -308,11 +314,11 @@ export default {
 }
 
 .req-container {
-  padding: 15px;
+  padding: 1% 5%;
+  /* border: 2px solid rgba(226, 226, 226, 0.548); */
 }
 .about-reqs {
   width: 100%;
-  margin-left: 50px;
   height: 100%;
 }
 
@@ -443,10 +449,11 @@ export default {
   margin-top: 0;
 }
 .about {
-  padding: 15px;
-  margin: 0;
-  font-size: 28px;
-  font-family: Magettas Regular DEMO;
+  width: 60%;
+  align-content: flex-end;
+  padding: 1% 5%;
+
+  border: 2px solid rgba(226, 226, 226, 0.548);
 }
 .user-details-container {
   background-color: rgb(244, 245, 247);
@@ -527,15 +534,15 @@ button {
   color: orange;
   box-shadow: 0px 1px 64px -5px rgba(0, 0, 0, 0.36);
 }
-.create-btn{
- width: 80%;
- height: 40px;
+.create-btn {
+  width: 80%;
+  height: 40px;
   border-radius: 50px;
   font-size: 1.7em;
   line-height: 50%;
   background-color: white;
-justify-self: center;
-align-self: center;
+  justify-self: center;
+  align-self: center;
 }
 @media (max-width: 720px) {
   .user-details-container {

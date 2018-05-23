@@ -16,7 +16,7 @@ module.exports = app => {
     var groupId = req.params.id;
     console.log("req body", req.body);
 
-    // var newPost = req.body.newPost;
+    var newPost = req.body.newPost;
     GroupService.addPost(groupId, req.body.newPost)
       .then(result => {
         res.json(result);

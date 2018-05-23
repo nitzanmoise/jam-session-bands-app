@@ -32,8 +32,8 @@
                             <h1 class="member-name" @click="goToMemberDetails(member._id)">{{member.fullName}}</h1>
                             <div class="member-name-container">
                                 <div class="talant-imgs">
-                                    <div v-for="talant in member.talants" :key="talant._id">
-                                        <img :src="'./img/instruments/'+talant+'.png'" :title="talant" alt="" width="25px;" height="25px;">
+                                    <div class="talant-icon" v-for="talant in member.talants" :key="talant._id">
+                                        <img :src="'./img/instruments/'+talant+'.png'" :title="talant" alt="" width="25px;" height="20px;">
                                     </div>
                                     
                                 </div>
@@ -47,17 +47,17 @@
             <div class="main-container">
                 <div class="about flex">
                   <div class="about-container">
-                    <h1 style="font-size: 2em">Who are we?</h1>
+                    <h1 style="font-size: 2em; text-decoration: underline;color: orange;">Who are we?</h1>
                     <h3>{{group.about}}</h3>
                   </div>  
                     <!-- <iframe allowtransparency="true" scrolling="no" frameborder="no" :src="'https://w.soundcloud.com/icon/?url=http%3A%2F%2Fsoundcloud.com%2F'+group.name+'&color=orange_white&size=32'" style="width: 32px; height: 32px;">
                     </iframe> -->
                 <div class="need">
-                    <h1 style="font-size: 2em" >Looking for:</h1>
+                    <h1 style="font-size: 2em; text-decoration: underline; color: orange; " >Looking for:</h1>
                     <div class="need-img" v-for="need in needs" :key="need._id">
-                      <div>
+                      
                         <img :src="'./img/instruments/'+need+'.png'" :title="need" alt="" width="25px;" height="25px;">
-                      </div>
+                  
                       <div class="need-title-container "> 
                         <h4>Player</h4>
                       </div> 
@@ -70,12 +70,12 @@
           <h1>Group wall</h1>
           <form action.prevent="submit" class="flex">
           <textarea v-model="newPost" name="" id="" cols="30" rows="10"></textarea>
-          <button @click="addPost(group._id)" type="submit">Add post</button>
+          <button class="submit" @click="addPost(group._id)" type="submit">Add post</button>
           </form>
           <h3>Group posts</h3>
         <div v-if="group && group.posts.length">
           <div  v-for="(post, idx) in group.posts" :key="idx">
-          <span>  {{post.senderName}} says:  </span><br> <br><span style="" class="content">{{post.content}}</span><br><br>
+          <span style="text-decoration: underline;">  {{post.senderName}} says:  </span><br> <br><div style="" class="content">{{post.content}}</div><br><br>
           </div>
         </div> 
       </div>
@@ -112,19 +112,21 @@ export default {
     },
     deleteGroup(groupId) {
       console.log("THIS IS GROUP ID", groupId);
-      this.$store.dispatch({ type: "deleteGroup", groupId }).then(()=>{
- var userMsg = {
+      this.$store.dispatch({ type: "deleteGroup", groupId }).then(() => {
+        var userMsg = {
           txt: "Group Was Deleted!",
-          type: "Success"
+          type: "success"
         };
         EventBusService.$emit(SHOW_MSG, userMsg);
-  this.$router.push('/')
-      })
+        this.$router.push("/");
+      });
     },
     goToMemberDetails(id) {
       this.$router.push(`/UserDetails/${id}`);
     },
     addPost(groupId) {
+      console.log("this is group idddddddddd, ", groupId);
+
       var newPost = {
         content: this.newPost,
         senderId: this.loggedinUser._id,
@@ -198,11 +200,10 @@ export default {
     }
   },
   created() {
-    console.log("thius is curr #group", this.group);
-
     var groupId = this.$route.params.id;
     this.$store.dispatch({ type: "getGroupById", groupId }).then(group => {
       // this.group = group;
+      console.log("thius is curr #group", this.group);
       this.$store.dispatch({ type: "getGroupMembers", group }).then(members => {
         // this.members = members.data;
         // console.log("memebers", this.members);
@@ -219,9 +220,15 @@ export default {
 </script>
 
 <style scoped>
+* {
+  box-sizing: border-box;
+}
 .about-container {
   width: 60%;
   align-content: flex-end;
+  padding: 1% 5%;
+
+  border: 2px solid rgba(226, 226, 226, 0.548);
 }
 .need-title {
   margin-right: 20px;
@@ -229,6 +236,9 @@ export default {
 }
 .need-tilte-container {
   align-items: flex-end;
+}
+.talant-icon {
+  height: 25px;
 }
 .wall {
   border: 1px solid rgba(223, 220, 220, 0.521);
@@ -242,6 +252,8 @@ textarea {
   height: 50px;
   width: 100%;
   float: left;
+  padding: 15px;
+  font-size: 1.5em;
 }
 .group-details-container {
   font-family: Magettas Regular DEMO;
@@ -266,6 +278,7 @@ textarea {
   background-color: white;
   margin-bottom: 15px;
   cursor: pointer;
+  margin-top: 15px;
 }
 .group-details {
   display: flex;
@@ -291,7 +304,7 @@ textarea {
 .img-container {
   width: 55%;
   /* margin-right: 20%; */
-    padding-top: 8%;
+  padding-top: 8%;
   padding-bottom: 2%;
 }
 .member-image {
@@ -360,11 +373,7 @@ textarea {
   align-items: flex-end;
 }
 .about {
-  margin-top: 4%;
-  /* font-size: 28px; */
-  /* width: 35%; */
   width: 100%;
-  padding-left: 5%;
 }
 
 .member-name {
@@ -394,8 +403,8 @@ textarea {
   margin-bottom: 5px;
 }
 .content {
-  background-color: rgba(0, 0, 0, 0.8);
-  color: #fff;
+  background-color: white;
+  color: black;
   padding: 5px;
 }
 .header-info h3 {
@@ -438,17 +447,20 @@ textarea {
 
 .need {
   /* margin-left: 100%; */
-  width: 55%;
+  width: 60%;
+  padding: 1% 5%;
+
+  border: 2px solid rgba(226, 226, 226, 0.548);
 }
 .need-img {
   /* margin-left: 20px; */
   display: flex;
   text-align: center;
   align-content: center;
+  align-items: center;
 }
 .need-img img {
   margin-right: 15px;
-  padding-top: 10px;
 }
 .button {
   line-height: 50%;
@@ -463,12 +475,21 @@ textarea {
   margin-bottom: 15px;
   cursor: pointer;
 }
-/* .need div{
-  }
-.need-img{
-  margin-left: -20px;
-  
-} */
+.submit {
+  line-height: 100%;
+  border: 2px solid rgba(226, 226, 226, 0.548);
+  height: 100%;
+  /* padding: 10px; */
+  color: orange;
+  font-family: Magettas Regular DEMO;
+  height: 50px;
+  /* border-radius: 50px; */
+  font-size: 1.2em;
+  background-color: white;
+  /* margin-bottom: 15px; */
+  cursor: pointer;
+}
+
 @font-face {
   font-family: Condition3D-Italic;
   src: url("../../public/fonts/Condition3D-Italic.ttf");

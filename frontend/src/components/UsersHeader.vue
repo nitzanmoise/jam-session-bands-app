@@ -97,7 +97,7 @@ input {
   padding: 10px;
   width: 300px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  margin-top: 30px;
+    margin-top: 51px;
    border-radius: 50px;
 }
 .container-fluid.main {

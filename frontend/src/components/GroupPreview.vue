@@ -1,33 +1,36 @@
 <template>
 
 
-  <div class="card">
+ <div class="card">
     <div class="card-container">
-    <div class="band-image">
-      <img :src="group.image" class="image" @click="openGroupDetails(group._id)">
-    </div>
-        <h2>{{group.name}}</h2>
+        <div class="band-image">
+            <img :src="group.image" class="image" style="width: 372.75px; height:372.75px;" >
+        </div>
+
+      <div class="bandInfo" @click.stop="openGroupDetails(group._id)">
+
         <div class="bottom-card">
-        <div class="seeking-container">
-          <div class="need">
-          <div class="seeking-title">
-              <h3>Seeking:</h3>
-          </div> 
-          <div class="emoji">
-              <div v-for="need in group.need" :key="need._id">  
-                <img class="icon" :src="'./img/instruments/'+need+'.png'" alt="" width="20px;" height="20px;">                        
-                                       
-              </div>
-              <h3 v-if="isGroupFull">  &nbsp; Group is Full! </h3> 
-              </div> 
-          </div>
-          <button v-if="!isSentRequest" @click="sendJoinReq(group._id)" type="text" class="button">Join The Band</button>
-          <h4 v-else >Request Sent</h4>
-         
-  </div>
-  </div>
-  </div>
-  </div>
+        <h2>{{group.name}}</h2>
+            <div class="seeking-container">
+                <div class="need">
+                    <div class="seeking-title">
+                        <h3>Seeking:</h3>
+                    </div>
+                    <div class="emoji">
+                        <div v-for="need in group.need" :key="need._id">
+                            <img class="icon" :src="'./img/instruments/'+need+'.png'" alt="" width="20px;" height="20px;" :title="need">
+
+                        </div>
+                        <h3 v-if="isGroupFull"> &nbsp; Group is Full! </h3>
+                    </div>
+                </div>
+                <button v-if="!isSentRequest" @click.stop="sendJoinReq(group._id)" type="text" class="button">Join The Band</button>
+                <h4 v-else>Request Sent</h4>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
 
   
 </template>
@@ -84,7 +87,7 @@ export default {
           .dispatch({ type: "updateReqs", joinReq, admins })
           .then(res => {
             EventBusService.$emit(SHOW_MSG, {
-              txt: `Request Sent Successful`,
+              txt: `Request Sent Successfuly`,
               type: "success"
             });
           })
@@ -104,18 +107,46 @@ export default {
   src: url("../../public/fonts/Shrikhand/Shrikhand-Regular.ttf");
 }
 .card {
-
   height:100%;
-
+position:relative;
   /* border: solid 2px black; */
 }
+
+.bandInfo{
+  bottom:0;
+  left:0;
+  right:0;
+  top:0;
+  position: absolute;
+  cursor: pointer;
+  opacity:0;
+  transition: all .5s;
+  background-color: rgba(255, 166, 0, 0.747)
+}
+.card:hover .bandInfo{
+  opacity:1;
+}
+.card:hover .band-image img{
+  transform: scale(1.125);
+  transition: all .5s;
+}
+.band-image{
+  overflow:hidden;
+}
+.band-image img{
+  
+  width:100%;
+}
+
 h2 {
   font-family: Shrikhand-Regular;
- color: #756a6a;
-  font-size: 1.3em;
+ color: #ffffff;
+  font-size: 1.7em;
   font-weight: bold;
   margin: 0;
   width:100%;
+  height: 41px;
+ margin-bottom: 30%;
 }
 
 .bottom-card{
@@ -157,8 +188,8 @@ h2 {
 }
 
 .seeking-container{
+background:rgba(255, 255, 255, 0.719);
 
-  border-top: 1px solid rgba(226, 226, 226, 0.548);
 }
 
 .need{
@@ -184,6 +215,10 @@ h3 {
   margin-bottom:12px;
   margin-left: 5px;
   margin-right: 5px;
+}
+.icon:hover{
+   transform: scale(1.25);
+  transition: all .5s;
 }
 h4 {
   padding: 0px;

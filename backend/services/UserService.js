@@ -79,20 +79,28 @@ function sendGroupJoinReq(joinReq) {
   });
 }
 
-function deleteUser(userId){
-  console.log(userId); 
-    var userIdObj = mongo.ObjectID(userId);
-    console.log(userIdObj);
-    return new Promise((resolve, reject)=>{
-        DBService.dbConnect()
-        .then(db=>{
-            db.collection('users').deleteOne({_id: userIdObj}, function (err, res) {
-                if (err)    reject(err)
-                else        resolve();
-                db.close();
-            });
-        })
+function deleteUser(userId) {
+  console.log(userId);
+  var userIdObj = mongo.ObjectID(userId);
+  console.log(userIdObj);
+  return new Promise((resolve, reject) => {
+    DBService.dbConnect().then(db => {
+      db.collection("users").deleteOne({ _id: userIdObj }, function(err, res) {
+        if (err) reject(err);
+        else resolve();
+        db.close();
+      });
     });
+  });
+}
+
+function addPost(userId, newPost) {
+  var mongoId = new mongo.ObjectID(userId);
+  return DBService.dbConnect().then(db => {
+    return db
+      .collection("userss")
+      .updateOne({ _id: mongoId }, { $push: { posts: newPost } });
+  });
 }
 
 function deleteRequest({ userId, timeStamp }) {
@@ -192,5 +200,6 @@ module.exports = {
   checkLogin,
   deleteRequest,
   sendGroupJoinReq,
-  deleteUser
+  deleteUser,
+  addPost
 };

@@ -6,9 +6,14 @@ export default {
     loggedinUser: null,
     users: [],
     userFilter: "",
-    userGroups: null
+    userGroups: null,
+    selectedUser: null
   },
   mutations: {
+    addUserPost(state, { userId, newPost }) {
+      if (userId !== state.selectedGroup._id) return;
+      state.selectedGroup.posts.push(newPost);
+    },
     setUserFilter(state, { filter }) {
       state.userFilter = filter;
     },
@@ -24,9 +29,9 @@ export default {
     deleteUser(state, { userId }) {
       state.users = state.users.filter(user => user.id !== userId);
     },
-    setSelectedUser(state, { user }) {
-      state.selectedUser = user;
-    },
+    // setSelectedUser(state, { user }) {
+    //   state.selectedUser = user;
+    // },
     addUser(state, { user }) {
       state.users = [user, ...state.users];
     },
@@ -61,6 +66,16 @@ export default {
     },
     usersForDisplay(state) {
       return state.users;
+    },
+    currUserForDisplay(state) {
+      if (!state.selectedUser) return null;
+      if (!state.selectedUser.posts.length) {
+        return state.selectedUser;
+      } else {
+        let reversedPosts = state.selectedUser.posts.slice().reverse();
+        let user = { ...state.selectedUser, posts: reversedPosts };
+        return user;
+      }
     }
   },
   actions: {
@@ -89,6 +104,11 @@ export default {
     deleteUser(store, { userId }) {
       return UserService.deleteUser(userId).then(() => {
         store.commit({ type: "deleteUser", userId });
+      });
+    },
+    addUserPost(store, { userId, newPost }) {
+      UserService.addPost(userId, newPost).then(res => {
+        store.commit({ type: "addPost", userId, newPost });
       });
     },
     register(store, { user }) {
@@ -122,6 +142,8 @@ export default {
     },
     getUserById(store, { userId }) {
       return UserService.getUserById(userId).then(user => {
+        // store.commit({ type: "setSelectedUser", user });
+
         return user;
       });
     },

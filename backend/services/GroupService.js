@@ -3,7 +3,7 @@ var DBService = require("./DBService");
 // find({ skills: { $in:  ['guitar', 'chelo']} })
 
 // DBService.dbConnect().then(db => {
-//   db.collection("groups").updateMany(
+//   db.collection("users").updateMany(
 //     {},
 //     {
 //       $set: {

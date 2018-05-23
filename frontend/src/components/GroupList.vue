@@ -45,7 +45,7 @@ h1 {
   margin: 10px;
   text-align: center;
   background-color: white;
-  border: 1px solid rgba(223, 220, 220, 0.521)
+box-shadow: 6px 7px 24px -11px rgba(0,0,0,0.75);
 
 }
 

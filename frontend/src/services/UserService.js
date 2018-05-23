@@ -18,6 +18,10 @@ function login(user) {
     });
 }
 
+function addPost(userId, newPost) {
+  return axios.put(_getUserUrl(userId) + "/addPost", { newPost });
+}
+
 function sendGroupJoinReq(groupJoinReq) {
   console.log("in service");
   return axios.put(USER_URL + "/groupJoinReq", {
@@ -81,7 +85,7 @@ function updateUser(user) {
     });
 }
 function deleteUser(userId) {
-  console.log('inside service delete user', userId)
+  console.log("inside service delete user", userId);
   return axios.delete(_getUserUrl(userId));
 }
 
@@ -114,5 +118,6 @@ export default {
   getUserById,
   getUserGroups,
   deleteReq,
-  sendGroupJoinReq
+  sendGroupJoinReq,
+  addPost
 };

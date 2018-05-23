@@ -28,6 +28,19 @@ module.exports = app => {
       .catch(() => res.status(500).send("problem"));
   });
 
+  app.put(`${USER_URL}/:id/addPost`, function(req, res) {
+    var userId = req.params.id;
+    console.log("req body", req.body);
+
+    // var newPost = req.body.newPost;
+    UserService.addPost(userId, req.body.newPost)
+      .then(result => {
+        res.json(result);
+      })
+      .catch(err => {
+        res.status(500).send();
+      });
+  });
 
   app.get(`${USER_URL}/:id`, (req, res) => {
     const userId = req.params.id;
@@ -53,7 +66,7 @@ module.exports = app => {
       if (userFromDB) {
         delete userFromDB.password;
         req.session.user = userFromDB;
-        
+
         res.json({ token: "Beareloginr: puk115th@b@5t", user: userFromDB });
       } else {
         req.session.user = null;
