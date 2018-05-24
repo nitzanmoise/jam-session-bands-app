@@ -103,7 +103,7 @@ input {
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
-  /* height: 700px; */
+  height: 85vh;
   padding: 60px;
 }
 
