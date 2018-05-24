@@ -63,7 +63,7 @@
         <div  class="req-container" v-if="currLoggedInUser && joinReqs.length> 0" >
             <p style="text-decoration: underline; color: orange; ">Requests From Jam Seesion Talents:</p>
             <div class="join-reqs" v-for="req in joinReqs" :key="req.createdAt">
-              <span @click="goToAsker(req.asker._id)">{{req.asker.fullName}}&nbsp;</span> asked to join {{req.group.name}}
+              <span style="cursor: pointer; color: orange" @click="goToAsker(req.asker._id)">{{req.asker.fullName}}&nbsp;</span> asked to join {{req.group.name}}
           <div class="req-buttons">
               
               <button @click="deleteReq(user._id, req.createdAt)">Cancel</button><button @click="addAskerToGroupMembers(req.asker._id, req.group._id); deleteReq(user._id, req.createdAt)" >Agree</button>
@@ -73,7 +73,7 @@
         <div style="padding: 1% 5%;" v-if="currLoggedInUser && groupReqs.length> 0">
           <p style="text-decoration: underline; color: orange; ">Requests From Jam Session Groups:</p>
           <div class="groupJoinReqs" v-for="groupReq in groupReqs" :key="groupReq.createdAt">
-            <span @click="goToGroupDetails(groupReq.group._id)">{{groupReq.group.name}}</span> Wants you to join them!
+            <span style="cursor: pointer; color: orange;" @click="goToGroupDetails(groupReq.group._id)">{{groupReq.group.name}}</span> Wants you to join them!
           <div class="req-buttons">
             <button  @click="deleteReq(user._id, groupReq.createdAt)">Cancel</button>
             <button @click="addAskerToGropMembers(user._id, groupReq.group._id); deleteReq(user._id, groupReq.createdAt) ">Agree</button>
@@ -511,6 +511,7 @@ textarea {
   flex-direction: column;
   width: 500px;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 .groups-header {
   font-family: Shrikhand-Regular;

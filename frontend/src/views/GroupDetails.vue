@@ -330,6 +330,7 @@ textarea {
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
+  overflow-x: hidden;
   width: 500px;
 }
 .member-details {
@@ -537,18 +538,17 @@ textarea {
     border: solid 5px black;
     background-size: cover;
     background-position: center;
-     height: 630px;
+    height: 630px;
     flex-flow: column-reverse nowrap;
-    width:100%;
+    width: 100%;
     align-items: center;
   }
-  .img-container{
-        width: 314px;
+  .img-container {
+    width: 314px;
     height: 322px;
     display: flex;
     justify-content: center;
-}
-  
+  }
 
   .group-details {
     flex-flow: row wrap;
@@ -589,8 +589,7 @@ textarea {
     width: 100%;
   }
   .header-info {
-    margin:0;
-  
+    margin: 0;
   }
   .members-container {
     margin-left: 0px;
