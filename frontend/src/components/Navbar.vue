@@ -36,9 +36,9 @@
 
 <script>
 import EventBusService, { SHOW_MSG } from "../services/EventBusService.js";
-import Icon from 'vue-awesome/components/Icon'
-import 'vue-awesome/icons'
- 
+import Icon from "vue-awesome/components/Icon";
+import "vue-awesome/icons";
+
 export default {
   props: ["loginModal", "joinModal"],
   data() {
@@ -60,8 +60,8 @@ export default {
     }
   },
   methods: {
-    goHome(){
- this.$router.push("/");
+    goHome() {
+      this.$router.push("/");
     },
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
@@ -101,26 +101,26 @@ export default {
 
 .title {
   font-family: Shrikhand-Regular;
-    font-weight: 200px;
-    font-size: 30px;
-    color: orange;
-    /* margin: 0; */
-    line-height: 24px;
-    margin-right: auto;
-    margin-left: 40px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-item-align: start;
-    align-self: flex-start;
-    justify-self: flex-start;
-    cursor: pointer;
+  font-weight: 200px;
+  font-size: 30px;
+  color: orange;
+  /* margin: 0; */
+  line-height: 24px;
+  margin-right: auto;
+  margin-left: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
+  justify-self: flex-start;
+  cursor: pointer;
 }
 
 .el-menu-item * {
-    vertical-align: -2px;
+  vertical-align: -2px;
 }
-.el-menu--horizontal{
+.el-menu--horizontal {
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-end;
@@ -134,7 +134,6 @@ export default {
   top: 0; /* Position the navbar at the top of the page */
   width: 100%; /* Full width */
   z-index: 2;
- 
 }
 button {
   background: none !important;
@@ -152,7 +151,6 @@ button {
   height: 80px;
 }
 li.el-menu-item {
-
   border-left: solid 1px black;
 }
 
@@ -209,19 +207,18 @@ li.el-menu-item:hover {
 }
 
 @media (max-width: 720px) {
-  .el-menu-item{
-    width:100%;
+  .el-menu-item {
+    width: 100%;
   }
   .title {
- display:none;
-}
-button{
-  width:100%;
-}
-h1{
-  display:none;
-}
-
+    display: none;
+  }
+  button {
+    width: 100%;
+  }
+  h1 {
+    display: none;
+  }
 }
 </style>
 

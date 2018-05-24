@@ -1,6 +1,6 @@
 <template v-if="user">
-   <div class="user-details-container">
-    <section class="user-details"> 
+   <div class="user-details-container flex">
+    <section class="user-details flex direction-column"> 
         <div v-if="user" class="backround-img" :style="{ backgroundImage: `url(${user.coverImage})`}">  
             <div class="header-info">
                     <h1>{{user.fullName}}</h1>
@@ -36,7 +36,7 @@
 
       
 
-    <div class="about-reqs">
+    <div class="about-reqs flex direction-column">
         <div class="about-talents flex">
             <div class="about">
               <h1 style="font-size: 1.5em; text-decoration: underline; color: orange; ">About Myself</h1>
@@ -59,16 +59,19 @@
 
             </div>
         </div> 
-      <div class="reqs"  v-if="currLoggedInUser && joinReqs.length> 0 && groupReqs.length> 0">
+      <div class="reqs"  v-if="currLoggedInUser && joinReqs.length> 0 || groupReqs.length> 0">
         <div  class="req-container" v-if="currLoggedInUser && joinReqs.length> 0" >
-            <h3>Requests From Jam Seesion Talents:</h3>
+            <p style="text-decoration: underline; color: orange; ">Requests From Jam Seesion Talents:</p>
             <div class="join-reqs" v-for="req in joinReqs" :key="req.createdAt">
               <span @click="goToAsker(req.asker._id)">{{req.asker.fullName}}&nbsp;</span> asked to join {{req.group.name}}
+          <div class="req-buttons">
+              
               <button @click="deleteReq(user._id, req.createdAt)">Cancel</button><button @click="addAskerToGroupMembers(req.asker._id, req.group._id); deleteReq(user._id, req.createdAt)" >Agree</button>
+          </div>    
             </div>
         </div>
-        <div style="" v-if="currLoggedInUser && groupReqs.length> 0">
-          <h3>Requests From Jam Session Groups:</h3>
+        <div style="padding: 1% 5%;" v-if="currLoggedInUser && groupReqs.length> 0">
+          <p style="text-decoration: underline; color: orange; ">Requests From Jam Session Groups:</p>
           <div class="groupJoinReqs" v-for="groupReq in groupReqs" :key="groupReq.createdAt">
             <span @click="goToGroupDetails(groupReq.group._id)">{{groupReq.group.name}}</span> Wants you to join them!
           <div class="req-buttons">
@@ -317,10 +320,18 @@ export default {
 </script>
 
 <style scoped>
+.content {
+  background-color: white;
+  color: black;
+  padding: 10px;
+  padding-left: 15px;
+  border-radius: 25px;
+}
 .wall {
   border: 1px solid rgba(223, 220, 220, 0.521);
   padding: 5%;
   /* width: 180%; */
+  margin: 0;
 }
 .posts-container {
   background-color: rgba(247, 202, 105, 0.226);
@@ -393,27 +404,31 @@ textarea {
 .reqs {
   display: flex;
   flex-direction: row;
-  height: 500px;
-  width: 75%;
+  height: 100%;
+  border: 2px solid rgba(226, 226, 226, 0.548);
+  width: 100%;
   margin: 0;
 }
 .req-buttons {
   display: flex;
   flex-direction: row wrap;
+  margin-top: 10px;
 }
 .groupJoinReqs {
   border: 1px solid rgba(223, 220, 220, 0.521);
   width: 275px;
   margin-bottom: 5px;
+  padding: 10px;
 }
 .join-reqs {
   display: flex;
   flex-flow: row wrap;
   border: 1px solid rgba(223, 220, 220, 0.521);
   font-family: Magettas Regular DEMO;
-  width: 250px;
+  width: 265px;
   margin-right: 30px;
   margin-bottom: 5px;
+  padding: 10px;
 }
 
 .items {
