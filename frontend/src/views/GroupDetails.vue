@@ -13,8 +13,8 @@
                 <div class="img-container">
                
                     <img :src="group.image" class="group-image">
-                </div>
                     <button class="del-btn" v-if="currLoggedInUser"  @click="deleteGroup(group._id)">Delete Group</button>
+                </div>
                
                 
             </div>
@@ -315,6 +315,8 @@ textarea {
   /* margin-right: 20%; */
   padding-top: 8%;
   padding-bottom: 2%;
+  display: flex;
+  flex-flow: column wrap;
 }
 .member-image {
   width: 40%;
