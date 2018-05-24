@@ -95,6 +95,7 @@ input {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   margin-top: 50px;
   border-radius: 50px;
+  outline: none;
 }
 
 .header {

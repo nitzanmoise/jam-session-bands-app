@@ -119,6 +119,7 @@ export default {
 
 .el-menu-item * {
   vertical-align: -2px;
+  outline: none;
 }
 .el-menu--horizontal {
   display: flex;
@@ -149,6 +150,7 @@ button {
   font-size: 1.3em;
   line-height: 70px;
   height: 80px;
+  outline: none;
 }
 li.el-menu-item {
   border-left: solid 1px black;
