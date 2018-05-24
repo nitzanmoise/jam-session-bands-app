@@ -36,7 +36,7 @@
 
       
 
-    <div class="about-reqs flex direction-column">
+    <div class="about-reqs flex direction-column" v-if="user">
         <div class="about-talents flex">
             <div class="about">
               <h1 style="font-size: 1.5em; text-decoration: underline; color: orange; ">About Myself</h1>
@@ -75,7 +75,7 @@
           <div class="groupJoinReqs" v-for="groupReq in groupReqs" :key="groupReq.createdAt">
             <span @click="goToGroupDetails(groupReq.group._id)">{{groupReq.group.name}}</span> Wants you to join them!
           <div class="req-buttons">
-            <button  @click="deleteReq(usuer._id, groupReq.createdAt)">Cancel</button>
+            <button  @click="deleteReq(user._id, groupReq.createdAt)">Cancel</button>
             <button @click="addAskerToGropMembers(user._id, groupReq.group._id); deleteReq(user._id, groupReq.createdAt) ">Agree</button>
           </div>
           </div>
@@ -111,11 +111,6 @@ export default {
   data() {
     return {
       newPost: "",
-
-      // user: {
-      //   posts: []
-      // },
-      // groups: {},
       joinReqs: [],
       groupReqs: [],
       createGroup: false,
@@ -232,7 +227,7 @@ export default {
     var joinReqPrms = this.loggedinUser.joinReqs.map(
       ({ askerId, groupId, createdAt }) => {
         var askerPrm = this.$store.dispatch({
-          type: "getUserById",
+          type: "getUserForReq",
           userId: askerId
         });
         var groupToJoinPrm = this.$store.dispatch({

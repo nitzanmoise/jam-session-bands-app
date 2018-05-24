@@ -25,6 +25,7 @@ export default {
     },
     setUser(state, { user }) {
       state.loggedinUser = user;
+      state.selectedUser = user;
     },
     deleteUser(state, { userId }) {
       state.users = state.users.filter(user => user.id !== userId);
@@ -68,6 +69,7 @@ export default {
       return state.users;
     },
     currUserForDisplay(state) {
+      console.log(state.selectedUser)
       if (!state.selectedUser) return null;
       if (!state.selectedUser.posts.length) {
         return state.selectedUser;
@@ -142,10 +144,16 @@ export default {
     },
     getUserById(store, { userId }) {
       return UserService.getUserById(userId).then(user => {
+        // console.log('**********', user)
         store.commit({ type: "setSelectedUser", user });
 
         return user;
       });
+    },
+    getUserForReq(store, {userId}){
+   return UserService.getUserById(userId).then((user)=> {
+     return user
+      })
     },
     updateReqs(store, { joinReq, admins }) {
       console.log("elad");
