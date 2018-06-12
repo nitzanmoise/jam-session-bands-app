@@ -1,3 +1,5 @@
+
+
 <template>
 <section class='navbar'>
 <el-menu
@@ -39,6 +41,7 @@ import EventBusService, { SHOW_MSG } from "../services/EventBusService.js";
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons";
 
+
 export default {
   props: ["loginModal", "joinModal"],
   data() {
@@ -60,6 +63,9 @@ export default {
     }
   },
   methods: {
+    mobile(){
+
+    },
     goHome() {
       this.$router.push("/");
     },
@@ -211,12 +217,14 @@ li.el-menu-item:hover {
 @media (max-width: 720px) {
   .el-menu-item {
     width: 100%;
+       font-size: 0.6em;
   }
   .title {
     display: none;
   }
   button {
     width: 100%;
+    font-weight: .5em;
   }
   h1 {
     display: none;

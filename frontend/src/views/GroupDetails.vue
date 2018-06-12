@@ -550,6 +550,7 @@ textarea {
     height: 322px;
     display: flex;
     justify-content: center;
+    align-items: center;
   }
 
   .group-details {
@@ -592,6 +593,7 @@ textarea {
   }
   .header-info {
     margin: 0;
+    align-items: center;
   }
   .members-container {
     margin-left: 0px;
@@ -602,6 +604,9 @@ textarea {
     align-items: center;
     text-align: center;
     width: 100%;
+  }
+  h1 {
+        text-align: center;
   }
 }
 </style>

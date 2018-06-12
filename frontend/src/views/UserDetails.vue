@@ -40,7 +40,7 @@
         <div class="about-talents flex">
             <div class="about">
               <h1 style="font-size: 1.5em; text-decoration: underline; color: orange; ">About Myself</h1>
-                {{user.description}}
+               <span> {{user.description}} </span>
             </div>
             <div class="talents">
                     <h1 style="font-size: 1.5em; text-decoration: underline; color: orange; ">My Talents:</h1>
@@ -539,8 +539,10 @@ textarea {
   width: 60%;
   align-content: flex-end;
   padding: 1% 5%;
-
   border: 2px solid rgba(226, 226, 226, 0.548);
+}
+span{
+      margin: 10px;
 }
 .user-details-container {
   background-color: rgb(244, 245, 247);
@@ -686,8 +688,11 @@ button {
     border: solid 5px black;
     background-size: cover;
     background-position: center;
-    height: 630px;
+    height: 550px;
     flex-flow: column-reverse nowrap;
+  }
+  .about-talents{
+        flex-flow: column wrap;
   }
   .about {
     justify-content: center;
